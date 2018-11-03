@@ -72,9 +72,9 @@ public class Application {
         PersonalsModel pesonalsModel= new PersonalsModel();
         PersonalsView personalsView = new PersonalsView();
         PersonalsController personalsController = new PersonalsController(personalsView,pesonalsModel, domainModel,session);
-        
+        PERSONALS_CONTROLLER=personalsController;
 
-       
+        
     }
     public static LoginController LOGIN_CONTROLLER; 
     public static DependenciasController DEPENDENCIAS_CONTROLLER;
