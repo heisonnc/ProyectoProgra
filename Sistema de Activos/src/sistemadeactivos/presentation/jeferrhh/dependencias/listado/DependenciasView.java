@@ -96,6 +96,12 @@ public class DependenciasView extends javax.swing.JInternalFrame implements java
 
         descripcionLbl.setText("Descripcion");
 
+        descripcionFld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                descripcionFldActionPerformed(evt);
+            }
+        });
+
         agregarFld.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistemadeactivos/presentation/icons/general/add.png"))); // NOI18N
         agregarFld.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -200,6 +206,10 @@ public class DependenciasView extends javax.swing.JInternalFrame implements java
     private void borrarFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarFldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_borrarFldActionPerformed
+
+    private void descripcionFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descripcionFldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_descripcionFldActionPerformed
 
     /**
      * @param args the command line arguments

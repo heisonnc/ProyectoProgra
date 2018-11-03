@@ -201,6 +201,21 @@ public class Dao {
         return resultado;
     }
     
+      public List<Funcionario> FuncionarioSearch(Funcionario filtro){
+        List<Funcionario> resultado = new ArrayList<Funcionario>();
+        try {
+            String sql="select * from "+
+                    "Funcionario "+
+                    "where descripcion like '%%%s%%'";
+            sql=String.format(sql,filtro.getNombre());
+            ResultSet rs =  db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(funcionario(rs));
+            }
+        } catch (SQLException ex) { }
+        return resultado;
+    }
+    
     public void DependenciaDelete(Dependencia d) throws Exception{
         String sql="delete from persona where id='%s'";
         sql = String.format(sql,d.getId());
@@ -228,6 +243,33 @@ public class Dao {
         int count=db.executeUpdate(sql);
         if (count==0){
             throw new Exception("Persona no existe");
+        }
+    }
+    
+     public void FuncionarioAdd(Funcionario f) throws Exception{
+        String sql="insert into Funcionario (nombre) "+
+                "values('%i')";
+        sql=String.format(sql,f.getId(),f.getNombre());
+        int count=db.executeUpdate(sql);
+        if (count==0){
+            throw new Exception("Funcioanrio ya existe");
+        }
+    }
+      public void FuncionarioUpdate(Funcionario f) throws Exception{
+        String sql="insert into Funcionario (nombre) "+
+                "values('%i')";
+        sql=String.format(sql,f.getNombre());
+        int count=db.executeUpdate(sql);
+        if (count==0){
+            throw new Exception("Funcioanrio ya existe");
+        }  
+    }
+      public void FuncionarioDelete(Funcionario d) throws Exception{
+        String sql="delete from Funcionario where nombre='%s'";
+        sql = String.format(sql,d.getNombre());
+        int count=db.executeUpdate(sql);
+        if (count==0){
+            throw new Exception("Funcionario no existe");
         }
     }
     

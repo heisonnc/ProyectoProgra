@@ -40,10 +40,11 @@ public class Model {
     public List<Dependencia> searchDependencias(Dependencia filtro){
         return dao.DependenciaSearch(filtro);
     }
-    
-    public void deleteDependencia(Dependencia p) throws Exception{
-        dao.DependenciaDelete(p);
+    public List<Funcionario> searchFuncionario(Funcionario filtro){
+        return dao.FuncionarioSearch(filtro);
     }
+    
+    
     
     public void addDependencia(Dependencia persona) throws Exception{
         dao.DependenciaAdd(persona);
@@ -52,7 +53,22 @@ public class Model {
     public void updateDependencia(Dependencia persona) throws Exception{
         dao.DependenciaUpdate(persona);
     }
+    public void deleteDependencia(Dependencia p) throws Exception{
+        dao.DependenciaDelete(p);
+    }
     
+    
+     public void addFuncionario(Funcionario funcionario) throws Exception{
+        dao.FuncionarioAdd(funcionario);
+    }
+      public void updateFuncionario(Funcionario funcionario) throws Exception{
+        dao.FuncionarioUpdate(funcionario);
+    }
+    public void deleteFuncionario(Funcionario f) throws Exception{
+        dao.FuncionarioDelete(f);
+    }
+    
+     
     public void close(){
         dao.close();
     }

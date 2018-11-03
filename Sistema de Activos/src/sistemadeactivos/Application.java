@@ -16,6 +16,12 @@ import sistemadeactivos.presentation.jeferrhh.dependencias.edicion.DependenciaVi
 import sistemadeactivos.presentation.jeferrhh.dependencias.listado.DependenciasController;
 import sistemadeactivos.presentation.jeferrhh.dependencias.listado.DependenciasModel;
 import sistemadeactivos.presentation.jeferrhh.dependencias.listado.DependenciasView;
+import sistemadeactivos.presentation.jeferrhh.personal.edicion.PersonalController;
+import sistemadeactivos.presentation.jeferrhh.personal.edicion.PersonalModel;
+import sistemadeactivos.presentation.jeferrhh.personal.edicion.PersonalView;
+import sistemadeactivos.presentation.jeferrhh.personal.listado.PersonalsController;
+import sistemadeactivos.presentation.jeferrhh.personal.listado.PersonalsModel;
+import sistemadeactivos.presentation.jeferrhh.personal.listado.PersonalsView;
 import sistemadeactivos.presentation.login.LoginController;
 import sistemadeactivos.presentation.login.LoginModel;
 import sistemadeactivos.presentation.login.LoginView;
@@ -51,12 +57,32 @@ public class Application {
         DependenciaController dependenciaController = new DependenciaController(dependenciaView,dependenciaModel,domainModel,session);
         DEPENDENCIA_CONTROLLER = dependenciaController;
         
+        
+        
+        // Pantallas de rrhh personal
+        PersonalModel personalModel = new PersonalModel();
+        PersonalView personalVeiw = new PersonalView();
+        PersonalController personalController = new PersonalController(personalVeiw,personalModel,domainModel,session);
+        PERSONAL_CONTROLLER=personalController;
+        
+        
+        
+        PersonalsModel pesonalsModel= new PersonalsModel();
+        PersonalsView personalsView = new PersonalsView();
+        PersonalsController personalsController = new PersonalsController(personalsView,pesonalsModel, domainModel,session);
+        
 
        
     }
     public static LoginController LOGIN_CONTROLLER; 
     public static DependenciasController DEPENDENCIAS_CONTROLLER;
     public static DependenciaController DEPENDENCIA_CONTROLLER;
+    
+    // controladores para las pantallas de personal y edicion
+    
+    public static PersonalController PERSONAL_CONTROLLER;
+    public static PersonalsController PERSONALS_CONTROLLER;
+//    public static 
     public static final String USER_ATTRIBUTE = "User";
     public static ApplicationController APPLICATION_CONTROLLER; 
     

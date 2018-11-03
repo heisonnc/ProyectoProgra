@@ -5,24 +5,75 @@
  */
 package sistemadeactivos.presentation.jeferrhh.personal.listado;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import sistemadeactivos.Application;
+
+import sistemadeactivos.logic.Funcionario;
+
+import sistemadeactivos.presentation.tablemodel.FuncionarioTableModel;
 
 /**
  *
  * @author xxxx
  */
-public class PersonalsModel extends Observable{
+public class PersonalsModel extends java.util.Observable{
     
     
-    @Override
-    public void addObserver(Observer o){
-        super.addObserver(o);
-        refresh();
+   Funcionario filter;
+   Funcionario seleccionado;
+  FuncionarioTableModel funcionarios;
+    int modo;    
+
+    public PersonalsModel() {
+        this.reset();
     }
     
-    public void refresh(){
+   
+
+    public void reset(){ 
+        filter = new Funcionario();
+        List<Funcionario> rows = new ArrayList<>();        
+        seleccionado=null;  
+        this.setDependencias(rows);
+        this.commit();  
+    }
+    
+    public void setDependencias(List<Funcionario> funcionarios){
+        int[] cols={FuncionarioTableModel.ID,FuncionarioTableModel.NOMBRE};
+        this.funcionarios =new FuncionarioTableModel(cols,funcionarios);    
+    }
+    
+    public Funcionario getFilter() {
+        return filter;
+    }
+    
+    public void setFilter(Funcionario filter) {
+        this.filter = filter;
+    }
+    
+     public FuncionarioTableModel getFuncionarios() {
+        return funcionarios;
+    }
+
+    public Funcionario getSeleccionado() {
+        return seleccionado;
+    }
+
+    public void setSeleccionado(Funcionario seleccionado) {
+        this.seleccionado = seleccionado;
+    }
+  
+    @Override
+    public void addObserver(Observer o) {
+        super.addObserver(o);
+        this.commit();   
+    }
+
+    public void commit(){
         setChanged();
-        notifyObservers();
+        notifyObservers();       
     }
 }

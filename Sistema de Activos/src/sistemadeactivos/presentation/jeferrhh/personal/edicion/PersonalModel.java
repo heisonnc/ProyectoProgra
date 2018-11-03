@@ -5,24 +5,63 @@
  */
 package sistemadeactivos.presentation.jeferrhh.personal.edicion;
 
-import java.util.Observable;
-import java.util.Observer;
+import sistemadeactivos.Application;
+import sistemadeactivos.logic.Funcionario;
+
 
 /**
  *
- * @author xxxx
+ * @author book
  */
-public class PersonalModel extends Observable{
+public class PersonalModel extends java.util.Observable{
     
+    // es el edicon de los funcionarios, pero cualquier funcionario primero tiene que 
+    private Funcionario current;// ser regsitrado como un usuario
+    int modo; 
+
+    
+    
+    
+    public PersonalModel(){
+        this.reset();
+    }
+
+    public void setCurrent(Funcionario current) {
+        this.current = current;
+    }
+    
+    public void setModo(int modo) {
+        this.modo = modo;
+    }
+
+    public Funcionario getCurrent() {
+        return current;
+    }
+
+    public int getModo() {
+        return modo;
+    }
+    
+     public void reset(int modo, Funcionario current){
+        this.setModo(modo);
+        this.setCurrent(current);
+        this.commit();
+    }
+    
+    public void reset(){
+        this.reset(Application.MODO_AGREGAR,new Funcionario());     
+    } 
     
     @Override
-    public void addObserver(Observer o){
+    public void addObserver(java.util.Observer o) {
         super.addObserver(o);
-        refresh();
+        this.commit();
     }
     
-    public void refresh(){
+    // actualizar
+    public void commit(){
         setChanged();
-        notifyObservers();
-    }
+        notifyObservers();       
+    }  
+    
 }
