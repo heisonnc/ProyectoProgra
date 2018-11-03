@@ -73,7 +73,7 @@ public class Application {
         PersonalsView personalsView = new PersonalsView();
         PersonalsController personalsController = new PersonalsController(personalsView,pesonalsModel, domainModel,session);
         PERSONALS_CONTROLLER=personalsController;
-
+        personalsView.setVisible(true);
         
     }
     public static LoginController LOGIN_CONTROLLER; 
