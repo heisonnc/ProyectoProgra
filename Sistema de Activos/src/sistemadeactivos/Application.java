@@ -5,6 +5,8 @@
  */
 package sistemadeactivos;
 
+
+
 import java.awt.Color;
 import sistemadeactivos.logic.Model;
 import sistemadeactivos.presentation.application.ApplicationController;
