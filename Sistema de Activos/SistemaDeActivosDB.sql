@@ -183,26 +183,26 @@ CREATE TABLE IF NOT EXISTS `SistemaDeActivosBD`.`Solicitud` (
   `rechazo` VARCHAR(45) NOT NULL,
   `adquisicion` INT NULL DEFAULT NULL,
   `dependencia` INT NULL DEFAULT NULL,
-  `registrador` INT NULL DEFAULT NULL,
   `estado` INT NULL DEFAULT NULL,
   `comprobante` VARCHAR(45) NOT NULL,
+  `registrador` INT NULL DEFAULT NULL,
   INDEX `fk_Solicitud_Adquisicion1_idx` (`adquisicion` ASC) VISIBLE,
-  INDEX `fk_Solicitud_Funcionario1_idx` (`registrador` ASC) VISIBLE,
   INDEX `fk_Solicitud_Estado1_idx` (`estado` ASC) VISIBLE,
   PRIMARY KEY (`comprobante`),
+  INDEX `fk_Solicitud_Funcionario1_idx` (`registrador` ASC) VISIBLE,
   CONSTRAINT `fk_Solicitud_Adquisicion1`
     FOREIGN KEY (`adquisicion`)
     REFERENCES `SistemaDeActivosBD`.`Adquisicion` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Solicitud_Funcionario1`
-    FOREIGN KEY (`registrador`)
-    REFERENCES `SistemaDeActivosBD`.`Funcionario` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_Solicitud_Estado1`
     FOREIGN KEY (`estado`)
     REFERENCES `SistemaDeActivosBD`.`Estado` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Solicitud_Funcionario1`
+    FOREIGN KEY (`registrador`)
+    REFERENCES `SistemaDeActivosBD`.`Funcionario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -211,20 +211,3 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
-insert into Rol (descripcion) values ('Jefe OCCB');
-insert into Rol (descripcion) values ('Jefe RRHH');
-insert into Rol (descripcion) values ('Registrador');
-insert into Rol (descripcion) values ('Secretaria');
-insert into Rol (descripcion) values ('Administrador');
-
-insert into Adquisicion (descripcion) values ('Donacion');
-insert into Adquisicion (descripcion) values ('Compra');
-insert into Adquisicion (descripcion) values ('Traslado');
-insert into Adquisicion (descripcion) values ('Elaboracion Propia');
-
-insert into Estado (descripcion) values ('Rechazada');
-insert into Estado (descripcion) values ('Recibida');
-insert into Estado (descripcion) values ('Por Verificar');
-insert into Estado (descripcion) values ('En Espera');
-insert into Estado (descripcion) values ('Procesada');
