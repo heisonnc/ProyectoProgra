@@ -35,10 +35,12 @@ public class Dao {
 
     private Activo activo(ResultSet rs) {
         try {
+            Bien b = bien(rs);
+            Puesto p = puesto(rs);
             Activo ac = new Activo();
             ac.setId(Integer.parseInt(rs.getString("id")));
-            ac.setBien(bien(rs));
-            ac.setPuesto(puesto(rs));
+            ac.setBien(b);
+            ac.setPuesto(p);
             return ac;
         } catch (SQLException ex) {
             return null;
@@ -58,6 +60,8 @@ public class Dao {
 
     private Bien bien(ResultSet rs) {
         try {
+            Categoria c = categoria(rs);
+            Solicitud s = solicitud(rs);
             Bien b = new Bien();
             b.setId(Integer.parseInt(rs.getString("id")));
             b.setDescripcion(rs.getString("descripcion"));
@@ -65,8 +69,8 @@ public class Dao {
             b.setModelo(rs.getString("modelo"));
             b.setCantidad(Integer.parseInt(rs.getString("cantidad")));
             b.setPrecioUnitario(Double.parseDouble(rs.getString("precio_unitario")));
-            b.setCategoria(categoria(rs));
-            b.setSolicitud(solicitud(rs));
+            b.setCategoria(c);
+            b.setSolicitud(s);
             return b;
         } catch (SQLException ex) {
             return null;
@@ -86,9 +90,10 @@ public class Dao {
 
     private Dependencia dependencia(ResultSet rs) {
         try {
+            Funcionario f = funcionario(rs);
             Dependencia d = new Dependencia();
             d.setDescripcion(rs.getString("descripcion"));
-            d.setFuncionario(funcionario(rs));
+            d.setFuncionario(f);
             return d;
         } catch (SQLException ex) {
             return null;
@@ -119,10 +124,12 @@ public class Dao {
 
     private Puesto puesto(ResultSet rs) {
         try {
+            Dependencia d = dependencia(rs);
+            Funcionario f = funcionario(rs);
             Puesto p = new Puesto();
             p.setId(Integer.parseInt(rs.getString("id")));
-            p.setDependencia(dependencia(rs));
-            p.setFuncionario(funcionario(rs));
+            p.setDependencia(d);
+            p.setFuncionario(f);
             p.setRol(rol(rs));
             return p;
         } catch (SQLException ex) {
@@ -143,16 +150,20 @@ public class Dao {
 
     private Solicitud solicitud(ResultSet rs) {
         try {
+            Adquisicion a = adquisicion(rs);
+            Dependencia d = dependencia(rs);
+            Funcionario f = funcionario(rs);
+            Estado e = estado(rs);
             Solicitud s = new Solicitud();
             s.setFecha(rs.getDate("fecha"));
             s.setCantidadBienes(Integer.parseInt(rs.getString("cantidad_bienes")));
             s.setMontoTotal(Double.parseDouble(rs.getString("monto_total")));
             s.setRechazo(rs.getString("rechazo"));
             s.setComprobante(rs.getString("comprobante"));
-            s.setAdquisicion(adquisicion(rs));
-            s.setDependencia(dependencia(rs));
-            s.setFuncionario(funcionario(rs));
-            s.setEstado(estado(rs));
+            s.setAdquisicion(a);
+            s.setDependencia(d);
+            s.setFuncionario(f);
+            s.setEstado(e);
             return s;
         } catch (SQLException ex) {
             return null;
@@ -279,7 +290,7 @@ public class Dao {
     
     //--------------------Dependencia--------------------------------
     public Dependencia DependenciaGet(String id) throws Exception {
-        String sql = "select * from Dependencia where descripcion = '%s'";
+        String sql = "select d.*, f.* from Dependencia d INNER JOIN Funcionario f On d.administrador=f.id  where descripcion = '%s'";
         sql = String.format(sql, id);
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
@@ -292,8 +303,8 @@ public class Dao {
     public List<Dependencia> DependenciaSearch(Dependencia filtro) {
         List<Dependencia> resultado = new ArrayList<Dependencia>();
         try {
-            String sql = "select * from "
-                    + "Dependencia "
+            String sql = "select d.*, f.* from "
+                    + "Dependencia d INNER JOIN Funcionario f On d.administrador=f.id "
                     + "where descripcion like '%%%s%%'";
             sql = String.format(sql, filtro.getDescripcion());
             ResultSet rs = db.executeQuery(sql);
@@ -461,9 +472,10 @@ public class Dao {
     public List<Activo> ActivosSearchByCodigo(int id){
         List<Activo> resultado = new ArrayList<Activo>();
         try {
-            String sql = "select * from "
-                    + "Activo "
-                    + "where id like '%d'";
+            String sql = "select a.*, b.*, p.* from "
+                    + "Activo a INNER JOIN Bien b On a.bien=b.id "
+                    + "INNER JOIN Puesto p On a.puesto=p.id "
+                    + "where a.id like '%%%d%%'";
             sql = String.format(sql, id);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
@@ -476,34 +488,35 @@ public class Dao {
     
     public List<Activo> ActivosSearchByCategoria(String cat){
         List<Activo> resultado = new ArrayList<Activo>();
-        try{
-            String sql = "select * from Activo ";
+        try {
+            String sql = "select a.*, b.*, p.*, c.* from "
+                    + "Activo a INNER JOIN Bien b On a.bien=b.id "
+                    + "INNER JOIN Puesto p On a.puesto=p.id "
+                    + "INNER JOIN Categoria c On b.categoria=c.id "
+                    + "where c.descripcion like '%%%s%%'";
+            sql = String.format(sql, cat);
             ResultSet rs = db.executeQuery(sql);
-            while(rs.next()){
-                Activo tmp = activo(rs);
-                if(tmp.getBien().getCategoria().getDescripcion().equals(cat)){
-                    resultado.add(tmp);
-                }
+            while (rs.next()) {
+                resultado.add(activo(rs));
             }
-        }catch(SQLException ex){
-            
+        } catch (SQLException ex) {
         }
         return resultado;
     }
     
     public List<Activo> ActivosSearchByDescripcion(String des){
         List<Activo> resultado = new ArrayList<Activo>();
-        try{
-            String sql = "select * from Activo ";
+        try {
+            String sql = "select a.*, b.*, p.*, c.* from "
+                    + "Activo a INNER JOIN Bien b On a.bien=b.id "
+                    + "INNER JOIN Puesto p On a.puesto=p.id "
+                    + "where b.descripcion like '%%%s%%'";
+            sql = String.format(sql, des);
             ResultSet rs = db.executeQuery(sql);
-            while(rs.next()){
-                Activo tmp = activo(rs);
-                if(tmp.getBien().getDescripcion().equals(des)){
-                    resultado.add(tmp);
-                }
+            while (rs.next()) {
+                resultado.add(activo(rs));
             }
-        }catch(SQLException ex){
-            
+        } catch (SQLException ex) {
         }
         return resultado;
     }
