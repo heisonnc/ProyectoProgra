@@ -87,7 +87,6 @@ public class Dao {
     private Dependencia dependencia(ResultSet rs) {
         try {
             Dependencia d = new Dependencia();
-            d.setId(Integer.parseInt(rs.getString("id")));
             d.setDescripcion(rs.getString("descripcion"));
             d.setFuncionario(funcionario(rs));
             return d;
@@ -145,7 +144,6 @@ public class Dao {
     private Solicitud solicitud(ResultSet rs) {
         try {
             Solicitud s = new Solicitud();
-            s.setId(Integer.parseInt(rs.getString("id")));
             s.setFecha(rs.getDate("fecha"));
             s.setCantidadBienes(Integer.parseInt(rs.getString("cantidad_bienes")));
             s.setMontoTotal(Double.parseDouble(rs.getString("monto_total")));
@@ -238,9 +236,9 @@ public class Dao {
     }
 
     public void DependenciaAdd(Dependencia p) throws Exception {
-        String sql = "insert into Dependencia (id, administrador, descripcion) "
-                + "values('%i','%i','%s')";
-        sql = String.format(sql, p.getId(), p.getFuncionario().getId(), p.getDescripcion());
+        String sql = "insert into Dependencia (administrador, descripcion) "
+                + "values('%i','%s')";
+        sql = String.format(sql, p.getFuncionario().getId(), p.getDescripcion());
         int count = db.executeUpdate(sql);
         if (count == 0) {
             throw new Exception("Dependencia ya existe");
@@ -386,8 +384,8 @@ public class Dao {
 
     public void BienAdd(Bien b) throws Exception{
         String sql = "insert into Bien (descripcion, marca, modelo, precio_unitario, cantidad, solicitud, categoria) "
-                + "values('%s', '%s', '%s', '%d', '%i', '%i')";
-        sql = String.format(sql, b.getDescripcion(), b.getMarca(), b.getModelo(), b.getPrecioUnitario(), b.getCantidad(), b.getSolicitud().getId(), b.getCategoria().getId());
+                + "values('%s', '%s', '%s', '%d', '%s', '%i')";
+        sql = String.format(sql, b.getDescripcion(), b.getMarca(), b.getModelo(), b.getPrecioUnitario(), b.getCantidad(), b.getSolicitud().getComprobante(), b.getCategoria().getId());
         int count = db.executeUpdate(sql);
         if (count == 0) {
             throw new Exception("Bien ya existe");
@@ -395,9 +393,9 @@ public class Dao {
     }
     
     public void BienUpdate(Bien b) throws Exception{
-        String sql = "update Bien set descripcion='%s', marca='%s', modelo='%s', precio_unitario='%d', cantidad='%i', solicitud='%i', categoria='%i'"
+        String sql = "update Bien set descripcion='%s', marca='%s', modelo='%s', precio_unitario='%d', cantidad='%i', solicitud='%s', categoria='%i'"
                 + "where id='%s'";
-        sql = String.format(sql, b.getDescripcion(), b.getMarca(), b.getModelo(), b.getPrecioUnitario(), b.getCantidad(), b.getSolicitud().getId(), b.getCategoria().getId());
+        sql = String.format(sql, b.getDescripcion(), b.getMarca(), b.getModelo(), b.getPrecioUnitario(), b.getCantidad(), b.getSolicitud().getComprobante(), b.getCategoria().getId());
 
         int count = db.executeUpdate(sql);
         if (count == 0) {
@@ -488,6 +486,61 @@ public class Dao {
         }
         return resultado;
     }
+    
+    public void SolicitudAdd(Solicitud s) throws Exception{
+        String sql = "insert into Solicitud (comprobante, fecha, cantidad_bienes, monto_total, rechazo, adquisicion, dependencia, registrador, estado) "
+                + "values('%s','%s','%i', '%d', '%s','%i','%s','%i','%i')";
+        sql = String.format(sql,s.getComprobante(), s.getFecha().toString(), s.getCantidadBienes(), s.getMontoTotal(), s.getRechazo(), s.getAdquisicion().getId(), s.getDependencia().getDescripcion(), s.getFuncionario().getId(), s.getEstado().getId());
+        int count = db.executeUpdate(sql);
+        if (count == 0) {
+            throw new Exception("Solicitud ya existe");
+        }
+    }
+    
+    public void SolicitudUpdate(Solicitud s) throws Exception{
+        String sql = "update Solicitud set fecha='%s', cantidad_bienes='%i', monto_total='%s, rechazo='%s', adquisicion='%i', dependencia='%s', registrador='%i', estado='%i'"
+                + "where combrobante='%s'";
+        sql = String.format(sql, s.getFecha().toString(), s.getCantidadBienes(), s.getMontoTotal(), s.getRechazo(), s.getAdquisicion().getId(), s.getDependencia().getDescripcion(), s.getFuncionario().getId(), s.getEstado().getId(), s.getComprobante());
+
+        int count = db.executeUpdate(sql);
+        if (count == 0) {
+            throw new Exception("Solicitud no existe");
+        }
+    }
+    
+    public void UsuarioAdd(Usuario u) throws Exception{
+        String sql = "insert into Usuario (id, funcionario, rol, clave) "
+                + "values('%s', '%i', '%i','%s')";
+        sql = String.format(sql, u.getId(), u.getFuncionario().getId(), u.getRol().getId(), u.getClave());
+        int count = db.executeUpdate(sql);
+        if (count == 0) {
+            throw new Exception("Usuario ya existe");
+        }
+    }
+    
+    public void UsuarioUpdate(Usuario u) throws Exception{
+        String sql = "update Usuario set funcionario='%i', rol='%i', clave='%s'"
+                + "where id='%s'";
+        sql = String.format(sql, u.getFuncionario().getId(), u.getRol().getId(), u.getClave(), u.getId());
+
+        int count = db.executeUpdate(sql);
+        if (count == 0) {
+            throw new Exception("Dependencia no existe");
+        }
+    }
+    
+    public Solicitud SolicitudGet(String combrobante)throws Exception{
+        String sql = "select * from Solicitud where comprobante='%s'";
+        sql = String.format(sql, combrobante);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            return solicitud(rs);
+        } else {
+            throw new Exception("Solicitud no Existe");
+        }
+    }
+    
+    
     
     public void close() {
     }

@@ -12,7 +12,6 @@ package sistemadeactivos.logic;
  * @author mauri
  */
 public class Dependencia {
-     private int id;
      private Funcionario funcionario;
      private String descripcion;
 
@@ -23,14 +22,6 @@ public class Dependencia {
     public Dependencia(Funcionario funcionario, String descripcion) {
        this.funcionario = funcionario;
        this.descripcion = descripcion;
-    }
-   
-    public int getId() {
-        return this.id;
-    }
-    
-    public void setId(int id) {
-        this.id = id;
     }
     
     public Funcionario getFuncionario() {

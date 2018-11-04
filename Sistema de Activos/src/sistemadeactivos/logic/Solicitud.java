@@ -12,7 +12,6 @@ import java.util.Date;
  * @author mauri
  */
 public class Solicitud {
-     private int id;
      private Adquisicion adquisicion;
      private Dependencia dependencia;
      private Estado estado;
@@ -41,14 +40,6 @@ public class Solicitud {
        this.montoTotal = montoTotal;
        this.rechazo = "";
        this.comprobante = comprobante;
-    }
-   
-    public int getId() {
-        return this.id;
-    }
-    
-    public void setId(int id) {
-        this.id = id;
     }
     public Adquisicion getAdquisicion() {
         return this.adquisicion;
