@@ -8,6 +8,7 @@ package sistemadeactivos.presentation.administrador.ingresar;
 import java.awt.Point;
 import sistemadeactivos.Session;
 import sistemadeactivos.logic.Model;
+import sistemadeactivos.logic.Solicitud;
 
 /**
  *
@@ -32,8 +33,8 @@ public class IngresarController {
     
     
 
-    public void reset(){
-        model.reset();
+    public void reset(int modo, Solicitud sol){
+        model.reset(modo, sol);
     }
     
     public void show(){

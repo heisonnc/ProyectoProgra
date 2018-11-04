@@ -20,11 +20,23 @@ public class IngresarModel extends java.util.Observable{
     
     BienTableModel bienes;
     Solicitud solicitud;
+    int modo;
 
     public IngresarModel() {
         reset();
     }
 
+    public void setModo(int modo) {
+        this.modo = modo;
+    }
+    
+    public void reset(int modo, Solicitud sol){
+        this.setModo(modo);
+        this.setSolicitud(solicitud);
+        commit();
+        
+    }
+    
     public void reset(){ 
         solicitud = new Solicitud();
         List<Bien> rows = new ArrayList<>();

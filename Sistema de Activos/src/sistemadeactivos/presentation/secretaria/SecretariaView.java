@@ -61,6 +61,11 @@ public class SecretariaView extends javax.swing.JFrame implements Observer{
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        JTableSolicitud.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JTableSolicitudMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(JTableSolicitud);
 
         jTextField1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -97,6 +102,15 @@ public class SecretariaView extends javax.swing.JFrame implements Observer{
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void JTableSolicitudMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTableSolicitudMouseClicked
+        if (evt.getClickCount() == 2) {
+        int row = this.JTableSolicitud.getSelectedRow();
+        int col = this.JTableSolicitud.getSelectedColumn();
+        controller.editar(row);
+      }
+        
+    }//GEN-LAST:event_JTableSolicitudMouseClicked
 
     /**
      * @param args the command line arguments
