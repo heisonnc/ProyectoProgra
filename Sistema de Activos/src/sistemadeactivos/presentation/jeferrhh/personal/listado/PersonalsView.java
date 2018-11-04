@@ -15,12 +15,12 @@ import sistemadeactivos.logic.Funcionario;
  *
  * @author xxxx
  */
-public class PersonalsView extends javax.swing.JInternalFrame implements Observer{
+public class PersonalsView extends javax.swing.JDialog implements java.util.Observer {
     PersonalsController controller;
     PersonalsModel model;
     
     public PersonalsView() {
-        super("",false,true);
+//        super("",false,true);
         initComponents();
     }
 
@@ -44,7 +44,10 @@ public class PersonalsView extends javax.swing.JInternalFrame implements Observe
     
     @Override
     public void update(Observable o, Object arg) {
-        this.repaint();
+        this.limpiarErrores();
+       Funcionario filtro = model.getFilter();
+       this.fromFuncionario(filtro);
+       tablaFunc.setModel(model.getFuncionarios()); 
     }
     
     
@@ -68,6 +71,10 @@ public class PersonalsView extends javax.swing.JInternalFrame implements Observe
         result.setNombre(textFieldBuscarPNombre.getText());
         return result;
     }
+     
+      public void fromFuncionario(Funcionario filtro){
+       textFieldBuscarPNombre.setText(filtro.getNombre());
+   }
     
     
     @SuppressWarnings("unchecked")
@@ -76,9 +83,10 @@ public class PersonalsView extends javax.swing.JInternalFrame implements Observe
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaFunc = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
         textFieldBuscarPNombre = new javax.swing.JTextField();
         buttonBuscarPNombre = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -89,6 +97,9 @@ public class PersonalsView extends javax.swing.JInternalFrame implements Observe
 
         jPanel2.setBackground(new java.awt.Color(59, 91, 141));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel1.setText("Lista de Funcionarios");
 
         tablaFunc.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -108,29 +119,28 @@ public class PersonalsView extends javax.swing.JInternalFrame implements Observe
         });
         jScrollPane1.setViewportView(tablaFunc);
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jLabel1.setText("Lista de Funcionarios");
+        jScrollPane2.setViewportView(jScrollPane1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(216, 216, 216)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -171,6 +181,10 @@ public class PersonalsView extends javax.swing.JInternalFrame implements Observe
                 .addComponent(buttonEliminarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70))
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(130, 130, 130)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textFieldBuscarPNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -181,10 +195,6 @@ public class PersonalsView extends javax.swing.JInternalFrame implements Observe
                         .addGap(128, 128, 128)
                         .addComponent(buttonBuscarPNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,7 +211,7 @@ public class PersonalsView extends javax.swing.JInternalFrame implements Observe
                     .addComponent(buttonAgregaFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -266,6 +276,7 @@ public class PersonalsView extends javax.swing.JInternalFrame implements Observe
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tablaFunc;
     private javax.swing.JTextField textFieldBuscarPNombre;
     // End of variables declaration//GEN-END:variables

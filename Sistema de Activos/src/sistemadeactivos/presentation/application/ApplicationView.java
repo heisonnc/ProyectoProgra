@@ -80,6 +80,7 @@ public class ApplicationView extends javax.swing.JFrame implements Observer{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Principal");
+        setLocation(new java.awt.Point(600, 300));
 
         javax.swing.GroupLayout desktopPaneLayout = new javax.swing.GroupLayout(desktopPane);
         desktopPane.setLayout(desktopPaneLayout);
@@ -115,6 +116,11 @@ public class ApplicationView extends javax.swing.JFrame implements Observer{
         jefeRRHHMenu.add(dependenciasMenuItem);
 
         personalMenuItem.setText("Personal");
+        personalMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                personalMenuItemActionPerformed(evt);
+            }
+        });
         jefeRRHHMenu.add(personalMenuItem);
 
         activosMenuItem.setText("Activos");
@@ -130,6 +136,11 @@ public class ApplicationView extends javax.swing.JFrame implements Observer{
         administradorMenu.setText("Administrador");
 
         ingresarMenuItem.setText("Ingresar Solicitud");
+        ingresarMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ingresarMenuItemActionPerformed(evt);
+            }
+        });
         administradorMenu.add(ingresarMenuItem);
 
         consultarMenuItem.setText("Consultar Solicitud");
@@ -206,6 +217,14 @@ public class ApplicationView extends javax.swing.JFrame implements Observer{
     private void solicitudesMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solicitudesMenuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_solicitudesMenuActionPerformed
+
+    private void personalMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_personalMenuItemActionPerformed
+        controller.funcionarioShow();
+    }//GEN-LAST:event_personalMenuItemActionPerformed
+
+    private void ingresarMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresarMenuItemActionPerformed
+       controller.ingresarSolicitudesShow();
+    }//GEN-LAST:event_ingresarMenuItemActionPerformed
 
     /**
      * @param args the command line arguments

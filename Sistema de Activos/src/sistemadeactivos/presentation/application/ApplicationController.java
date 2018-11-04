@@ -33,6 +33,13 @@ public class ApplicationController {
     public void dependenciasShow(){
         Application.DEPENDENCIAS_CONTROLLER.show();
     }
+    public void funcionarioShow(){
+        Application.PERSONALS_CONTROLLER.show();
+    }
+    public void ingresarSolicitudesShow(){
+        Application.INGRESAR_CONTROLLER.show();
+    }
+    
     
      public void enter(){
         this.reset();

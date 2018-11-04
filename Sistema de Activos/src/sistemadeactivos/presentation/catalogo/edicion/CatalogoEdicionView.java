@@ -5,11 +5,13 @@
  */
 package sistemadeactivos.presentation.catalogo.edicion;
 
+import java.util.Observable;
+
 /**
  *
  * @author book
  */
-public class CatalogoEdicionView extends javax.swing.JFrame {
+public class CatalogoEdicionView extends javax.swing.JDialog implements java.util.Observer  {
 
     /**
      * Creates new form CatalogoEdicionView
@@ -427,4 +429,9 @@ public class CatalogoEdicionView extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldPrecio;
     private javax.swing.JTextField textFieldUbicacion;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object o1) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

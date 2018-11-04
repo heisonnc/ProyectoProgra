@@ -22,6 +22,7 @@ public class IngresarModel extends java.util.Observable{
     Solicitud solicitud;
 
     public IngresarModel() {
+        reset();
     }
 
     public void reset(){ 

@@ -13,7 +13,7 @@ import sistemadeactivos.logic.Dependencia;
  *
  * @author mauri
  */
-public class DependenciasView extends javax.swing.JInternalFrame implements java.util.Observer{
+public class DependenciasView extends javax.swing.JDialog implements java.util.Observer {
 
     DependenciasController controller;
     DependenciasModel model;

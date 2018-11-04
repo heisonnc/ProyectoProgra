@@ -11,7 +11,7 @@ import java.util.Observable;
  *
  * @author book
  */
-public class PersonalView extends javax.swing.JInternalFrame implements java.util.Observer{
+public class PersonalView extends javax.swing.JDialog implements java.util.Observer {
 
     PersonalController controller;
     PersonalModel model;
@@ -55,7 +55,10 @@ public class PersonalView extends javax.swing.JInternalFrame implements java.uti
 
         jLabel1.setText("jLabel1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jPanel1.setBackground(new java.awt.Color(59, 91, 141));
+
+        jPanel2.setBackground(new java.awt.Color(48, 97, 173));
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel2.setText("Password:");
@@ -98,6 +101,9 @@ public class PersonalView extends javax.swing.JInternalFrame implements java.uti
                 .addContainerGap())
         );
 
+        jPanel3.setBackground(new java.awt.Color(48, 97, 173));
+        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
         jLabel5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel5.setText("Nombre:");
 
@@ -107,8 +113,8 @@ public class PersonalView extends javax.swing.JInternalFrame implements java.uti
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -121,10 +127,12 @@ public class PersonalView extends javax.swing.JInternalFrame implements java.uti
                 .addContainerGap())
         );
 
+        buttoActualizar.setBackground(new java.awt.Color(48, 97, 173));
         buttoActualizar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         buttoActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/sistemadeactivos/presentation/icons/especiales/015-repeat.png"))); // NOI18N
         buttoActualizar.setText("Actualizar");
 
+        buttonGuardar.setBackground(new java.awt.Color(48, 97, 173));
         buttonGuardar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         buttonGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/sistemadeactivos/presentation/icons/general/save.png"))); // NOI18N
         buttonGuardar.setText("Guardar");
@@ -145,14 +153,13 @@ public class PersonalView extends javax.swing.JInternalFrame implements java.uti
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(105, 105, 105)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(buttonGuardar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(buttoActualizar))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(24, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(155, 155, 155)
-                .addComponent(buttonGuardar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(buttoActualizar)
-                .addGap(69, 69, 69))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,7 +172,7 @@ public class PersonalView extends javax.swing.JInternalFrame implements java.uti
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttoActualizar)
                     .addComponent(buttonGuardar))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

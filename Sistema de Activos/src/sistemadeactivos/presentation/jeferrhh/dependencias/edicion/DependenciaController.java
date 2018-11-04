@@ -32,16 +32,16 @@ public class DependenciaController {
         view.setModel(model);
     }
 
-    public void guardar(Dependencia persona) throws Exception{  
+    public void guardar(Dependencia dependencia) throws Exception{  
         switch(model.getModo()){
             case Application.MODO_AGREGAR:
-                domainModel.addDependencia(persona);
+                domainModel.addDependencia(dependencia);
                 Application.DEPENDENCIAS_CONTROLLER.refrescarBusqueda();                   
                 model.setCurrent(new Dependencia());
                 model.commit();   
                 break;
             case Application.MODO_EDITAR:
-                domainModel.updateDependencia(persona);
+                domainModel.updateDependencia(dependencia);
                 Application.DEPENDENCIAS_CONTROLLER.refrescarBusqueda();               
                 break;
         }   

@@ -81,8 +81,6 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
         agregarSolicitudFld = new javax.swing.JButton();
         exitFld = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         comprobante.setText("combrobante");
 
         fecha.setText("fecha");
