@@ -12,6 +12,7 @@ import sistemadeactivos.Application;
 import sistemadeactivos.Session;
 import sistemadeactivos.logic.Funcionario;
 import sistemadeactivos.logic.Model;
+import sistemadeactivos.logic.Rol;
 import sistemadeactivos.logic.Usuario;
 
 /**
@@ -90,6 +91,7 @@ public class PersonalController {
     
     public void guardar(Funcionario funcionario) throws Exception{
       
+        
           switch(model.getModo()){
             case Application.MODO_AGREGAR:  // si esta agregando una persona desde cero 
                 domainModel.addFuncionario(funcionario);
@@ -105,13 +107,17 @@ public class PersonalController {
     }
     
     public void guardarUsuario( Usuario user) throws Exception{
-        
+        Funcionario fun=new Funcionario();
         
             switch(model.getModo()){
             case Application.MODO_AGREGAR:  {
-               
+                
+               domainModel.addFuncionario(user.getFuncionario());
+               fun=domainModel.getFuncionario(user.getFuncionario().getNombre());
+               model.setCurrent(fun);
                     // si esta agregando una persona desde cero
-                    domainModel.addUsuario(user);
+                    user.setFuncionario(fun);
+               domainModel.addUsuario(user);
                 
             }
                 Application.PERSONALS_CONTROLLER.refrescarBusqueda();
@@ -124,5 +130,22 @@ public class PersonalController {
                 break;
         } 
         
+    }
+    
+    public Rol getRol(String rol) throws Exception{
+        Rol r= new Rol();
+        if(rol=="Administrador Dependencia" ){
+            r= domainModel.getRol(Application.ROL_ADMINISTRADOR);
+        }
+        if(rol=="Secretaria" ){
+           r= domainModel.getRol(Application.ROL_SECRETARIA);
+        }
+        if(rol=="Jefe OCCBB" ){
+            r= domainModel.getRol(Application.ROL_JEFE_OCCB);
+        }
+        if(rol=="Jefe RRHH" ){
+            r= domainModel.getRol(Application.ROL_JEFE_RRHH);
+        }
+        return r;
     }
 }

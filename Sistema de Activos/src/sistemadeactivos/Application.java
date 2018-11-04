@@ -46,35 +46,7 @@ public class Application {
         
         Model domainModel = Model.instance();
         Session session = new Session();
-        
-         Funcionario fun= new Funcionario("Heison");
-        fun.setId(002);
-        Rol r;
-        
-        try{
-//        domainModel.addFuncionario(fun);
-        
-        
-        fun= domainModel.getFuncionario("Heison"); 
-        
-        
-        
-        r= domainModel.getRol(ROL_JEFE_RRHH);
-        
-        
-        Usuario user= new Usuario("001",fun,r,"001");
-        
-        domainModel.addUsuario(user);
-        
-//        domainModel.addUsuario(user);
-        
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-        
-        
-        
-        
+
         ApplicationModel applicationModel = new ApplicationModel();
         ApplicationView applicationView= new ApplicationView();
         ApplicationController applicationController = new ApplicationController(applicationView,applicationModel,domainModel,session);

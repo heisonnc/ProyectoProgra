@@ -7,6 +7,7 @@ package sistemadeactivos.presentation.jeferrhh.personal.edicion;
 
 import sistemadeactivos.Application;
 import sistemadeactivos.logic.Funcionario;
+import sistemadeactivos.logic.Usuario;
 
 
 /**
@@ -17,6 +18,7 @@ public class PersonalModel extends java.util.Observable{
     
     // es el edicon de los funcionarios, pero cualquier funcionario primero tiene que 
     private Funcionario current;// ser regsitrado como un usuario
+    private Usuario user;
     int modo; 
 
     
@@ -28,6 +30,9 @@ public class PersonalModel extends java.util.Observable{
 
     public void setCurrent(Funcionario current) {
         this.current = current;
+    }
+    public void setUser(Usuario user){
+        this.user= user;
     }
     
     public void setModo(int modo) {

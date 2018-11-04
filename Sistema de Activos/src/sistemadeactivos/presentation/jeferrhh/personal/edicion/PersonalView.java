@@ -7,6 +7,8 @@ package sistemadeactivos.presentation.jeferrhh.personal.edicion;
 
 import java.util.Arrays;
 import java.util.Observable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sistemadeactivos.Application;
 import sistemadeactivos.logic.Funcionario;
@@ -265,17 +267,10 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
         String select=this.comboBoxRoles.getSelectedItem().toString();
         Rol rol= new Rol();
         
-        if(select=="Administrador Dependencia" ){
-            rol.setDescripcion(Application.ROL_ADMINISTRADOR);
-        }
-        if(select=="Secretaria" ){
-            rol.setDescripcion(Application.ROL_SECRETARIA);
-        }
-        if(select=="Jefe OCCBB" ){
-            rol.setDescripcion(Application.ROL_JEFE_OCCB);
-        }
-        if(select=="Jefe RRHH" ){
-            rol.setDescripcion(Application.ROL_JEFE_RRHH);
+        try {
+            rol= controller.getRol(select);
+        } catch (Exception ex) {
+             JOptionPane.showMessageDialog(this, "Error en datos", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         
 
