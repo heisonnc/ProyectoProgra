@@ -92,18 +92,31 @@ public class PersonalController {
             case Application.MODO_AGREGAR:  // si esta agregando una persona desde cero 
                 domainModel.addFuncionario(funcionario);
                 Application.PERSONALS_CONTROLLER.refrescarBusqueda();
-//                Application.PERSONAS_CONTROLLER.refrescarBusqueda();    esto es para actualizar la vista de la pantalla de listado de los funcionarios                   
                 model.setCurrent(new Funcionario());
                 model.commit();   
                 break;
             case Application.MODO_EDITAR: // si esta actualizando los datos de una persona en espesifica
-//                domainModel.updateUsuario(user);  // Manda a la base de datos la actualizacion de la persona
-//                Application.PERSONAS_CONTROLLER.refrescarBusqueda();  // refrezca la fuente de informacion(la lista del controller principal)               
+                domainModel.addFuncionario(funcionario);  // Manda a la base de datos la actualizacion de la persona
+                Application.PERSONALS_CONTROLLER.refrescarBusqueda();
+                break;
+        }    
+    }
+    
+    public void guardarFuncionario(Funcionario fun, Usuario user){
+        
+        
+            switch(model.getModo()){
+            case Application.MODO_AGREGAR:  // si esta agregando una persona desde cero 
+               // domainModel.addFuncionario(funcionario);
+               // Application.PERSONALS_CONTROLLER.refrescarBusqueda();
+                model.setCurrent(new Funcionario());
+                model.commit();   
+                break;
+            case Application.MODO_EDITAR: // si esta actualizando los datos de una persona en espesifica
+                //domainModel.addFuncionario(funcionario);  // Manda a la base de datos la actualizacion de la persona
+                //Application.PERSONALS_CONTROLLER.refrescarBusqueda();
                 break;
         } 
         
-        
-        
     }
-    
 }

@@ -7,8 +7,11 @@ package sistemadeactivos.presentation.jeferrhh.personal.edicion;
 
 import java.util.Arrays;
 import java.util.Observable;
+import javax.swing.JOptionPane;
 import sistemadeactivos.Application;
 import sistemadeactivos.logic.Funcionario;
+import sistemadeactivos.logic.Rol;
+import sistemadeactivos.logic.Usuario;
 
 /**
  *
@@ -54,6 +57,8 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         textNombre = new javax.swing.JTextField();
+        comboBoxRoles = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
         buttoActualizar = new javax.swing.JButton();
         buttonGuardar = new javax.swing.JButton();
 
@@ -111,23 +116,39 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
         jLabel5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel5.setText("Nombre:");
 
+        comboBoxRoles.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        comboBoxRoles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador Dependencia", "Secretaria", "Jefe OCCB", "Jefe RRHH" }));
+
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        jLabel6.setText("Rol que empleara:");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(textNombre)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addGap(42, 42, 42)
+                .addComponent(comboBoxRoles, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboBoxRoles))
                 .addContainerGap())
         );
 
@@ -151,19 +172,17 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(0, 1, Short.MAX_VALUE)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(buttonGuardar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(buttoActualizar))
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addComponent(buttonGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttoActualizar)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,7 +213,19 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGuardarActionPerformed
-        // TODO add your handling code here:
+             if(this.validar()){
+            try {
+                Funcionario funcionario= new Funcionario();
+                funcionario=this.toFuncionario();
+                this.controller.guardarFuncionario(funcionario,this.toUsuario(funcionario));
+                JOptionPane.showMessageDialog(this, "Datos registrados", "OK", JOptionPane.INFORMATION_MESSAGE); 
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE); 
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Error en datos", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_buttonGuardarActionPerformed
 
     /**
@@ -212,26 +243,74 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
     public void fromFuncionario(Funcionario funcionario){
        
         Boolean editable = Arrays.asList(Application.MODO_AGREGAR, Application.MODO_EDITAR).contains(model.getModo());
+        // dependiento del usuario que le llegue le abilita el campo para que ingrese los datos 
         this.textNombre.setEnabled(editable);
-        this.textPassword.setEnabled(editable); 
-        
-        
         this.textNombre.setText(funcionario.getNombre());
+        this.textPassword.setEnabled(editable); 
+        this.buttonGuardar.setVisible(editable);
+        this.validate();   
     }
-     public void limpiarErrores(){
+    
+    public Funcionario toFuncionario(){
+        Funcionario result= new Funcionario();
+        result.setNombre(this.textNombre.getText());
+        return result;
+    }
+    
+    public Usuario toUsuario(Funcionario funcionario){
+        Usuario user = new Usuario();
+        user.setId(funcionario.getNombre());
+        user.setClave(this.textPassword.getText());
+        user.setFuncionario(funcionario);
+        String select=this.comboBoxRoles.getSelectedItem().toString();
+        Rol rol= new Rol();
+        
+        if(select=="Administrador Dependencia" ){
+            rol.setDescripcion(Application.ROL_ADMINISTRADOR);
+        }
+        if(select=="Secretaria" ){
+            rol.setDescripcion(Application.ROL_SECRETARIA);
+        }
+        if(select=="Jefe OCCBB" ){
+            rol.setDescripcion(Application.ROL_JEFE_OCCB);
+        }
+        if(select=="Jefe RRHH" ){
+            rol.setDescripcion(Application.ROL_JEFE_RRHH);
+        }
+        
+
+        
+        return user;
+    }
+    public void limpiarErrores(){
         this.textPassword.setForeground(Application.COLOR_OK);
         this.textNombre.setForeground(Application.COLOR_OK);
-        
    }   
+     
+     boolean validar(){
+     boolean error=false;
+         
+     if(this.textNombre.getText().isEmpty()){
+         error= true;
+     }
+     if(this.textPassword.getText().isEmpty()){
+         error= true;
+     }
+     
+     
+     return !error; 
+     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttoActualizar;
     private javax.swing.JButton buttonGuardar;
+    private javax.swing.JComboBox<String> comboBoxRoles;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

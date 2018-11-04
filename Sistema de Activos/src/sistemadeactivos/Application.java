@@ -118,8 +118,8 @@ public class Application {
     public static final Color COLOR_ERROR = Color.red;
     public static final Color COLOR_OK=Color.black;
     
-    public static  final String  ROL_JEFE_OCCB="Jefe_OCCB";
-    public static  final String  ROL_JEFE_RRHH="Jefe_RRHH";
+    public static  final String  ROL_JEFE_OCCB="JefeOCCB";
+    public static  final String  ROL_JEFE_RRHH="JefeRRHH";
     public static  final String  ROL_REGISTRADOR="Registrador";
     public static  final String  ROL_SECRETARIA="Secretaria";
     public static  final String  ROL_ADMINISTRADOR="Administrador";
