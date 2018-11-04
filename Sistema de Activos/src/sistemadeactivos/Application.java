@@ -9,6 +9,9 @@ package sistemadeactivos;
 
 import java.awt.Color;
 import sistemadeactivos.logic.Model;
+import sistemadeactivos.presentation.administrador.ingresar.IngresarController;
+import sistemadeactivos.presentation.administrador.ingresar.IngresarModel;
+import sistemadeactivos.presentation.administrador.ingresar.IngresarView;
 import sistemadeactivos.presentation.application.ApplicationController;
 import sistemadeactivos.presentation.application.ApplicationModel;
 import sistemadeactivos.presentation.application.ApplicationView;
@@ -50,7 +53,6 @@ public class Application {
         
         DependenciasModel dependenciasModel = new DependenciasModel();
         DependenciasView dependenciasView= new DependenciasView();
-        applicationView.addInternalFrame(dependenciasView);
         DependenciasController personascontroller = new DependenciasController(dependenciasView,dependenciasModel,domainModel,session);
         DEPENDENCIAS_CONTROLLER = personascontroller;
                 
@@ -73,7 +75,17 @@ public class Application {
         PersonalsView personalsView = new PersonalsView();
         PersonalsController personalsController = new PersonalsController(personalsView,pesonalsModel, domainModel,session);
         PERSONALS_CONTROLLER=personalsController;
-        personalsView.setVisible(true);
+       
+        
+        
+        IngresarModel ingresarModel = new IngresarModel();
+        IngresarView ingresarView = new IngresarView();
+        IngresarController ingresarController = new IngresarController(ingresarView,ingresarModel,domainModel,session);
+        INGRESAR_CONTROLLER=ingresarController;
+        
+        //hola
+        
+        
         
     }
     public static LoginController LOGIN_CONTROLLER; 
@@ -84,6 +96,11 @@ public class Application {
     
     public static PersonalController PERSONAL_CONTROLLER;
     public static PersonalsController PERSONALS_CONTROLLER;
+    
+    // controladores para la panatalla de ingresar
+    
+    public static IngresarController INGRESAR_CONTROLLER;
+    
 //    public static 
     public static final String USER_ATTRIBUTE = "User";
     public static ApplicationController APPLICATION_CONTROLLER; 
