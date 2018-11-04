@@ -562,8 +562,8 @@ public class Dao {
             String sql = "select a.*, b.*, p.* from "
                     + "Activo a INNER JOIN Bien b On a.bien=b.id "
                     + "INNER JOIN Puesto p On a.puesto=p.id "
-                    + "INNER JOIN Funcionario f On p.funcionario=f.id "
-                    + "where f.nombre like '%%%s%%'";
+                    + "INNER JOIN Dependencia d On p.dependencia=d.descripcion "
+                    + "where d.descripcion like '%%%s%%'";
             sql = String.format(sql, des);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
@@ -598,7 +598,12 @@ public class Dao {
     }
     
     public Solicitud SolicitudGet(String combrobante)throws Exception{
-        String sql = "select * from Solicitud where comprobante='%s'";
+        String sql = "select s.*, a.*, d.*, f.* from "
+                    + "Solicitud s INNER JOIN Adquisicion a On s.adquisicion=a.id "
+                    + "INNER JOIN Estado e On s.estado=e.id "
+                    + "INNER JOIN Dependencia d On s.dependencia=d.descripcion "
+                    + "INNER JOIN Funcionario f On s.registrador=f.id "
+                    + "where s.combrobante='%s'";
         sql = String.format(sql, combrobante);
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
@@ -606,6 +611,25 @@ public class Dao {
         } else {
             throw new Exception("Solicitud no Existe");
         }
+    }
+    
+    public List<Solicitud> SolicitudesGet(String comprobante){
+        List<Solicitud> resultado = new ArrayList<Solicitud>();
+        try {
+            String sql = "select s.*, a.*, d.*, f.* from "
+                    + "Solicitud s INNER JOIN Adquisicion a On s.adquisicion=a.id "
+                    + "INNER JOIN Estado e On s.estado=e.id "
+                    + "INNER JOIN Dependencia d On s.dependencia=d.descripcion "
+                    + "INNER JOIN Funcionario f On s.registrador=f.id "
+                    + "where s.combrobante like '%%%s%%'";
+            sql = String.format(sql, comprobante);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(solicitud(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
     }
     
     

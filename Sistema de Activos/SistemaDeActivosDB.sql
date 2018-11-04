@@ -115,51 +115,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `SistemaDeActivosBD`.`Bien`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `SistemaDeActivosBD`.`Bien` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `descripcion` VARCHAR(45) NOT NULL,
-  `marca` VARCHAR(25) NOT NULL,
-  `modelo` VARCHAR(25) NOT NULL,
-  `precio_unitario` DOUBLE NOT NULL,
-  `cantidad` INT NULL,
-  `solicitud` INT NULL DEFAULT NULL,
-  `categoria` INT NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_Bien_Categoria1_idx` (`categoria` ASC) VISIBLE,
-  CONSTRAINT `fk_Bien_Categoria1`
-    FOREIGN KEY (`categoria`)
-    REFERENCES `SistemaDeActivosBD`.`Categoria` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `SistemaDeActivosBD`.`Activo`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `SistemaDeActivosBD`.`Activo` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `bien` INT NULL DEFAULT NULL,
-  `puesto` INT NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_Activo_Bien1_idx` (`bien` ASC) VISIBLE,
-  INDEX `fk_Activo_Puesto1_idx` (`puesto` ASC) VISIBLE,
-  CONSTRAINT `fk_Activo_Bien1`
-    FOREIGN KEY (`bien`)
-    REFERENCES `SistemaDeActivosBD`.`Bien` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Activo_Puesto1`
-    FOREIGN KEY (`puesto`)
-    REFERENCES `SistemaDeActivosBD`.`Puesto` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `SistemaDeActivosBD`.`Adquisicion`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `SistemaDeActivosBD`.`Adquisicion` (
@@ -188,14 +143,15 @@ CREATE TABLE IF NOT EXISTS `SistemaDeActivosBD`.`Solicitud` (
   `monto_total` DOUBLE NULL,
   `rechazo` VARCHAR(45) NOT NULL,
   `adquisicion` INT NULL DEFAULT NULL,
-  `dependencia` INT NULL DEFAULT NULL,
   `estado` INT NULL DEFAULT NULL,
   `comprobante` VARCHAR(45) NOT NULL,
   `registrador` INT NULL DEFAULT NULL,
+  `dependencia` VARCHAR(25) NULL DEFAULT NULL,
   INDEX `fk_Solicitud_Adquisicion1_idx` (`adquisicion` ASC) VISIBLE,
   INDEX `fk_Solicitud_Estado1_idx` (`estado` ASC) VISIBLE,
   PRIMARY KEY (`comprobante`),
   INDEX `fk_Solicitud_Funcionario1_idx` (`registrador` ASC) VISIBLE,
+  INDEX `fk_Solicitud_Dependencia1_idx` (`dependencia` ASC) VISIBLE,
   CONSTRAINT `fk_Solicitud_Adquisicion1`
     FOREIGN KEY (`adquisicion`)
     REFERENCES `SistemaDeActivosBD`.`Adquisicion` (`id`)
@@ -210,6 +166,62 @@ CREATE TABLE IF NOT EXISTS `SistemaDeActivosBD`.`Solicitud` (
     FOREIGN KEY (`registrador`)
     REFERENCES `SistemaDeActivosBD`.`Funcionario` (`id`)
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Solicitud_Dependencia1`
+    FOREIGN KEY (`dependencia`)
+    REFERENCES `SistemaDeActivosBD`.`Dependencia` (`descripcion`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SistemaDeActivosBD`.`Bien`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SistemaDeActivosBD`.`Bien` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `descripcion` VARCHAR(45) NOT NULL,
+  `marca` VARCHAR(25) NOT NULL,
+  `modelo` VARCHAR(25) NOT NULL,
+  `precio_unitario` DOUBLE NOT NULL,
+  `cantidad` INT NULL,
+  `categoria` INT NULL DEFAULT NULL,
+  `solicitud` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Bien_Categoria1_idx` (`categoria` ASC) VISIBLE,
+  INDEX `fk_Bien_Solicitud1_idx` (`solicitud` ASC) VISIBLE,
+  CONSTRAINT `fk_Bien_Categoria1`
+    FOREIGN KEY (`categoria`)
+    REFERENCES `SistemaDeActivosBD`.`Categoria` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Bien_Solicitud1`
+    FOREIGN KEY (`solicitud`)
+    REFERENCES `SistemaDeActivosBD`.`Solicitud` (`comprobante`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SistemaDeActivosBD`.`Activo`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SistemaDeActivosBD`.`Activo` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `bien` INT NULL DEFAULT NULL,
+  `puesto` INT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Activo_Bien1_idx` (`bien` ASC) VISIBLE,
+  INDEX `fk_Activo_Puesto1_idx` (`puesto` ASC) VISIBLE,
+  CONSTRAINT `fk_Activo_Bien1`
+    FOREIGN KEY (`bien`)
+    REFERENCES `SistemaDeActivosBD`.`Bien` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Activo_Puesto1`
+    FOREIGN KEY (`puesto`)
+    REFERENCES `SistemaDeActivosBD`.`Puesto` (`id`)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -217,3 +229,20 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+insert into Rol (descripcion) values ('Jefe OCCB');
+insert into Rol (descripcion) values ('Jefe RRHH');
+insert into Rol (descripcion) values ('Registrador');
+insert into Rol (descripcion) values ('Secretaria');
+insert into Rol (descripcion) values ('Administrador');
+
+insert into Adquisicion (descripcion) values ('Donacion');
+insert into Adquisicion (descripcion) values ('Compra');
+insert into Adquisicion (descripcion) values ('Traslado');
+insert into Adquisicion (descripcion) values ('Elaboracion Propia');
+
+insert into Estado (descripcion) values ('Rechazada');
+insert into Estado (descripcion) values ('Recibida');
+insert into Estado (descripcion) values ('Por Verificar');
+insert into Estado (descripcion) values ('En Espera');
+insert into Estado (descripcion) values ('Procesada');

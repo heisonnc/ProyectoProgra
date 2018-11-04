@@ -151,8 +151,12 @@ public class Model {
         dao.SolicitudUpdate(s);
     }
     
-    public Solicitud getSolicitud(String combrobante) throws Exception{
-        return dao.SolicitudGet(combrobante);
+    public Solicitud getSolicitud(String comprobante) throws Exception{
+        return dao.SolicitudGet(comprobante);
+    }
+    
+    public List<Solicitud> getSolicitudes(String comprabante){
+        return dao.SolicitudesGet(comprabante);
     }
     
     //--------------------Activo---------------------------
