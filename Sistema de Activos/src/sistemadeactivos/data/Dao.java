@@ -237,7 +237,7 @@ public class Dao {
 
     public void DependenciaAdd(Dependencia p) throws Exception {
         String sql = "insert into Dependencia (administrador, descripcion) "
-                + "values('%i','%s')";
+                + "values('%d','%s')";
         sql = String.format(sql, p.getFuncionario().getId(), p.getDescripcion());
         int count = db.executeUpdate(sql);
         if (count == 0) {
@@ -246,7 +246,7 @@ public class Dao {
     }
 
     public void DependenciaUpdate(Dependencia p) throws Exception {
-        String sql = "update Dependencia set descripcion='%s', administrador='%i'"
+        String sql = "update Dependencia set descripcion='%s', administrador='%d'"
                 + "where id='%s'";
         sql = String.format(sql, p.getDescripcion(), p.getFuncionario().getId());
 
@@ -268,7 +268,7 @@ public class Dao {
 
     public void FuncionarioUpdate(Funcionario f) throws Exception {
         String sql = "update Dependencia set nombre='%s'"
-                + "where id='%i'";
+                + "where id='%d'";
         sql = String.format(sql, f.getNombre(), f.getId());
 
         int count = db.executeUpdate(sql);
@@ -395,7 +395,7 @@ public class Dao {
 
     public void BienAdd(Bien b) throws Exception{
         String sql = "insert into Bien (descripcion, marca, modelo, precio_unitario, cantidad, solicitud, categoria) "
-                + "values('%s', '%s', '%s', '%d', '%s', '%i')";
+                + "values('%s', '%s', '%s', '%f', '%s', '%d')";
         sql = String.format(sql, b.getDescripcion(), b.getMarca(), b.getModelo(), b.getPrecioUnitario(), b.getCantidad(), b.getSolicitud().getComprobante(), b.getCategoria().getId());
         int count = db.executeUpdate(sql);
         if (count == 0) {
@@ -404,7 +404,7 @@ public class Dao {
     }
     
     public void BienUpdate(Bien b) throws Exception{
-        String sql = "update Bien set descripcion='%s', marca='%s', modelo='%s', precio_unitario='%d', cantidad='%i', solicitud='%s', categoria='%i'"
+        String sql = "update Bien set descripcion='%s', marca='%s', modelo='%s', precio_unitario='%f', cantidad='%d', solicitud='%s', categoria='%d'"
                 + "where id='%s'";
         sql = String.format(sql, b.getDescripcion(), b.getMarca(), b.getModelo(), b.getPrecioUnitario(), b.getCantidad(), b.getSolicitud().getComprobante(), b.getCategoria().getId());
 
@@ -419,7 +419,7 @@ public class Dao {
         try {
             String sql = "select * from "
                     + "Activo "
-                    + "where id like '%i'";
+                    + "where id like '%d'";
             sql = String.format(sql, id);
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
@@ -500,7 +500,7 @@ public class Dao {
     
     public void SolicitudAdd(Solicitud s) throws Exception{
         String sql = "insert into Solicitud (comprobante, fecha, cantidad_bienes, monto_total, rechazo, adquisicion, dependencia, registrador, estado) "
-                + "values('%s','%s','%i', '%d', '%s','%i','%s','%i','%i')";
+                + "values('%s','%s','%d', '%f', '%s','%d','%s','%d','%d')";
         sql = String.format(sql,s.getComprobante(), s.getFecha().toString(), s.getCantidadBienes(), s.getMontoTotal(), s.getRechazo(), s.getAdquisicion().getId(), s.getDependencia().getDescripcion(), s.getFuncionario().getId(), s.getEstado().getId());
         int count = db.executeUpdate(sql);
         if (count == 0) {
@@ -509,7 +509,7 @@ public class Dao {
     }
     
     public void SolicitudUpdate(Solicitud s) throws Exception{
-        String sql = "update Solicitud set fecha='%s', cantidad_bienes='%i', monto_total='%s, rechazo='%s', adquisicion='%i', dependencia='%s', registrador='%i', estado='%i'"
+        String sql = "update Solicitud set fecha='%s', cantidad_bienes='%d', monto_total='%s, rechazo='%s', adquisicion='%d', dependencia='%s', registrador='%d', estado='%d'"
                 + "where combrobante='%s'";
         sql = String.format(sql, s.getFecha().toString(), s.getCantidadBienes(), s.getMontoTotal(), s.getRechazo(), s.getAdquisicion().getId(), s.getDependencia().getDescripcion(), s.getFuncionario().getId(), s.getEstado().getId(), s.getComprobante());
 
@@ -530,7 +530,7 @@ public class Dao {
     }
     
     public void UsuarioUpdate(Usuario u) throws Exception{
-        String sql = "update Usuario set funcionario='%i', rol='%i', clave='%s'"
+        String sql = "update Usuario set funcionario='%d', rol='%d', clave='%s'"
                 + "where id='%s'";
         sql = String.format(sql, u.getFuncionario().getId(), u.getRol().getId(), u.getClave(), u.getId());
 
