@@ -236,7 +236,7 @@ public class Dao {
         try {
             String sql = "select * from "
                     + "Funcionario "
-                    + "where descripcion like '%%%s%%'";
+                    + "where nombre like '%%%s%%'";
             sql = String.format(sql, filtro.getNombre());
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {
