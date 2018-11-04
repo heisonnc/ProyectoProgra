@@ -8,7 +8,10 @@ package sistemadeactivos;
 
 
 import java.awt.Color;
+import sistemadeactivos.logic.Funcionario;
 import sistemadeactivos.logic.Model;
+import sistemadeactivos.logic.Rol;
+import sistemadeactivos.logic.Usuario;
 import sistemadeactivos.presentation.administrador.ingresar.IngresarController;
 import sistemadeactivos.presentation.administrador.ingresar.IngresarModel;
 import sistemadeactivos.presentation.administrador.ingresar.IngresarView;
@@ -39,10 +42,38 @@ import sistemadeactivos.presentation.secretaria.SecretariaView;
  * @author mauri
  */
 public class Application {
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception{
         
         Model domainModel = Model.instance();
         Session session = new Session();
+        
+         Funcionario fun= new Funcionario("Heison");
+        fun.setId(002);
+        Rol r;
+        
+        try{
+//        domainModel.addFuncionario(fun);
+        
+        
+        fun= domainModel.getFuncionario("Heison");
+        
+        
+        
+        r= domainModel.getRol(ROL_JEFE_RRHH);
+        
+        
+        Usuario user= new Usuario("001","001");
+        
+        domainModel.addUsuario(user);
+        
+//        domainModel.addUsuario(user);
+        
+        }catch(Exception e){
+            
+        }
+        
+        
+        
         
         ApplicationModel applicationModel = new ApplicationModel();
         ApplicationView applicationView= new ApplicationView();
@@ -92,6 +123,7 @@ public class Application {
         SecretariaController secretariaController = new SecretariaController(secretariaView, secretariaModel,domainModel, session);
         SECRETARIA_CONTROLLER = secretariaController;
         
+       
         
     }
     public static LoginController LOGIN_CONTROLLER; 
@@ -118,8 +150,8 @@ public class Application {
     public static final Color COLOR_ERROR = Color.red;
     public static final Color COLOR_OK=Color.black;
     
-    public static  final String  ROL_JEFE_OCCB="JefeOCCB";
-    public static  final String  ROL_JEFE_RRHH="JefeRRHH";
+    public static  final String  ROL_JEFE_OCCB="Jefe OCCB";
+    public static  final String  ROL_JEFE_RRHH="Jefe RRHH";
     public static  final String  ROL_REGISTRADOR="Registrador";
     public static  final String  ROL_SECRETARIA="Secretaria";
     public static  final String  ROL_ADMINISTRADOR="Administrador";
