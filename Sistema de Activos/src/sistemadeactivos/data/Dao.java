@@ -405,6 +405,90 @@ public class Dao {
         }
     }
     
+    public List<Activo> ActivosSearchByCodigo(int id){
+        List<Activo> resultado = new ArrayList<Activo>();
+        try {
+            String sql = "select * from "
+                    + "Activo "
+                    + "where id like '%i'";
+            sql = String.format(sql, id);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(activo(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+    
+    public List<Activo> ActivosSearchByCategoria(String cat){
+        List<Activo> resultado = new ArrayList<Activo>();
+        try{
+            String sql = "select * from Activo ";
+            ResultSet rs = db.executeQuery(sql);
+            while(rs.next()){
+                Activo tmp = activo(rs);
+                if(tmp.getBien().getCategoria().getDescripcion().equals(cat)){
+                    resultado.add(tmp);
+                }
+            }
+        }catch(SQLException ex){
+            
+        }
+        return resultado;
+    }
+    
+    public List<Activo> ActivosSearchByDescripcion(String des){
+        List<Activo> resultado = new ArrayList<Activo>();
+        try{
+            String sql = "select * from Activo ";
+            ResultSet rs = db.executeQuery(sql);
+            while(rs.next()){
+                Activo tmp = activo(rs);
+                if(tmp.getBien().getDescripcion().equals(des)){
+                    resultado.add(tmp);
+                }
+            }
+        }catch(SQLException ex){
+            
+        }
+        return resultado;
+    }
+    
+    public List<Activo> ActivosSearchByResponsable(String nombre){
+        List<Activo> resultado = new ArrayList<Activo>();
+        try{
+            String sql = "select * from Activo ";
+            ResultSet rs = db.executeQuery(sql);
+            while(rs.next()){
+                Activo tmp = activo(rs);
+                if(tmp.getPuesto().getFuncionario().getNombre().equals(nombre)){
+                    resultado.add(tmp);
+                }
+            }
+        }catch(SQLException ex){
+            
+        }
+        return resultado;
+    }
+    
+    public List<Activo> ActivosSearchByDependencia(String des){
+        List<Activo> resultado = new ArrayList<Activo>();
+        try{
+            String sql = "select * from Activo ";
+            ResultSet rs = db.executeQuery(sql);
+            while(rs.next()){
+                Activo tmp = activo(rs);
+                if(tmp.getPuesto().getDependencia().getDescripcion().equals(des)){
+                    resultado.add(tmp);
+                }
+            }
+        }catch(SQLException ex){
+            
+        }
+        return resultado;
+    }
+    
     public void close() {
     }
 }
