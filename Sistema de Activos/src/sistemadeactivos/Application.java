@@ -62,14 +62,14 @@ public class Application {
         r= domainModel.getRol(ROL_JEFE_RRHH);
         
         
-        Usuario user= new Usuario("001","001");
+        Usuario user= new Usuario("001",fun,r,"001");
         
         domainModel.addUsuario(user);
         
 //        domainModel.addUsuario(user);
         
         }catch(Exception e){
-            
+            System.out.println(e.getMessage());
         }
         
         

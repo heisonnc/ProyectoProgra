@@ -298,7 +298,7 @@ public class Dao {
     }
     
     public Funcionario FuncionarioGet(String nombre) throws Exception{
-        String sql = "select * from Funcionario where descripcion='%s'";
+        String sql = "select * from Funcionario where nombre='%s'";
         sql = String.format(sql, nombre);
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {
@@ -521,7 +521,7 @@ public class Dao {
     
     public void UsuarioAdd(Usuario u) throws Exception{
         String sql = "insert into Usuario (id, funcionario, rol, clave) "
-                + "values('%s', '%i', '%i','%s')";
+                + "values('%s', '%d', '%d','%s')";
         sql = String.format(sql, u.getId(), u.getFuncionario().getId(), u.getRol().getId(), u.getClave());
         int count = db.executeUpdate(sql);
         if (count == 0) {
