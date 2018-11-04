@@ -174,7 +174,7 @@ public class Dao {
 
     //-------------------Usuario----------------------------
     public Usuario usuarioGet(String id) throws Exception {
-        String sql = "select * from Usuario u INNER JOIN Rol r on u.rol=r.id"+
+        String sql = "select * from (Usuario u INNER JOIN Rol r on u.rol=r.id)"+
                 "INNER JOIN Funcionario f on u.funcionario=f.id"+
                 "where u.id='%s'";
         sql = String.format(sql, id);
@@ -454,8 +454,7 @@ public class Dao {
         }
     }
     
-    //------------------
-    
+    //------------------Activo-------------------------------
     public List<Activo> ActivosSearchByCodigo(int id){
         List<Activo> resultado = new ArrayList<Activo>();
         try {
@@ -539,6 +538,8 @@ public class Dao {
         }
         return resultado;
     }
+    
+    //--------------------Solicitud-------------------------------
     
     public void SolicitudAdd(Solicitud s) throws Exception{
         String sql = "insert into Solicitud (comprobante, fecha, cantidad_bienes, monto_total, rechazo, adquisicion, dependencia, registrador, estado) "
