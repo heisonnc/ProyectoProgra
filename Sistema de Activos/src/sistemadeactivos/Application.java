@@ -55,7 +55,7 @@ public class Application {
 //        domainModel.addFuncionario(fun);
         
         
-        fun= domainModel.getFuncionario("Heison");
+        fun= domainModel.getFuncionario("Heison"); 
         
         
         
