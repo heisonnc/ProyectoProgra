@@ -59,30 +59,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `SistemaDeActivosBD`.`Puesto`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `SistemaDeActivosBD`.`Puesto` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `funcionario` INT NULL DEFAULT NULL,
-  `dependencia` INT NULL DEFAULT NULL,
-  `rol` INT NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_Puesto_Funcionario1_idx` (`funcionario` ASC) VISIBLE,
-  INDEX `fk_Puesto_Rol1_idx` (`rol` ASC) VISIBLE,
-  CONSTRAINT `fk_Puesto_Funcionario1`
-    FOREIGN KEY (`funcionario`)
-    REFERENCES `SistemaDeActivosBD`.`Funcionario` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Puesto_Rol1`
-    FOREIGN KEY (`rol`)
-    REFERENCES `SistemaDeActivosBD`.`Rol` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `SistemaDeActivosBD`.`Dependencia`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `SistemaDeActivosBD`.`Dependencia` (
@@ -93,6 +69,36 @@ CREATE TABLE IF NOT EXISTS `SistemaDeActivosBD`.`Dependencia` (
   CONSTRAINT `fk_Dependencia_Funcionario1`
     FOREIGN KEY (`administrador`)
     REFERENCES `SistemaDeActivosBD`.`Funcionario` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `SistemaDeActivosBD`.`Puesto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SistemaDeActivosBD`.`Puesto` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `funcionario` INT NULL DEFAULT NULL,
+  `rol` INT NULL DEFAULT NULL,
+  `dependencia` VARCHAR(25) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_Puesto_Funcionario1_idx` (`funcionario` ASC) VISIBLE,
+  INDEX `fk_Puesto_Rol1_idx` (`rol` ASC) VISIBLE,
+  INDEX `fk_Puesto_Dependencia1_idx` (`dependencia` ASC) VISIBLE,
+  CONSTRAINT `fk_Puesto_Funcionario1`
+    FOREIGN KEY (`funcionario`)
+    REFERENCES `SistemaDeActivosBD`.`Funcionario` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Puesto_Rol1`
+    FOREIGN KEY (`rol`)
+    REFERENCES `SistemaDeActivosBD`.`Rol` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Puesto_Dependencia1`
+    FOREIGN KEY (`dependencia`)
+    REFERENCES `SistemaDeActivosBD`.`Dependencia` (`descripcion`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -211,21 +217,3 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
-insert into Rol (descripcion) values ('Jefe OCCB');
-insert into Rol (descripcion) values ('Jefe RRHH');
-insert into Rol (descripcion) values ('Registrador');
-insert into Rol (descripcion) values ('Secretaria');
-insert into Rol (descripcion) values ('Administrador');
-
-insert into Adquisicion (descripcion) values ('Donacion');
-insert into Adquisicion (descripcion) values ('Compra');
-insert into Adquisicion (descripcion) values ('Traslado');
-insert into Adquisicion (descripcion) values ('Elaboracion Propia');
-
-insert into Estado (descripcion) values ('Rechazada');
-insert into Estado (descripcion) values ('Recibida');
-insert into Estado (descripcion) values ('Por Verificar');
-insert into Estado (descripcion) values ('En Espera');
-insert into Estado (descripcion) values ('Procesada');
-

@@ -230,6 +230,23 @@ public class Dao {
         }
     }
     
+    public List<Usuario> UsuarioSearch(String nombre){
+        List<Usuario> resultado = new ArrayList<Usuario>();
+        try {
+            String sql = "select u.*,r.*,f.* "
+                + "from Usuario u INNER JOIN Rol r On u.rol=r.id "
+                + "INNER JOIN Funcionario f On u.funcionario= f.id "
+                +"where f.nombre like '%%%s%%'";
+            sql = String.format(sql, nombre);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(usuario(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+    
     //---------------------Funcionario--------------------------------
     public List<Funcionario> FuncionarioSearch(Funcionario filtro) {
         List<Funcionario> resultado = new ArrayList<Funcionario>();
@@ -507,7 +524,7 @@ public class Dao {
     public List<Activo> ActivosSearchByDescripcion(String des){
         List<Activo> resultado = new ArrayList<Activo>();
         try {
-            String sql = "select a.*, b.*, p.*, c.* from "
+            String sql = "select a.*, b.*, p.* from "
                     + "Activo a INNER JOIN Bien b On a.bien=b.id "
                     + "INNER JOIN Puesto p On a.puesto=p.id "
                     + "where b.descripcion like '%%%s%%'";
@@ -523,34 +540,36 @@ public class Dao {
     
     public List<Activo> ActivosSearchByResponsable(String nombre){
         List<Activo> resultado = new ArrayList<Activo>();
-        try{
-            String sql = "select * from Activo ";
+        try {
+            String sql = "select a.*, b.*, p.*, f.* from "
+                    + "Activo a INNER JOIN Bien b On a.bien=b.id "
+                    + "INNER JOIN Puesto p On a.puesto=p.id "
+                    + "INNER JOIN Funcionario f On p.funcionario=f.id "
+                    + "where f.nombre like '%%%s%%'";
+            sql = String.format(sql, nombre);
             ResultSet rs = db.executeQuery(sql);
-            while(rs.next()){
-                Activo tmp = activo(rs);
-                if(tmp.getPuesto().getFuncionario().getNombre().equals(nombre)){
-                    resultado.add(tmp);
-                }
+            while (rs.next()) {
+                resultado.add(activo(rs));
             }
-        }catch(SQLException ex){
-            
+        } catch (SQLException ex) {
         }
         return resultado;
     }
     
     public List<Activo> ActivosSearchByDependencia(String des){
         List<Activo> resultado = new ArrayList<Activo>();
-        try{
-            String sql = "select * from Activo ";
+        try {
+            String sql = "select a.*, b.*, p.* from "
+                    + "Activo a INNER JOIN Bien b On a.bien=b.id "
+                    + "INNER JOIN Puesto p On a.puesto=p.id "
+                    + "INNER JOIN Funcionario f On p.funcionario=f.id "
+                    + "where f.nombre like '%%%s%%'";
+            sql = String.format(sql, des);
             ResultSet rs = db.executeQuery(sql);
-            while(rs.next()){
-                Activo tmp = activo(rs);
-                if(tmp.getPuesto().getDependencia().getDescripcion().equals(des)){
-                    resultado.add(tmp);
-                }
+            while (rs.next()) {
+                resultado.add(activo(rs));
             }
-        }catch(SQLException ex){
-            
+        } catch (SQLException ex) {
         }
         return resultado;
     }

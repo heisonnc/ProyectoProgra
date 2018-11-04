@@ -51,6 +51,10 @@ public class Model {
         dao.UsuarioDelete(u);
     }
     
+    public List<Usuario> getUsuarios(String nombre){
+        return dao.UsuarioSearch(nombre);
+    }
+    
     //---------------------Funcionario--------------------------------
     public void addFuncionario(Funcionario funcionario) throws Exception {
         dao.FuncionarioAdd(funcionario);
