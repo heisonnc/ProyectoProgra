@@ -174,15 +174,10 @@ public class Dao {
 
     //-------------------Usuario----------------------------
     public Usuario usuarioGet(String id) throws Exception {
-        String sql = "select u.* "
+        String sql = "select u.*, f.*, r.* "
                 + "from Usuario u INNER JOIN Rol r On u.rol=r.id "
                 + "INNER JOIN Funcionario f On u.funcionario= f.id"
                 +"where u.id='%s';";
-        
-        
-//        String sql = "select * from Usuario u INNER JOIN Rol r on u.rol=r.id"+
-//                "INNER JOIN Funcionario f on u.funcionario=f.id"+
-//                "where u.id='%s'";
         sql = String.format(sql, id);
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {

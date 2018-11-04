@@ -91,10 +91,15 @@ public class Model {
     }
     
     //------------------Adquiscion------------------------------------
+    public Adquisicion getAdquisicion(String descripcion) throws Exception{
+        return dao.adquisicionGet(descripcion);
+    }
     
-
+    public List<Adquisicion> getAdquisciciones(){
+        return dao.adquisicionesGet();
+    }
     
-
+    //---------------Dependencia----------------------------------
     public List<Dependencia> searchDependencias(Dependencia filtro) {
         return dao.DependenciaSearch(filtro);
     }
@@ -109,6 +114,62 @@ public class Model {
 
     public void deleteDependencia(Dependencia p) throws Exception {
         dao.DependenciaDelete(p);
+    }
+    
+    public Dependencia getDependencia(String descripcion) throws Exception{
+        return dao.DependenciaGet(descripcion);
+    }
+    
+    //--------------------Categoria--------------------------------
+    public Categoria getCategoria(String descripcion) throws Exception{
+        return dao.categoriaGet(descripcion);
+    }
+    
+    public List<Categoria> getCategorias(){
+        return dao.categoriasGet();
+    }
+    
+    //---------------------Bien--------------------------------
+    public void addBien(Bien b) throws Exception{
+        dao.BienAdd(b);
+    }
+    
+    public void updateBien(Bien b) throws Exception{
+        dao.BienUpdate(b);
+    }
+    
+    //-------------------Solicitud------------------------------
+    public void addSolicitud(Solicitud s) throws Exception{
+        dao.SolicitudAdd(s);
+    }
+    
+    public void updateSolicitud(Solicitud s) throws Exception{
+        dao.SolicitudUpdate(s);
+    }
+    
+    public Solicitud getSolicitud(String combrobante) throws Exception{
+        return dao.SolicitudGet(combrobante);
+    }
+    
+    //--------------------Activo---------------------------
+    public List<Activo> searchActivosByCodigo(int i){
+        return dao.ActivosSearchByCodigo(i);
+    }
+    
+    public List<Activo> searchActivosByCategoria(String cat){
+        return dao.ActivosSearchByCategoria(cat);
+    }
+    
+    public List<Activo> searchActivosByDescripcion(String des){
+        return dao.ActivosSearchByDescripcion(des);
+    }
+    
+    public List<Activo> searchActivosByDependencia(String d){
+        return dao.ActivosSearchByDependencia(d);
+    }
+    
+    public List<Activo> searchActivosByResponsable(String nombre){
+        return dao.ActivosSearchByResponsable(nombre);
     }
 
     public void close() {
