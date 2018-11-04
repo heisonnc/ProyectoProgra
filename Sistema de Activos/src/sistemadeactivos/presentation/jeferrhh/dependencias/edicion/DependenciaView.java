@@ -5,6 +5,10 @@
  */
 package sistemadeactivos.presentation.jeferrhh.dependencias.edicion;
 
+import java.util.Arrays;
+import sistemadeactivos.Application;
+import sistemadeactivos.logic.Dependencia;
+
 /**
  *
  * @author mauri
@@ -14,8 +18,7 @@ public class DependenciaView  extends javax.swing.JDialog implements java.util.O
     DependenciaController controller;
     DependenciaModel model;
     
-    public DependenciaView(java.awt.Frame parent, boolean modal) {
-        super(parent,modal);
+    public DependenciaView() {
         initComponents();
     }
 
@@ -39,8 +42,27 @@ public class DependenciaView  extends javax.swing.JDialog implements java.util.O
         return model;
     }
    public void update(java.util.Observable updatedModel,Object parametros){
-       
+       this.limpiarErrores();
+       Dependencia actual = model.getCurrent();
+       this.fromDependencia(actual);
    }
+      public void limpiarErrores(){
+        this.textNombreDependencia.setForeground(Application.COLOR_OK); 
+   } 
+      
+      public void fromDependencia(Dependencia dependencia){
+          
+          this.textNombreDependencia.setText(dependencia.getDescripcion());
+        if(dependencia.getFuncionario()!= null){
+            this.textadminDependencia.setText(dependencia.getFuncionario().getNombre());
+        }
+          
+        Boolean editable = Arrays.asList(Application.MODO_AGREGAR, Application.MODO_EDITAR).contains(model.getModo());
+        this.textNombreDependencia.setEnabled(editable);
+        this.agregaAdmin.setEnabled(editable);
+        
+      }
+
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -50,7 +72,7 @@ public class DependenciaView  extends javax.swing.JDialog implements java.util.O
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        adminDependencia = new javax.swing.JTextField();
+        textadminDependencia = new javax.swing.JTextField();
         agregaAdmin = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -74,12 +96,12 @@ public class DependenciaView  extends javax.swing.JDialog implements java.util.O
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(adminDependencia, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+                .addComponent(textadminDependencia, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(adminDependencia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+            .addComponent(textadminDependencia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
         );
 
         agregaAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistemadeactivos/presentation/icons/general/add.png"))); // NOI18N
@@ -236,7 +258,6 @@ public class DependenciaView  extends javax.swing.JDialog implements java.util.O
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField adminDependencia;
     private javax.swing.JButton agregaAdmin;
     private javax.swing.JButton buttonAceptaNombre;
     private javax.swing.JLabel jLabel1;
@@ -246,5 +267,6 @@ public class DependenciaView  extends javax.swing.JDialog implements java.util.O
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTextField textNombreDependencia;
+    private javax.swing.JTextField textadminDependencia;
     // End of variables declaration//GEN-END:variables
 }

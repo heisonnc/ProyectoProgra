@@ -57,7 +57,7 @@ public class Application {
         DEPENDENCIAS_CONTROLLER = personascontroller;
                 
         DependenciaModel dependenciaModel = new DependenciaModel();        
-        DependenciaView dependenciaView = new DependenciaView(applicationView,true);
+        DependenciaView dependenciaView = new DependenciaView();
         DependenciaController dependenciaController = new DependenciaController(dependenciaView,dependenciaModel,domainModel,session);
         DEPENDENCIA_CONTROLLER = dependenciaController;
         

@@ -5,7 +5,10 @@
  */
 package sistemadeactivos.presentation.jeferrhh.personal.edicion;
 
+import java.util.Arrays;
 import java.util.Observable;
+import sistemadeactivos.Application;
+import sistemadeactivos.logic.Funcionario;
 
 /**
  *
@@ -22,6 +25,7 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
 
     public void setModel(PersonalModel model) {
         this.model = model;
+        model.addObserver(this);
     }
     
     
@@ -42,14 +46,14 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        textPassword = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        textNombre = new javax.swing.JTextField();
         buttoActualizar = new javax.swing.JButton();
         buttonGuardar = new javax.swing.JButton();
 
@@ -81,7 +85,7 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -94,7 +98,7 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -114,7 +118,7 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -123,7 +127,7 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -200,8 +204,25 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
 
     @Override
     public void update(Observable o, Object o1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       this.limpiarErrores();
+       Funcionario actual = model.getCurrent();
+       this.fromFuncionario(actual);
     }
+    
+    public void fromFuncionario(Funcionario funcionario){
+       
+        Boolean editable = Arrays.asList(Application.MODO_AGREGAR, Application.MODO_EDITAR).contains(model.getModo());
+        this.textNombre.setEnabled(editable);
+        this.textPassword.setEnabled(editable); 
+        
+        
+        this.textNombre.setText(funcionario.getNombre());
+    }
+     public void limpiarErrores(){
+        this.textPassword.setForeground(Application.COLOR_OK);
+        this.textNombre.setForeground(Application.COLOR_OK);
+        
+   }   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttoActualizar;
@@ -214,8 +235,8 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField textNombre;
+    private javax.swing.JTextField textPassword;
     // End of variables declaration//GEN-END:variables
 }
