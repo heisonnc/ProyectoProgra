@@ -45,4 +45,8 @@ public class SecretariaController {
         Application.INGRESAR_CONTROLLER.reset(modo, seleccionada);
         
     }
+    
+    public void show(){
+        view.setVisible(true);
+    }
 }

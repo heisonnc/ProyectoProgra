@@ -87,8 +87,10 @@ public class Application {
         IngresarController ingresarController = new IngresarController(ingresarView,ingresarModel,domainModel,session);
         INGRESAR_CONTROLLER=ingresarController;
         
-        //hola
-        
+        SecretariaModel secretariaModel = new SecretariaModel(); 
+        SecretariaView secretariaView = new SecretariaView();
+        SecretariaController secretariaController = new SecretariaController(secretariaView, secretariaModel,domainModel, session);
+        SECRETARIA_CONTROLLER = secretariaController;
         
         
     }
@@ -100,7 +102,7 @@ public class Application {
     
     public static PersonalController PERSONAL_CONTROLLER;
     public static PersonalsController PERSONALS_CONTROLLER;
-    
+    public static SecretariaController SECRETARIA_CONTROLLER; 
     // controladores para la panatalla de ingresar
     
     public static IngresarController INGRESAR_CONTROLLER;

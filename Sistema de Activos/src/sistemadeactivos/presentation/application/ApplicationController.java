@@ -63,4 +63,8 @@ public class ApplicationController {
         this.hide();
         Application.LOGIN_CONTROLLER.logout();
     }
+
+    public void secretariaShow() {
+        Application.SECRETARIA_CONTROLLER.show();
+    }
 }
