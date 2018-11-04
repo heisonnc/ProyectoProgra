@@ -61,11 +61,29 @@ public class Model {
      public void addFuncionario(Funcionario funcionario) throws Exception{
         dao.FuncionarioAdd(funcionario);
     }
+      public void addUsuario(Usuario user) throws Exception{
+        dao.UsuarioAdd(user);
+    }
+      
+        public void upadateUsuario(Usuario user) throws Exception{
+        dao.UsuarioUpdate(user);
+    }
       public void updateFuncionario(Funcionario funcionario) throws Exception{
         dao.FuncionarioUpdate(funcionario);
     }
     public void deleteFuncionario(Funcionario f) throws Exception{
         dao.FuncionarioDelete(f);
+    }
+    
+    public Rol getRol(String rol) throws Exception{
+        return dao.rolGet(rol);
+    }
+    
+  
+    
+    public Funcionario getFuncionario(String nombre) throws Exception{
+        return dao.FuncionarioGet(nombre);
+        
     }
     
      

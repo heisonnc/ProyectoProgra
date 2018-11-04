@@ -217,7 +217,7 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
             try {
                 Funcionario funcionario= new Funcionario();
                 funcionario=this.toFuncionario();
-                this.controller.guardarFuncionario(funcionario,this.toUsuario(funcionario));
+                this.controller.guardarUsuario(this.toUsuario(funcionario));
                 JOptionPane.showMessageDialog(this, "Datos registrados", "OK", JOptionPane.INFORMATION_MESSAGE); 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE); 

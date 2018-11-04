@@ -6,6 +6,8 @@
 package sistemadeactivos.presentation.jeferrhh.personal.edicion;
 
 import java.awt.Point;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import sistemadeactivos.Application;
 import sistemadeactivos.Session;
 import sistemadeactivos.logic.Funcionario;
@@ -102,19 +104,23 @@ public class PersonalController {
         }    
     }
     
-    public void guardarFuncionario(Funcionario fun, Usuario user){
+    public void guardarUsuario( Usuario user) throws Exception{
         
         
             switch(model.getModo()){
-            case Application.MODO_AGREGAR:  // si esta agregando una persona desde cero 
-               // domainModel.addFuncionario(funcionario);
-               // Application.PERSONALS_CONTROLLER.refrescarBusqueda();
+            case Application.MODO_AGREGAR:  {
+               
+                    // si esta agregando una persona desde cero
+                    domainModel.addUsuario(user);
+                
+            }
+                Application.PERSONALS_CONTROLLER.refrescarBusqueda();
                 model.setCurrent(new Funcionario());
                 model.commit();   
                 break;
             case Application.MODO_EDITAR: // si esta actualizando los datos de una persona en espesifica
-                //domainModel.addFuncionario(funcionario);  // Manda a la base de datos la actualizacion de la persona
-                //Application.PERSONALS_CONTROLLER.refrescarBusqueda();
+                domainModel.upadateUsuario(user);  // Manda a la base de datos la actualizacion de la persona
+                Application.PERSONALS_CONTROLLER.refrescarBusqueda();
                 break;
         } 
         
