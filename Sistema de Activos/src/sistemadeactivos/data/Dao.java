@@ -296,6 +296,17 @@ public class Dao {
             throw new Exception("Rol no Existe");
         }
     }
+    
+    public Funcionario FuncionarioGet(String nombre) throws Exception{
+        String sql = "select * from Funcionario where descripcion='%s'";
+        sql = String.format(sql, nombre);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            return funcionario(rs);
+        } else {
+            throw new Exception("Funcionario no Existe");
+        }
+    }
 
     public List<Rol> rolesGet() {
         List<Rol> resultado = new ArrayList<Rol>();
