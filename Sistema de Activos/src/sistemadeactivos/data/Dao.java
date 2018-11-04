@@ -161,10 +161,12 @@ public class Dao {
 
     private Usuario usuario(ResultSet rs) {
         try {
+            Rol r =rol(rs);
+            Funcionario f= funcionario(rs);
             Usuario u = new Usuario();
             u.setId(rs.getString("id"));
-            u.setFuncionario(funcionario(rs));
-            u.setRol(rol(rs));
+            u.setRol(r);
+            u.setFuncionario(f);
             u.setClave(rs.getString("clave"));
             return u;
         } catch (SQLException ex) {
@@ -174,10 +176,10 @@ public class Dao {
 
     //-------------------Usuario----------------------------
     public Usuario usuarioGet(String id) throws Exception {
-        String sql = "select u.*, f.*, r.* "
+        String sql = "select u.*,r.*,f.* "
                 + "from Usuario u INNER JOIN Rol r On u.rol=r.id "
-                + "INNER JOIN Funcionario f On u.funcionario= f.id"
-                +"where u.id='%s';";
+                + "INNER JOIN Funcionario f On u.funcionario= f.id "
+                +"where u.id='%s'";
         sql = String.format(sql, id);
         ResultSet rs = db.executeQuery(sql);
         if (rs.next()) {

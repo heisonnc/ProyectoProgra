@@ -52,7 +52,7 @@ public class PersonalsController {
 
     public void preAgregar(Point at)throws Exception{      
         Usuario principal = (Usuario) session.getAttribute(Application.USER_ATTRIBUTE);
-        if ( !Arrays.asList(Application.ROL_JEFE_RRHH).contains(principal.getRol())){
+        if ( Arrays.asList(Application.ROL_JEFE_RRHH).contains(principal.getRol())){
            throw new Exception(Application.ROL_NOTAUTHORIZED);
         }
         Application.PERSONAL_CONTROLLER.reset(Application.MODO_AGREGAR, new Funcionario());

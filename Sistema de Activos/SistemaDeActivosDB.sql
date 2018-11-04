@@ -211,3 +211,21 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+insert into Rol (descripcion) values ('Jefe OCCB');
+insert into Rol (descripcion) values ('Jefe RRHH');
+insert into Rol (descripcion) values ('Registrador');
+insert into Rol (descripcion) values ('Secretaria');
+insert into Rol (descripcion) values ('Administrador');
+
+insert into Adquisicion (descripcion) values ('Donacion');
+insert into Adquisicion (descripcion) values ('Compra');
+insert into Adquisicion (descripcion) values ('Traslado');
+insert into Adquisicion (descripcion) values ('Elaboracion Propia');
+
+insert into Estado (descripcion) values ('Rechazada');
+insert into Estado (descripcion) values ('Recibida');
+insert into Estado (descripcion) values ('Por Verificar');
+insert into Estado (descripcion) values ('En Espera');
+insert into Estado (descripcion) values ('Procesada');
+

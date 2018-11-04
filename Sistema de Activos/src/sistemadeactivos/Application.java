@@ -46,6 +46,17 @@ public class Application {
         
         Model domainModel = Model.instance();
         Session session = new Session();
+        
+//        Rol r= new Rol();
+//        r=domainModel.getRol(Application.ROL_JEFE_RRHH);
+//        System.out.println(r.getDescripcion());
+//        Funcionario f= new Funcionario("Heison");
+//        domainModel.addFuncionario(f);
+//        r=domainModel.getRol(ROL_JEFE_RRHH);
+//        
+//        f=domainModel.getFuncionario("Heison");
+//        Usuario user= new Usuario("001",f,r,"001");
+//        domainModel.addUsuario(user);
 
         ApplicationModel applicationModel = new ApplicationModel();
         ApplicationView applicationView= new ApplicationView();
