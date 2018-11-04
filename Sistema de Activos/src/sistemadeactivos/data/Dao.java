@@ -174,7 +174,7 @@ public class Dao {
 
     //-------------------Usuario----------------------------
     public Usuario usuarioGet(String id) throws Exception {
-        String sql = "select * from Usuario u inner join Funcionario f on u.funcionario=f.id inner join Rol r on u.rol=r.id"+
+        String sql = "select * from Usuario u INNERJOIN Funcionario f on u.funcionario=f.id INNER JOIN Rol r on u.rol=r.id"+
                 "where p.id='%s'";
         sql = String.format(sql, id);
         ResultSet rs = db.executeQuery(sql);
@@ -430,7 +430,8 @@ public class Dao {
         }
         return resultado;
     }
-
+    
+    //-------------------Bien------------------------------
     public void BienAdd(Bien b) throws Exception{
         String sql = "insert into Bien (descripcion, marca, modelo, precio_unitario, cantidad, solicitud, categoria) "
                 + "values('%s', '%s', '%s', '%f', '%s', '%d')";
@@ -451,6 +452,8 @@ public class Dao {
             throw new Exception("Bien no existe");
         }
     }
+    
+    //------------------
     
     public List<Activo> ActivosSearchByCodigo(int id){
         List<Activo> resultado = new ArrayList<Activo>();
