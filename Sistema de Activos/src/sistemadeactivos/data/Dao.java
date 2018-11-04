@@ -186,11 +186,22 @@ public class Dao {
         }
     }
     
+    public Dependencia DependenciaGet(String id) throws Exception{
+        String sql = "select * from Dependencia where descripcion = '%s'";
+        sql = String.format(sql, id);
+        ResultSet rs = db.executeQuery(sql);
+        if(rs.next()){
+            return dependencia(rs);
+        }else{
+            throw new Exception ("Dependencia no Existe");
+        }
+    }
+    
     public List<Dependencia> DependenciaSearch(Dependencia filtro){
         List<Dependencia> resultado = new ArrayList<Dependencia>();
         try {
             String sql="select * from "+
-                    "EstadoCivil "+
+                    "Dependencia "+
                     "where descripcion like '%%%s%%'";
             sql=String.format(sql,filtro.getDescripcion());
             ResultSet rs =  db.executeQuery(sql);
@@ -217,32 +228,32 @@ public class Dao {
     }
     
     public void DependenciaDelete(Dependencia d) throws Exception{
-        String sql="delete from persona where id='%s'";
-        sql = String.format(sql,d.getId());
+        String sql="delete from Dependencia where descripcion='%s'";
+        sql = String.format(sql,d.getDescripcion());
         int count=db.executeUpdate(sql);
         if (count==0){
-            throw new Exception("Persona no existe");
+            throw new Exception("Dependencia no existe");
         }
     }
     
     public void DependenciaAdd(Dependencia p) throws Exception{
-        String sql="insert into Persona (id, funcionario, descripcion) "+
+        String sql="insert into Dependencia (id, administrador, descripcion) "+
                 "values('%i','%i','%s')";
         sql=String.format(sql,p.getId(),p.getFuncionario().getId(), p.getDescripcion());
         int count=db.executeUpdate(sql);
         if (count==0){
-            throw new Exception("Persona ya existe");
+            throw new Exception("Dependencia ya existe");
         }
     }
 
     public void DependenciaUpdate(Dependencia p) throws Exception{
-        String sql="update persona set descripcion='%s'" +
+        String sql="update dependencia set descripcion='%s', administrador='%i'" +
                 "where id='%s'";
-        sql=String.format(sql,p.getDescripcion(), p.getId());
+        sql=String.format(sql,p.getDescripcion(), p.getDescripcion(), p.getFuncionario().getId());
         
         int count=db.executeUpdate(sql);
         if (count==0){
-            throw new Exception("Persona no existe");
+            throw new Exception("Dependencia no existe");
         }
     }
     
@@ -252,9 +263,10 @@ public class Dao {
         sql=String.format(sql,f.getId(),f.getNombre());
         int count=db.executeUpdate(sql);
         if (count==0){
-            throw new Exception("Funcioanrio ya existe");
+            throw new Exception("Funcionario ya existe");
         }
     }
+     
       public void FuncionarioUpdate(Funcionario f) throws Exception{
         String sql="insert into Funcionario (nombre) "+
                 "values('%i')";
