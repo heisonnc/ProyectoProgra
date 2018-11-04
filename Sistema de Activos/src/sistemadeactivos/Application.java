@@ -30,6 +30,9 @@ import sistemadeactivos.presentation.jeferrhh.personal.listado.PersonalsView;
 import sistemadeactivos.presentation.login.LoginController;
 import sistemadeactivos.presentation.login.LoginModel;
 import sistemadeactivos.presentation.login.LoginView;
+import sistemadeactivos.presentation.secretaria.SecretariaController;
+import sistemadeactivos.presentation.secretaria.SecretariaModel;
+import sistemadeactivos.presentation.secretaria.SecretariaView;
 
 /**
  *
