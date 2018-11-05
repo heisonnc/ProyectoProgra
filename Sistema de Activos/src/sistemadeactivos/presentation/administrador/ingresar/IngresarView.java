@@ -91,7 +91,7 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
 
         tipoFld.setText("tipo");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Donacion", "Compra", "Traslado", "Elaboracion Propia" }));
 
         bienesFld.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

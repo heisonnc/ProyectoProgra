@@ -6,7 +6,9 @@
 package sistemadeactivos.presentation.administrador.ingresar;
 
 import java.awt.Point;
+import java.util.List;
 import sistemadeactivos.Session;
+import sistemadeactivos.logic.Bien;
 import sistemadeactivos.logic.Model;
 import sistemadeactivos.logic.Solicitud;
 
@@ -30,6 +32,9 @@ public class IngresarController {
         view.setController(this);
         view.setModel(model);
     } 
+    
+    public void refrescarBusqueda(){
+    }
     
     
 

@@ -20,6 +20,7 @@ public class IngresarModel extends java.util.Observable{
     
     BienTableModel bienes;
     Solicitud solicitud;
+    List<Bien> rows;
     int modo;
 
     public IngresarModel() {
@@ -39,7 +40,7 @@ public class IngresarModel extends java.util.Observable{
     
     public void reset(){ 
         solicitud = new Solicitud();
-        List<Bien> rows = new ArrayList<>();
+        rows = new ArrayList<>();
         this.setBienes(rows);
         this.commit();  
     }
@@ -60,8 +61,6 @@ public class IngresarModel extends java.util.Observable{
     public void setSolicitud(Solicitud solicitud) {
         this.solicitud = solicitud;
     }
-    
-    
     
     @Override
     public void addObserver(Observer o) {

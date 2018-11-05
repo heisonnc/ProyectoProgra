@@ -142,6 +142,14 @@ public class Model {
         dao.BienUpdate(b);
     }
     
+    public Bien getBien(int i) throws Exception{
+        return dao.getBien(i);
+    }
+    
+    public List<Bien> getBienes(String comprobante){
+        return dao.getBienes(comprobante);
+    }
+    
     //-------------------Solicitud------------------------------
     public void addSolicitud(Solicitud s) throws Exception{
         dao.SolicitudAdd(s);

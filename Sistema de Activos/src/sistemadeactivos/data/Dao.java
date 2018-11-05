@@ -485,6 +485,32 @@ public class Dao {
         }
     }
     
+    public Bien getBien(int i) throws Exception{
+        String sql = "select b.*.c.*,s.* from Bien b INNER JOIN Categoria c On b.categoria=c.id "+
+                "INNER JOIN Solicitud s On b.solicitud=s.comprobante where b.id = '%d'";
+        sql = String.format(sql, i);
+        ResultSet rs = db.executeQuery(sql);
+        if (rs.next()) {
+            return bien(rs);
+        } else {
+            throw new Exception("Bien no Existe");
+        }
+    }
+    
+    public List<Bien> getBienes(String solicitud){
+        List<Bien> resultado = new ArrayList<Bien>();
+        try {
+            String sql = "select b.*.c.*,s.* from Bien b INNER JOIN Categoria c On b.categoria=c.id "+
+                "INNER JOIN Solicitud s On b.solicitud=s.comprobante where b.id = '%d'";
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(bien(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
+    
     //------------------Activo-------------------------------
     public List<Activo> ActivosSearchByCodigo(int id){
         List<Activo> resultado = new ArrayList<Activo>();
