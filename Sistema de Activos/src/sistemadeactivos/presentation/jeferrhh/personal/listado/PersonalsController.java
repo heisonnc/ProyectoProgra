@@ -87,15 +87,21 @@ public class PersonalsController {
     }
 
     public void borrar(int row) throws Exception{  
+
+         Usuario principal = (Usuario) session.getAttribute(Application.USER_ATTRIBUTE);
+        if (!Arrays.asList(Application.ROL_JEFE_RRHH).contains(principal.getRol().getDescripcion())){
+           throw new Exception(Application.ROL_NOTAUTHORIZED);
+        }else{
         Funcionario seleccionada = model.getFuncionarios().getRowAt(row); 
-        
         Usuario user=getCurrentUser(seleccionada.getNombre());
        
         domainModel.deleteUsuario(user);
+        domainModel.deleteFuncionario(seleccionada);
       
         List<Funcionario> rowsMod = domainModel.searchFuncionario(model.getFilter());
         model.setDependencias(rowsMod);
         model.commit();
+        }
     }
     
         Usuario getCurrentUser(String userName)throws Exception {

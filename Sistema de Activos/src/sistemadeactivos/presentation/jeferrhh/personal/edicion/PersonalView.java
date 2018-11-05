@@ -301,6 +301,9 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
         this.buttonGuardar.setVisible(false);
         this.buttoActualizar.enable(false);
 //      this.textNombre.setText(funcionario.getNombre());
+
+
+
         
         }
         this.validate();   
@@ -364,11 +367,13 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
             
         this.textNombre.setEditable(false);
         this.textId.setEditable(false);
-        this.textPassword.setEditable(false); 
+        this.textPassword.setEditable(false);
+        this.textPassword.setVisible(false);
         this.buttonGuardar.setVisible(false);
         this.buttoActualizar.enable(false);
 //      this.textNombre.setText(funcionario.getNombre());
         this.textId.setEditable(false);
+        
         
         this.buttoActualizar.setVisible(false);
         this.textNombre.setText(funcionario.getNombre());
