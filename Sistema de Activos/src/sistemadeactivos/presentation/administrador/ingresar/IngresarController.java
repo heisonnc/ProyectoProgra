@@ -33,7 +33,10 @@ public class IngresarController {
         view.setModel(model);
     } 
     
-    public void refrescarBusqueda(){
+    public void agregarBien(Bien b){
+        model.agregarBien(b);
+        model.setBienes(model.rows);
+        model.commit();
     }
     
     

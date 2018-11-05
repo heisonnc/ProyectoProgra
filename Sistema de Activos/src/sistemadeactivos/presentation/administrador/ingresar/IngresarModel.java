@@ -61,6 +61,19 @@ public class IngresarModel extends java.util.Observable{
     public void setSolicitud(Solicitud solicitud) {
         this.solicitud = solicitud;
     }
+
+    public List<Bien> getRows() {
+        return rows;
+    }
+
+    public void setRows(List<Bien> rows) {
+        this.rows = rows;
+    }
+    
+    public void agregarBien(Bien b){
+        rows.add(b);
+        this.setBienes(rows);
+    }
     
     @Override
     public void addObserver(Observer o) {
