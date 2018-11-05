@@ -66,6 +66,8 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
 
         jLabel1.setText("jLabel1");
 
+        setResizable(false);
+
         jPanel1.setBackground(new java.awt.Color(59, 91, 141));
 
         jPanel2.setBackground(new java.awt.Color(48, 97, 173));

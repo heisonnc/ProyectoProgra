@@ -97,6 +97,8 @@ public class DependenciasView extends javax.swing.JDialog implements java.util.O
         dependenciasFLd = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
+        setResizable(false);
+
         jPanel1.setBackground(new java.awt.Color(41, 79, 137));
 
         jPanel2.setBackground(new java.awt.Color(31, 68, 125));

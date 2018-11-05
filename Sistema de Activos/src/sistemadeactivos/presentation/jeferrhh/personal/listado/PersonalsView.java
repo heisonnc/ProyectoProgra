@@ -103,6 +103,8 @@ public class PersonalsView extends javax.swing.JDialog implements java.util.Obse
         buttonAgregaFuncionario = new javax.swing.JButton();
         agregaAdmin = new javax.swing.JToggleButton();
 
+        setResizable(false);
+
         jPanel1.setBackground(new java.awt.Color(41, 79, 137));
 
         jPanel2.setBackground(new java.awt.Color(59, 91, 141));

@@ -70,6 +70,6 @@ public class ApplicationController {
     }
     
     public void catalogoShow(){
-        
+        Application.CATALOGOS_CONTROLLER.show();
     }
 }
