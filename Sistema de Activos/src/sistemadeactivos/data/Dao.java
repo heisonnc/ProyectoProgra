@@ -536,6 +536,27 @@ public class Dao {
     }
     
     //------------------Activo-------------------------------
+    public void addActivo(Activo a) throws Exception{
+        String sql = "insert into Activo (bien, puesto) "
+                + "values('%d', '%d')";
+        sql = String.format(sql, a.getBien().getId(), a.getPuesto().getId());
+        int count = db.executeUpdate(sql);
+        if (count == 0) {
+            throw new Exception("Activo ya existe");
+        }
+    }
+    
+    public void updateActivo(Activo a) throws Exception{
+        String sql = "update Activo set bien='%d', puesto='%d'"
+                + "where id='%s'";
+        sql = String.format(sql, a.getBien().getId(), a.getPuesto().getId());
+
+        int count = db.executeUpdate(sql);
+        if (count == 0) {
+            throw new Exception("Activo no existe");
+        }
+    }
+    
     public List<Activo> ActivosSearchByCodigo(int id){
         List<Activo> resultado = new ArrayList<Activo>();
         try {

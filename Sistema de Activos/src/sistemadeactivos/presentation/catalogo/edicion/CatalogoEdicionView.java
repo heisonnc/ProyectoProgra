@@ -6,6 +6,8 @@
 package sistemadeactivos.presentation.catalogo.edicion;
 
 import java.util.Observable;
+import sistemadeactivos.Application;
+import sistemadeactivos.logic.Activo;
 
 /**
  *
@@ -13,12 +15,57 @@ import java.util.Observable;
  */
 public class CatalogoEdicionView extends javax.swing.JDialog implements java.util.Observer  {
 
-    /**
-     * Creates new form CatalogoEdicionView
-     */
+    CatalogoEdicionController controller;
+    CatalogoEdicionModel model;
+    
     public CatalogoEdicionView() {
         initComponents();
     }
+    
+    public void setController(CatalogoEdicionController controller){
+        this.controller=controller;
+    }
+
+    public CatalogoEdicionController getController() {
+        return controller;
+    }
+    
+    
+    public void setModel(CatalogoEdicionModel model){
+        this.model=model;
+         model.addObserver(this);
+    }
+
+    public CatalogoEdicionModel getModel() {
+        return model;
+    }
+   public void update(java.util.Observable updatedModel,Object parametros){
+       this.limpiarErrores();
+       Activo actual = model.getCurrent();
+   }
+      public void limpiarErrores(){
+        this.textFieldConsecutivo.setForeground(Application.COLOR_OK); 
+        this.textFieldDescripcion.setForeground(Application.COLOR_OK); 
+        this.textFieldEncargadoArticulo.setForeground(Application.COLOR_OK); 
+        this.textFieldMarca.setForeground(Application.COLOR_OK); 
+        this.textFieldModelo.setForeground(Application.COLOR_OK); 
+        this.textFieldPrecio.setForeground(Application.COLOR_OK); 
+        this.textFieldUbicacion.setForeground(Application.COLOR_OK); 
+   } 
+      
+     public  boolean validar(){
+     boolean error=false;
+     if(this.textFieldConsecutivo.getText().isEmpty() || this.textFieldDescripcion.getText().isEmpty() ||
+             this.textFieldEncargadoArticulo.getText().isEmpty()|| this.textFieldMarca.getText().isEmpty() ||
+             this.textFieldModelo.getText().isEmpty() || this.textFieldPrecio.getText().isEmpty() ||
+             this.textFieldUbicacion.getText().isEmpty()){
+         error= true;
+     }
+//     if(this.textadminDependencia.getText().isEmpty()){
+//         error= true;
+//     }
+     return !error; 
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -430,8 +477,4 @@ public class CatalogoEdicionView extends javax.swing.JDialog implements java.uti
     private javax.swing.JTextField textFieldUbicacion;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void update(Observable o, Object o1) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

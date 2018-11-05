@@ -172,6 +172,14 @@ public class Model {
     }
     
     //--------------------Activo---------------------------
+    public void addActivo(Activo a) throws Exception{
+        dao.addActivo(a);
+    }
+    
+    public void updateActivo(Activo a) throws Exception{
+        dao.updateActivo(a);
+    }
+    
     public List<Activo> searchActivosByCodigo(int i){
         return dao.ActivosSearchByCodigo(i);
     }

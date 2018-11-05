@@ -45,7 +45,7 @@ public class CatalogosModel  extends java.util.Observable{
         this.filter = filter;
     }
     
-     public BienTableModel getPersonas() {
+     public BienTableModel getBienes() {
         return personas;
     }
 

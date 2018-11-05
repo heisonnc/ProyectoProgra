@@ -5,17 +5,55 @@
  */
 package sistemadeactivos.presentation.catalogo.listado;
 
+import sistemadeactivos.Application;
+
 /**
  *
  * @author book
  */
-public class CatalogosView extends javax.swing.JFrame {
+public class CatalogosView extends javax.swing.JFrame implements java.util.Observer{
 
-    /**
-     * Creates new form CatalogosView
-     */
+    CatalogosController controller;
+    CatalogosModel model;
+    
+    public void setController(CatalogosController controller){
+        this.controller=controller;
+    }
+
+    public CatalogosController getController() {
+        return controller;
+    }
+    
+    public void setModel(CatalogosModel model){
+        this.model=model;
+         model.addObserver(this);
+    }
+
+    public CatalogosModel getModel() {
+        return model;
+    }
+    
+    @Override
+   public void update(java.util.Observable updatedModel,Object parametros){
+       this.limpiarErrores();
+       this.jTable1.setModel(model.getBienes());
+   }
     public CatalogosView() {
         initComponents();
+    }
+    
+      public void limpiarErrores(){
+       this.textEntradaBusqueda.setForeground(Application.COLOR_OK); 
+   }
+      boolean validar(){
+        boolean error=false;
+        
+        this.textEntradaBusqueda.setForeground(Application.COLOR_OK); 
+        if (this.textEntradaBusqueda.getText().isEmpty()){
+            this.textEntradaBusqueda.setForeground(Application.COLOR_ERROR);
+            error=true;
+        }
+        return !error;
     }
 
     /**
