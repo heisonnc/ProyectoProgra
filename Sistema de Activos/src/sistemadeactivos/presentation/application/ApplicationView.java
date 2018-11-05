@@ -222,7 +222,7 @@ public class ApplicationView extends javax.swing.JFrame implements Observer{
     }//GEN-LAST:event_dependenciasMenuItemActionPerformed
 
     private void activosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_activosMenuItemActionPerformed
-        // TODO add your handling code here:
+        controller.catalogoShow();
     }//GEN-LAST:event_activosMenuItemActionPerformed
 
     private void solicitudesMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_solicitudesMenuActionPerformed

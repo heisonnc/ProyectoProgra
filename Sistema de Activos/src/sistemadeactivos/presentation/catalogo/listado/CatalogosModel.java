@@ -8,7 +8,9 @@ package sistemadeactivos.presentation.catalogo.listado;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
+import sistemadeactivos.logic.Activo;
 import sistemadeactivos.logic.Bien;
+import sistemadeactivos.presentation.tablemodel.ActivoTableModel;
 import sistemadeactivos.presentation.tablemodel.BienTableModel;
 
 /**
@@ -16,44 +18,44 @@ import sistemadeactivos.presentation.tablemodel.BienTableModel;
  * @author book
  */
 public class CatalogosModel  extends java.util.Observable{
-    Bien filter; 
-    BienTableModel personas;
-    Bien seleccionado;
+    Activo filter; 
+    ActivoTableModel activos;
+    Activo seleccionado;
 
     public CatalogosModel() {
         this.reset();
     }
 
     public void reset(){ 
-        filter = new Bien();
-        List<Bien> rows = new ArrayList<>();        
+        filter = new Activo();
+        List<Activo> rows = new ArrayList<>();        
         seleccionado=null;  
         this.setBienes(rows);
         this.commit();  
     }
     
-    public void setBienes(List<Bien> bienes){
-        int[] cols={BienTableModel.MARCA,BienTableModel.MODELO, BienTableModel.DESCRIPCION, BienTableModel.PRECIO};
-        this.personas =new BienTableModel(cols,bienes);    
+    public void setBienes(List<Activo> activos){
+        int[] cols={ActivoTableModel.ID,ActivoTableModel.DESCRIPCION};
+        this.activos =new ActivoTableModel(cols,activos);    
     }
     
-    public Bien getFilter() {
+    public Activo getFilter() {
         return filter;
     }
     
-    public void setFilter(Bien filter) {
+    public void setFilter(Activo filter) {
         this.filter = filter;
     }
     
-     public BienTableModel getBienes() {
-        return personas;
+     public ActivoTableModel getBienes() {
+        return activos;
     }
 
-    public Bien getSeleccionado() {
+    public Activo getSeleccionado() {
         return seleccionado;
     }
 
-    public void setSeleccionado(Bien seleccionado) {
+    public void setSeleccionado(Activo seleccionado) {
         this.seleccionado = seleccionado;
     }
   

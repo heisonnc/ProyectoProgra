@@ -67,6 +67,11 @@ public class CatalogoEdicionController {
     public void show(){
         view.setVisible(true);
     }
+    
+    public void codeBarShow(){
+        Application.CODEBAR_CONTROLLER.setNum(model.current.getId());
+        Application.CODEBAR_CONTROLLER.showCodeBar();
+    }
 
     public void show(Point position){
         view.setLocation(position);

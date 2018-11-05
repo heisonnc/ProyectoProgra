@@ -5,6 +5,7 @@
  */
 package sistemadeactivos.presentation.catalogo.listado;
 
+import javax.swing.JOptionPane;
 import sistemadeactivos.Application;
 
 /**
@@ -36,7 +37,7 @@ public class CatalogosView extends javax.swing.JFrame implements java.util.Obser
     @Override
    public void update(java.util.Observable updatedModel,Object parametros){
        this.limpiarErrores();
-       this.jTable1.setModel(model.getBienes());
+       this.tableBienes.setModel(model.getBienes());
    }
     public CatalogosView() {
         initComponents();
@@ -74,7 +75,7 @@ public class CatalogosView extends javax.swing.JFrame implements java.util.Obser
         jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableBienes = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(53, 88, 141));
@@ -144,7 +145,7 @@ public class CatalogosView extends javax.swing.JFrame implements java.util.Obser
 
         jScrollPane1.setBackground(new java.awt.Color(35, 74, 135));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableBienes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -155,7 +156,12 @@ public class CatalogosView extends javax.swing.JFrame implements java.util.Obser
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tableBienes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableBienesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableBienes);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("Listado de Articulos de Bienes");
@@ -228,6 +234,23 @@ public class CatalogosView extends javax.swing.JFrame implements java.util.Obser
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void tableBienesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableBienesMouseClicked
+              if (evt.getClickCount() == 2) {
+        int row = this.tableBienes.getSelectedRow();
+        int col = this.tableBienes.getSelectedColumn();
+        if(col>=0){
+            try {
+                
+                  controller.consultar(row,evt.getLocationOnScreen());  
+                
+            } catch (Exception ex) {
+                 JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+      }
+    }//GEN-LAST:event_tableBienesMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -273,7 +296,7 @@ public class CatalogosView extends javax.swing.JFrame implements java.util.Obser
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tableBienes;
     private javax.swing.JTextField textEntradaBusqueda;
     // End of variables declaration//GEN-END:variables
 }

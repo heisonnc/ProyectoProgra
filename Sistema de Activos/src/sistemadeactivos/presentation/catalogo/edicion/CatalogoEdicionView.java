@@ -58,9 +58,11 @@ public class CatalogoEdicionView extends javax.swing.JDialog implements java.uti
      public  boolean validar(){
      boolean error=false;
      if(this.textFieldConsecutivo.getText().isEmpty() || this.textFieldDescripcion.getText().isEmpty() ||
-             this.textFieldEncargadoArticulo.getText().isEmpty()|| this.textFieldMarca.getText().isEmpty() ||
-             this.textFieldModelo.getText().isEmpty() || this.textFieldPrecio.getText().isEmpty() ||
-             this.textFieldUbicacion.getText().isEmpty()){
+//             this.textFieldEncargadoArticulo.getText().isEmpty()|| 
+             this.textFieldMarca.getText().isEmpty() ||
+             this.textFieldModelo.getText().isEmpty() || this.textFieldPrecio.getText().isEmpty()) 
+//             ||this.textFieldUbicacion.getText().isEmpty())
+             {
          error= true;
      }
 //     if(this.textadminDependencia.getText().isEmpty()){
@@ -178,10 +180,10 @@ public class CatalogoEdicionView extends javax.swing.JDialog implements java.uti
         textFieldUbicacion = new javax.swing.JTextField();
         buttonBuscarUbicacion = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        buttonEliminar = new javax.swing.JButton();
+        buttoGuardar = new javax.swing.JButton();
+        buttonUpdate = new javax.swing.JButton();
+        buttonCodeBar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocation(new java.awt.Point(600, 150));
@@ -399,22 +401,27 @@ public class CatalogoEdicionView extends javax.swing.JDialog implements java.uti
 
         jPanel8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        jButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton1.setText("Eliminar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonEliminar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        buttonEliminar.setText("Eliminar");
+        buttonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buttonEliminarActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton2.setText("Guardar");
+        buttoGuardar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        buttoGuardar.setText("Guardar");
 
-        jButton3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton3.setText("Actualizar");
+        buttonUpdate.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        buttonUpdate.setText("Actualizar");
 
-        jButton4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton4.setText("Imprimir");
+        buttonCodeBar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        buttonCodeBar.setText("Imprimir");
+        buttonCodeBar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCodeBarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -422,13 +429,13 @@ public class CatalogoEdicionView extends javax.swing.JDialog implements java.uti
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jButton2)
+                .addComponent(buttoGuardar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(buttonEliminar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(buttonUpdate)
                 .addGap(18, 18, 18)
-                .addComponent(jButton4)
+                .addComponent(buttonCodeBar)
                 .addGap(22, 22, 22))
         );
         jPanel8Layout.setVerticalGroup(
@@ -436,10 +443,10 @@ public class CatalogoEdicionView extends javax.swing.JDialog implements java.uti
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(buttoGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                    .addComponent(buttonUpdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonCodeBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -483,54 +490,25 @@ public class CatalogoEdicionView extends javax.swing.JDialog implements java.uti
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void buttonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_buttonEliminarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CatalogoEdicionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CatalogoEdicionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CatalogoEdicionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CatalogoEdicionView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void buttonCodeBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCodeBarActionPerformed
+       controller.codeBarShow();
+    }//GEN-LAST:event_buttonCodeBarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CatalogoEdicionView().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttoGuardar;
     private javax.swing.JButton buttonAceptaCategoria;
     private javax.swing.JButton buttonBuscarEncargado;
     private javax.swing.JButton buttonBuscarUbicacion;
+    private javax.swing.JButton buttonCodeBar;
+    private javax.swing.JButton buttonEliminar;
+    private javax.swing.JButton buttonUpdate;
     private javax.swing.JComboBox<String> comboBoxCategoria;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

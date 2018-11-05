@@ -4,9 +4,12 @@ package sistemadeactivos.presentation.catalogo.listado;
 import java.awt.Point;
 import java.util.Arrays;
 import java.util.List;
+import sistemadeactivos.Application;
 import sistemadeactivos.Session;
+import sistemadeactivos.logic.Activo;
 import sistemadeactivos.logic.Bien;
 import sistemadeactivos.logic.Model;
+import sistemadeactivos.logic.Usuario;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -32,6 +35,24 @@ public class CatalogosController {
         this.model = model;
         view.setController(this);
         view.setModel(model);
+    }
+    
+    public void consultar(int row, Point at) throws Exception {
+        
+
+        Usuario principal = (Usuario) session.getAttribute(Application.USER_ATTRIBUTE);
+        Activo seleccionada= model.activos.getRowAt(row);
+        if (Arrays.asList(Application.ROL_REGISTRADOR).contains(principal.getRol().getDescripcion())) {
+            
+            Application.CATALOGO_CONTROLLER.reset(Application.MODO_EDITAR, seleccionada);
+            Application.CATALOGO_CONTROLLER.show(at);
+        }
+        else {
+           
+            Application.CATALOGO_CONTROLLER.reset(Application.MODO_CONSULTAR, seleccionada);
+            Application.CATALOGO_CONTROLLER.show(at);
+        }
+        
     }
 
     public void reset(){

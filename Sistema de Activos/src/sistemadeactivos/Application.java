@@ -44,6 +44,8 @@ import sistemadeactivos.presentation.login.LoginView;
 import sistemadeactivos.presentation.secretaria.SecretariaController;
 import sistemadeactivos.presentation.secretaria.SecretariaModel;
 import sistemadeactivos.presentation.secretaria.SecretariaView;
+import sistemadeactivos.presentation.toolsBarcode.form.codeBarController;
+import sistemadeactivos.presentation.toolsBarcode.form.codigobarras;
 
 /**
  *
@@ -140,6 +142,13 @@ public class Application {
         CatalogosView catalogosView = new CatalogosView();
         CatalogosController catalogosController= new CatalogosController(catalogosView,catalogosModel,domainModel, session);
         CATALOGOS_CONTROLLER=catalogosController;
+        
+        // CODE BAR Controller
+        
+        codigobarras codigoView = new codigobarras();
+        codeBarController codeBarController = new codeBarController(codigoView);
+        CODEBAR_CONTROLLER=codeBarController;
+        
     }
     public static LoginController LOGIN_CONTROLLER; 
     public static DependenciasController DEPENDENCIAS_CONTROLLER;
@@ -157,6 +166,8 @@ public class Application {
     // Controladores para el catalogo de administrador
     public static CatalogoEdicionController CATALOGO_CONTROLLER;
     public static CatalogosController  CATALOGOS_CONTROLLER;
+    // Controlador para el codigo de barras
+    public static codeBarController CODEBAR_CONTROLLER;
     
     
 //    public static 
