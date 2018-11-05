@@ -9,6 +9,7 @@ import java.util.Arrays;
 import javax.swing.JOptionPane;
 import sistemadeactivos.Application;
 import sistemadeactivos.logic.Dependencia;
+import sistemadeactivos.logic.Funcionario;
 
 /**
  *
@@ -289,7 +290,13 @@ public class DependenciaView  extends javax.swing.JDialog implements java.util.O
     private void buttonAceptaNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAceptaNombreActionPerformed
          if(this.validar()){
             try {
-                this.controller.guardar(toDependencia());
+                Dependencia dep= toDependencia();
+                if(dep.getFuncionario()==null){
+                    dep.setFuncionario(new Funcionario());
+                    dep.getFuncionario().setId(0);
+                    dep.getFuncionario().setNombre(" ");
+                }
+                this.controller.guardar(dep);
                 JOptionPane.showMessageDialog(this, "Datos registrados", "OK", JOptionPane.INFORMATION_MESSAGE); 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE); 

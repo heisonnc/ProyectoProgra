@@ -7,6 +7,7 @@ package sistemadeactivos.presentation.catalogo.edicion;
 
 import sistemadeactivos.Application;
 import sistemadeactivos.logic.Activo;
+import sistemadeactivos.logic.Bien;
 
 /**
  *
@@ -14,6 +15,7 @@ import sistemadeactivos.logic.Activo;
  */
 public class CatalogoEdicionModel extends java.util.Observable {
     Activo current;
+    
     int modo;    
 
     public CatalogoEdicionModel() {
@@ -43,6 +45,7 @@ public class CatalogoEdicionModel extends java.util.Observable {
     }
 
     public void setCurrent(Activo current) {
+        
         this.current = current;   
     }
 

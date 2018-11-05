@@ -20,6 +20,12 @@ import sistemadeactivos.presentation.administrador.ingresar.IngresarView;
 import sistemadeactivos.presentation.application.ApplicationController;
 import sistemadeactivos.presentation.application.ApplicationModel;
 import sistemadeactivos.presentation.application.ApplicationView;
+import sistemadeactivos.presentation.catalogo.edicion.CatalogoEdicionController;
+import sistemadeactivos.presentation.catalogo.edicion.CatalogoEdicionModel;
+import sistemadeactivos.presentation.catalogo.edicion.CatalogoEdicionView;
+import sistemadeactivos.presentation.catalogo.listado.CatalogosController;
+import sistemadeactivos.presentation.catalogo.listado.CatalogosModel;
+import sistemadeactivos.presentation.catalogo.listado.CatalogosView;
 import sistemadeactivos.presentation.jeferrhh.dependencias.edicion.DependenciaController;
 import sistemadeactivos.presentation.jeferrhh.dependencias.edicion.DependenciaModel;
 import sistemadeactivos.presentation.jeferrhh.dependencias.edicion.DependenciaView;
@@ -62,7 +68,7 @@ public class Application {
         }
         
         
-        
+//        
 //        Rol r= new Rol();
 //        r=domainModel.getRol(Application.ROL_JEFE_RRHH);
 //        System.out.println(r.getDescripcion());
@@ -122,8 +128,18 @@ public class Application {
         SecretariaController secretariaController = new SecretariaController(secretariaView, secretariaModel,domainModel, session);
         SECRETARIA_CONTROLLER = secretariaController;
         
-       
         
+        // instancias de catalogo 
+        
+        CatalogoEdicionModel catalogoEdiconModel = new CatalogoEdicionModel();
+        CatalogoEdicionView catalogoEdicionView = new CatalogoEdicionView();
+        CatalogoEdicionController catalogoEdicionController = new CatalogoEdicionController(catalogoEdicionView,catalogoEdiconModel,domainModel, session);
+        CATALOGO_CONTROLLER=catalogoEdicionController;
+        
+        CatalogosModel catalogosModel= new CatalogosModel();
+        CatalogosView catalogosView = new CatalogosView();
+        CatalogosController catalogosController= new CatalogosController(catalogosView,catalogosModel,domainModel, session);
+        CATALOGOS_CONTROLLER=catalogosController;
     }
     public static LoginController LOGIN_CONTROLLER; 
     public static DependenciasController DEPENDENCIAS_CONTROLLER;
@@ -137,6 +153,11 @@ public class Application {
     // controladores para la panatalla de ingresar
     
     public static IngresarController INGRESAR_CONTROLLER;
+    
+    // Controladores para el catalogo de administrador
+    public static CatalogoEdicionController CATALOGO_CONTROLLER;
+    public static CatalogosController  CATALOGOS_CONTROLLER;
+    
     
 //    public static 
     public static final String USER_ATTRIBUTE = "User";

@@ -13,6 +13,7 @@ public class Activo {
      private int id;
      private Bien bien;
      private Puesto puesto;
+     private Funcionario encargado;
 
     public Activo() {
     }
@@ -34,6 +35,15 @@ public class Activo {
         return bien;
     }
 
+    public Funcionario getEncargado() {
+        return encargado;
+    }
+
+    public void setEncargado(Funcionario encargado) {
+        this.encargado = encargado;
+    }
+
+    
     public void setBien(Bien bien) {
         this.bien = bien;
     }

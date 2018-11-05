@@ -210,9 +210,11 @@ CREATE TABLE IF NOT EXISTS `SistemaDeActivosBD`.`Activo` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `bien` INT NULL DEFAULT NULL,
   `puesto` INT NULL DEFAULT NULL,
+  `encargado` INT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_Activo_Bien1_idx` (`bien` ASC) VISIBLE,
   INDEX `fk_Activo_Puesto1_idx` (`puesto` ASC) VISIBLE,
+  INDEX `fk_Activo_Funcionario1_idx` (`encargado` ASC) VISIBLE,
   CONSTRAINT `fk_Activo_Bien1`
     FOREIGN KEY (`bien`)
     REFERENCES `SistemaDeActivosBD`.`Bien` (`id`)
@@ -222,6 +224,11 @@ CREATE TABLE IF NOT EXISTS `SistemaDeActivosBD`.`Activo` (
     FOREIGN KEY (`puesto`)
     REFERENCES `SistemaDeActivosBD`.`Puesto` (`id`)
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Activo_Funcionario1`
+    FOREIGN KEY (`encargado`)
+    REFERENCES `SistemaDeActivosBD`.`Funcionario` (`id`)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -229,6 +236,7 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
 
 insert into Rol (descripcion) values ('Jefe OCCB');
 insert into Rol (descripcion) values ('Jefe RRHH');

@@ -9,7 +9,9 @@ import java.awt.Point;
 import sistemadeactivos.Application;
 import sistemadeactivos.Session;
 import sistemadeactivos.logic.Activo;
+import sistemadeactivos.logic.Bien;
 import sistemadeactivos.logic.Model;
+import sistemadeactivos.logic.Puesto;
 
 /**
  *
@@ -20,6 +22,10 @@ public class CatalogoEdicionController {
     Session session;    
     CatalogoEdicionView view;
     CatalogoEdicionModel model;
+    
+    Puesto puesto;
+    
+    
     
     public CatalogoEdicionController(CatalogoEdicionView view, CatalogoEdicionModel model, Model domainModel, Session session) {
         model.reset();
@@ -47,6 +53,8 @@ public class CatalogoEdicionController {
         }   
     } 
 
+    
+   
     
     public void reset(){
         model.reset();

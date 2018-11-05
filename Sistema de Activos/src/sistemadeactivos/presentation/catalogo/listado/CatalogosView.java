@@ -96,6 +96,11 @@ public class CatalogosView extends javax.swing.JFrame implements java.util.Obser
         jLabel3.setText("Descripcion");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistemadeactivos/presentation/icons/especiales/005-search.png"))); // NOI18N
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -218,6 +223,10 @@ public class CatalogosView extends javax.swing.JFrame implements java.util.Obser
     private void comboBoxTiposBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTiposBusquedaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBoxTiposBusquedaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

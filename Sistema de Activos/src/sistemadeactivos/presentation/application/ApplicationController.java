@@ -30,12 +30,7 @@ public class ApplicationController {
         view.setModel(model);
     }
     
-    public void dependenciasShow(){
-        Application.DEPENDENCIAS_CONTROLLER.show();
-    }
-    public void funcionarioShow(){
-        Application.PERSONALS_CONTROLLER.show();
-    }
+   
     public void ingresarSolicitudesShow(){
         Application.INGRESAR_CONTROLLER.show();
     }
@@ -66,5 +61,15 @@ public class ApplicationController {
 
     public void secretariaShow() {
         Application.SECRETARIA_CONTROLLER.show();
+    }
+     public void dependenciasShow(){
+        Application.DEPENDENCIAS_CONTROLLER.show();
+    }
+    public void funcionarioShow(){
+        Application.PERSONALS_CONTROLLER.show();
+    }
+    
+    public void catalogoShow(){
+        
     }
 }

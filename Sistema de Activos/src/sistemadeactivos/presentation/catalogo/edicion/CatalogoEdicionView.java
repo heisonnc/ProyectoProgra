@@ -5,6 +5,7 @@
  */
 package sistemadeactivos.presentation.catalogo.edicion;
 
+import java.util.Arrays;
 import java.util.Observable;
 import sistemadeactivos.Application;
 import sistemadeactivos.logic.Activo;
@@ -42,6 +43,7 @@ public class CatalogoEdicionView extends javax.swing.JDialog implements java.uti
    public void update(java.util.Observable updatedModel,Object parametros){
        this.limpiarErrores();
        Activo actual = model.getCurrent();
+       
    }
       public void limpiarErrores(){
         this.textFieldConsecutivo.setForeground(Application.COLOR_OK); 
@@ -65,6 +67,81 @@ public class CatalogoEdicionView extends javax.swing.JDialog implements java.uti
 //         error= true;
 //     }
      return !error; 
+     }
+     
+     public void fromActivo(Activo activo){
+         
+        Boolean editable = Arrays.asList(Application.MODO_AGREGAR, Application.MODO_EDITAR).contains(model.getModo());
+        
+        if(editable){
+            
+            this.textFieldDescripcion.setEnabled(!editable);
+            this.textFieldMarca.setEnabled(!editable);
+            this.textFieldModelo.setEnabled(!editable);
+            this.textFieldPrecio.setEnabled(!editable);
+            this.textFieldConsecutivo.setEnabled(!editable);
+            this.textFieldUbicacion.setEnabled(!editable);
+            this.textFieldEncargadoArticulo.setEnabled(!editable);
+            this.buttonAceptaCategoria.setEnabled(editable);
+            this.buttonBuscarEncargado.setEnabled(editable);
+            this.buttonBuscarUbicacion.setEnabled(editable);
+            
+            this.textFieldDescripcion.setText(activo.getBien().getDescripcion());
+            this.textFieldMarca.setText(activo.getBien().getMarca());
+            this.textFieldModelo.setText(activo.getBien().getModelo());
+            double d=activo.getBien().getPrecioUnitario();
+            String cadena = String.valueOf(d);
+            this.textFieldPrecio.setText(cadena);
+            cadena = String.valueOf(activo.getId());
+            this.textFieldConsecutivo.setText(cadena);
+            if(activo.getPuesto()!= null){
+                String ubicacion=activo.getPuesto().getDependencia().getDescripcion()+" en el "+activo.getPuesto().getRol().getDescripcion();
+                this.textFieldUbicacion.setText(ubicacion);
+            }else{
+                this.textFieldUbicacion.setText("No asignado aun");
+            }
+            
+            this.textFieldEncargadoArticulo.setText("No asigando aun");
+            
+        }else{
+            
+            this.textFieldDescripcion.setEnabled(!editable);
+            this.textFieldMarca.setEnabled(!editable);
+            this.textFieldModelo.setEnabled(!editable);
+            this.textFieldPrecio.setEnabled(!editable);
+            this.textFieldConsecutivo.setEnabled(!editable);
+            this.textFieldUbicacion.setEnabled(!editable);
+            this.textFieldEncargadoArticulo.setEnabled(!editable);
+            this.buttonAceptaCategoria.setVisible(editable);
+            this.buttonBuscarEncargado.setVisible(editable);
+            this.buttonBuscarUbicacion.setVisible(editable);
+            
+            this.textFieldDescripcion.setText(activo.getBien().getDescripcion());
+            this.textFieldMarca.setText(activo.getBien().getMarca());
+            this.textFieldModelo.setText(activo.getBien().getModelo());
+            double d=activo.getBien().getPrecioUnitario();
+            String cadena = String.valueOf(d);
+            this.textFieldPrecio.setText(cadena);
+            cadena = String.valueOf(activo.getId());
+            this.textFieldConsecutivo.setText(cadena);
+            if(activo.getPuesto()!= null){
+                String ubicacion=activo.getPuesto().getDependencia().getDescripcion()+" en el "+activo.getPuesto().getRol().getDescripcion();
+                this.textFieldUbicacion.setText(ubicacion);
+            }else{
+                this.textFieldUbicacion.setText("No asignado aun");
+            }
+            
+            if(activo.getEncargado()!=null){
+                this.textFieldEncargadoArticulo.setText(activo.getEncargado().getNombre());
+            }else{
+            this.textFieldEncargadoArticulo.setText("No asigando aun");
+            }
+            
+ 
+        }
+        
+        
+        
      }
 
     /**
