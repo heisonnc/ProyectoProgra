@@ -158,6 +158,9 @@
               </Layout>
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="textadminDependencia">
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textadminDependenciaActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -167,6 +170,9 @@
                   <Image iconType="3" name="/sistemadeactivos/presentation/icons/general/add.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="agregaAdminActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -238,6 +244,9 @@
                   <Image iconType="3" name="/sistemadeactivos/presentation/icons/especiales/007-success.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAceptaNombreActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

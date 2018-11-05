@@ -6,6 +6,7 @@
 package sistemadeactivos.presentation.jeferrhh.dependencias.edicion;
 
 import java.util.Arrays;
+import javax.swing.JOptionPane;
 import sistemadeactivos.Application;
 import sistemadeactivos.logic.Dependencia;
 
@@ -50,6 +51,23 @@ public class DependenciaView  extends javax.swing.JDialog implements java.util.O
         this.textNombreDependencia.setForeground(Application.COLOR_OK); 
    } 
       
+     public  boolean validar(){
+     boolean error=false;
+     if(this.textNombreDependencia.getText().isEmpty()){
+         error= true;
+     }
+//     if(this.textadminDependencia.getText().isEmpty()){
+//         error= true;
+//     }
+     return !error; 
+     }
+     
+     public Dependencia toDependencia(){
+         Dependencia dep= new Dependencia();
+         dep.setDescripcion(this.textNombreDependencia.getText());
+         return dep;
+     }
+      
       public void fromDependencia(Dependencia dependencia){
           
           this.textNombreDependencia.setText(dependencia.getDescripcion());
@@ -58,9 +76,21 @@ public class DependenciaView  extends javax.swing.JDialog implements java.util.O
         }
           
         Boolean editable = Arrays.asList(Application.MODO_AGREGAR, Application.MODO_EDITAR).contains(model.getModo());
+        if(editable){
+            
         this.textNombreDependencia.setEnabled(editable);
         this.agregaAdmin.setEnabled(editable);
+        this.textadminDependencia.setEditable(false);
+            
+        }
         
+         Boolean editableConsult = Arrays.asList(Application.MODO_CONSULTAR).contains(model.getModo());
+        if(editableConsult){
+            
+        this.textNombreDependencia.setEnabled(false);
+        this.agregaAdmin.setEnabled(false);  
+        this.textadminDependencia.setEditable(false);   
+        }   
       }
 
     
@@ -90,6 +120,12 @@ public class DependenciaView  extends javax.swing.JDialog implements java.util.O
         jPanel4.setBackground(new java.awt.Color(63, 112, 188));
         jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        textadminDependencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textadminDependenciaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -105,6 +141,11 @@ public class DependenciaView  extends javax.swing.JDialog implements java.util.O
         );
 
         agregaAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistemadeactivos/presentation/icons/general/add.png"))); // NOI18N
+        agregaAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregaAdminActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -148,6 +189,11 @@ public class DependenciaView  extends javax.swing.JDialog implements java.util.O
         });
 
         buttonAceptaNombre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistemadeactivos/presentation/icons/especiales/007-success.png"))); // NOI18N
+        buttonAceptaNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAceptaNombreActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -223,39 +269,30 @@ public class DependenciaView  extends javax.swing.JDialog implements java.util.O
         // TODO add your handling code here:
     }//GEN-LAST:event_textNombreDependenciaActionPerformed
 
-    
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DependenciaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DependenciaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DependenciaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DependenciaView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void textadminDependenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textadminDependenciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textadminDependenciaActionPerformed
 
-        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new DependenciaView().setVisible(true);
-//            }
-//        });
-    }
+    private void agregaAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregaAdminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_agregaAdminActionPerformed
+
+    private void buttonAceptaNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAceptaNombreActionPerformed
+         if(this.validar()){
+            try {
+                this.controller.guardar(toDependencia());
+                JOptionPane.showMessageDialog(this, "Datos registrados", "OK", JOptionPane.INFORMATION_MESSAGE); 
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE); 
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Error en datos", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_buttonAceptaNombreActionPerformed
+
+    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregaAdmin;

@@ -145,12 +145,15 @@ public class Application {
     public static  final int  MODO_AGREGAR=0;
     public static final int MODO_EDITAR=1;
     public static final int MODO_CONSULTAR=2;
+    public static  final int  MODO_AGREGAR_DEP=3;
     
     public static final Color COLOR_ERROR = Color.red;
     public static final Color COLOR_OK=Color.black;
     
     public static  final String  ROL_JEFE_OCCB="Jefe OCCB";
     public static  final String  ROL_JEFE_RRHH="Jefe RRHH";
+    public static  final String  ROL_JEFE_RRHH_DEPENDENCIA="Jefe RRHH DEP";
+
     public static  final String  ROL_REGISTRADOR="Registrador";
     public static  final String  ROL_SECRETARIA="Secretaria";
     public static  final String  ROL_ADMINISTRADOR="Administrador";

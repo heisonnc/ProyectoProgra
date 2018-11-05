@@ -423,7 +423,7 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
         this.textNombre.setForeground(Application.COLOR_OK);
    }   
      
-     boolean validar(){
+    public  boolean validar(){
      boolean error=false;
          
      if(this.textNombre.getText().isEmpty()){
@@ -432,8 +432,6 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
      if(this.textPassword.getText().isEmpty()){
          error= true;
      }
-     
-     
      return !error; 
      }
 
