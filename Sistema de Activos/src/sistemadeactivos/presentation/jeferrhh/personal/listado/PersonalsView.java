@@ -164,6 +164,11 @@ public class PersonalsView extends javax.swing.JDialog implements java.util.Obse
         jLabel2.setText("Nombre del Funcionario");
 
         buttonEliminarFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/sistemadeactivos/presentation/icons/general/delete.png"))); // NOI18N
+        buttonEliminarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEliminarFuncionarioActionPerformed(evt);
+            }
+        });
 
         buttonAgregaFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/sistemadeactivos/presentation/icons/especiales/021-user-3.png"))); // NOI18N
         buttonAgregaFuncionario.addActionListener(new java.awt.event.ActionListener() {
@@ -269,6 +274,17 @@ public class PersonalsView extends javax.swing.JDialog implements java.util.Obse
         
       }
     }//GEN-LAST:event_tablaFuncMouseClicked
+
+    private void buttonEliminarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEliminarFuncionarioActionPerformed
+        int row=this.tablaFunc.getSelectedRow();
+        
+        
+        try {
+                controller.borrar(row);
+            } catch (Exception ex) {
+                 JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+    }//GEN-LAST:event_buttonEliminarFuncionarioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

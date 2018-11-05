@@ -129,7 +129,31 @@ public class PersonalController {
             case Application.MODO_EDITAR: // si esta actualizando los datos de una persona en espesifica
                 domainModel.upadateUsuario(user);  // Manda a la base de datos la actualizacion de la persona
                 Application.PERSONALS_CONTROLLER.refrescarBusqueda();
+                model.commit();
                 break;
+        } 
+        
+    }
+    
+       public void updateUsuario( Usuario user) throws Exception{
+        Funcionario fun=new Funcionario();
+        
+            switch(model.getModo()){
+            case Application.MODO_EDITAR:  {
+                
+               domainModel.addFuncionario(user.getFuncionario());
+               fun=domainModel.getFuncionario(user.getFuncionario().getNombre());
+               model.setCurrent(fun);
+                    // si esta agregando una persona desde cero
+                    user.setFuncionario(fun);
+               domainModel.upadateUsuario(user);
+                model.setCurrent(fun);
+            }
+                Application.PERSONALS_CONTROLLER.refrescarBusqueda();
+                model.setCurrent(new Funcionario());
+                model.commit();   
+                break;
+            
         } 
         
     }

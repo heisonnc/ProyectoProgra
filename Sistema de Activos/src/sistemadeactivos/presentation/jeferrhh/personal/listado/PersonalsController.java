@@ -76,7 +76,7 @@ public class PersonalsController {
         
         Usuario u=this.getCurrentUser(seleccionada.getNombre());
         int modo;
-        if ( !Arrays.asList(Application.ROL_JEFE_RRHH).contains(principal.getRol().getDescripcion())){
+        if ( Arrays.asList(Application.ROL_JEFE_RRHH).contains(principal.getRol().getDescripcion())){
             modo=Application.MODO_EDITAR;
         }
         else{
@@ -86,11 +86,13 @@ public class PersonalsController {
         Application.PERSONAL_CONTROLLER.show(at);
     }
 
-    public void borrar(int row){  
+    public void borrar(int row) throws Exception{  
         Funcionario seleccionada = model.getFuncionarios().getRowAt(row); 
-        try {
-            domainModel.deleteFuncionario(seleccionada);
-        } catch (Exception ex) { }
+        
+        Usuario user=getCurrentUser(seleccionada.getNombre());
+       
+        domainModel.deleteUsuario(user);
+      
         List<Funcionario> rowsMod = domainModel.searchFuncionario(model.getFilter());
         model.setDependencias(rowsMod);
         model.commit();

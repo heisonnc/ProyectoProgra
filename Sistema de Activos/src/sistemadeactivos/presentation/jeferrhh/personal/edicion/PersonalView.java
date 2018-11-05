@@ -244,7 +244,7 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
                 Usuario user = new Usuario();
                 funcionario=this.toFuncionario();
                 user=this.toUsuario(funcionario);
-                this.controller.guardarUsuario(user);
+                this.controller.updateUsuario(user);
                 JOptionPane.showMessageDialog(this, "Datos registrados", "OK", JOptionPane.INFORMATION_MESSAGE); 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE); 
@@ -311,10 +311,8 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
         Funcionario funcionario=user.getFuncionario();
             
             
-        Boolean editable = Arrays.asList(Application.MODO_AGREGAR, Application.MODO_EDITAR).contains(model.getModo());
-        // dependiento del usuario que le llegue le abilita el campo para que ingrese los datos 
-        
-        
+        Boolean editable = Arrays.asList(Application.MODO_AGREGAR).contains(model.getModo());
+        // dependiento del usuario que le llegue le abilita el campo para que ingrese los datos         
         if(editable){
         
         this.textNombre.setEditable(editable);
@@ -334,17 +332,35 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
             } catch (Exception ex) {
                  JOptionPane.showMessageDialog(this, "Error en datos", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
-            
-            
-            
-        
-        
-      
-    
- 
+
         }
-         Boolean editableEdit = Arrays.asList(Application.MODO_CONSULTAR).contains(model.getModo()); 
-        if(editableEdit){
+        
+        Boolean editableAct = Arrays.asList(Application.MODO_EDITAR).contains(model.getModo());
+        // dependiento del usuario que le llegue le abilita el campo para que ingrese los datos         
+        if(editableAct){
+        
+        this.textNombre.setEditable(editableAct);
+        this.textId.setEditable(editableAct);
+        this.textPassword.setEditable(editableAct); 
+        this.buttonGuardar.setVisible(false);
+        this.buttoActualizar.setVisible(editableAct);
+        this.textNombre.setText(funcionario.getNombre());
+        this.textId.setText(user.getId());
+        this.textPassword.setText(user.getClave());
+        
+            try {
+                int pos= controller.getRolPos(user.getRol().getDescripcion());
+                
+                this.comboBoxRoles.setSelectedIndex(pos);
+                
+            } catch (Exception ex) {
+                 JOptionPane.showMessageDialog(this, "Error en datos", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+        
+         Boolean editableConsul = Arrays.asList(Application.MODO_CONSULTAR).contains(model.getModo()); 
+        if(editableConsul){
             
         this.textNombre.setEditable(false);
         this.textId.setEditable(false);
@@ -353,6 +369,20 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
         this.buttoActualizar.enable(false);
 //      this.textNombre.setText(funcionario.getNombre());
         this.textId.setEditable(false);
+        
+        this.buttoActualizar.setVisible(false);
+        this.textNombre.setText(funcionario.getNombre());
+        this.textId.setText(user.getId());
+        this.textPassword.setText(user.getClave());
+        
+          try {
+                int pos= controller.getRolPos(user.getRol().getDescripcion());
+                
+                this.comboBoxRoles.setSelectedIndex(pos);
+                
+            } catch (Exception ex) {
+                 JOptionPane.showMessageDialog(this, "Error en datos", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
         
         this.validate();   
