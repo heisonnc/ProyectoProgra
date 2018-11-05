@@ -367,9 +367,13 @@ public class Dao {
     }
 
     public void DependenciaAdd(Dependencia p) throws Exception {
-        String sql = "insert into Dependencia (descripcion) "
-                + "values('%s')";
-        sql = String.format(sql, p.getDescripcion());
+        
+        String sql = "insert into Dependencia (administrador, descripcion) "
+                + "values('%d','%s')";
+        sql = String.format(sql, p.getFuncionario().getId(), p.getDescripcion());
+//        String sql = "insert into Dependencia (descripcion, funcionario ) "
+//                + "values('%s','%d')";
+//        sql = String.format(sql, p.getDescripcion(),p.getFuncionario().getId());
         int count = db.executeUpdate(sql);
         if (count == 0) {
             throw new Exception("Dependencia ya existe");

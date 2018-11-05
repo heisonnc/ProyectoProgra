@@ -31,6 +31,7 @@ public class DependenciaModel extends Observable{
 
     public void setFun(Funcionario fun) {
         this.fun = fun;
+        this.commit();
     }
 
     public Funcionario getFun() {

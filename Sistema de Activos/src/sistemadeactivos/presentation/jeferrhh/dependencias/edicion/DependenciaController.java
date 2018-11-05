@@ -35,6 +35,7 @@ public class DependenciaController {
     public void guardar(Dependencia dependencia) throws Exception{  
         switch(model.getModo()){
             case Application.MODO_AGREGAR:
+                
                 domainModel.addDependencia(dependencia);
                 Application.DEPENDENCIAS_CONTROLLER.refrescarBusqueda();                   
                 model.setCurrent(new Dependencia());

@@ -65,14 +65,21 @@ public class DependenciaView  extends javax.swing.JDialog implements java.util.O
      public Dependencia toDependencia(){
          Dependencia dep= new Dependencia();
          dep.setDescripcion(this.textNombreDependencia.getText());
+         if(model.fun!= null){
+             dep.setFuncionario(model.getFun());
+         }
          return dep;
      }
       
       public void fromDependencia(Dependencia dependencia){
           
-          this.textNombreDependencia.setText(dependencia.getDescripcion());
+        this.textNombreDependencia.setText(dependencia.getDescripcion());
         if(dependencia.getFuncionario()!= null){
             this.textadminDependencia.setText(dependencia.getFuncionario().getNombre());
+        }
+        if(model.fun!= null){
+            this.textadminDependencia.setText(model.fun.getNombre());
+            dependencia.setFuncionario(model.fun);
         }
           
         Boolean editable = Arrays.asList(Application.MODO_AGREGAR, Application.MODO_EDITAR).contains(model.getModo());
@@ -91,6 +98,8 @@ public class DependenciaView  extends javax.swing.JDialog implements java.util.O
         this.agregaAdmin.setEnabled(false);  
         this.textadminDependencia.setEditable(false);   
         }   
+        
+        this.validate(); 
       }
 
     

@@ -284,7 +284,9 @@ public class PersonalsView extends javax.swing.JDialog implements java.util.Obse
         int col = this.tablaFunc.getSelectedColumn();
         if(col>=0){
             try {
-                controller.editar(row,evt.getLocationOnScreen());
+                if(model.modo!=Application.MODO_AGREGAR_DEP){
+                  controller.editar(row,evt.getLocationOnScreen());  
+                }
             } catch (Exception ex) {
                  JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
             }
@@ -306,8 +308,11 @@ public class PersonalsView extends javax.swing.JDialog implements java.util.Obse
 
     private void agregaAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregaAdminActionPerformed
        int row=this.tablaFunc.getSelectedRow();
+       try {
        controller.buscaAdm(row);
-       
+       } catch (Exception ex) {
+                 JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+       }
     }//GEN-LAST:event_agregaAdminActionPerformed
 
 

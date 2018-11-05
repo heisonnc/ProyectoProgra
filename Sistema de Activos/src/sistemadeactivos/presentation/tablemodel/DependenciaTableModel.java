@@ -47,7 +47,7 @@ public class DependenciaTableModel  extends AbstractTableModel{
         switch (cols[col]){
             case DESCRIPCION: return dependencia.getDescripcion();
             case FUNCIONARIO: 
-                if(dependencia.getFuncionario()==null){return null;}else{return dependencia.getFuncionario().getNombre();}
+                if(dependencia.getFuncionario()!=null){return dependencia.getFuncionario().getNombre();}else{return null;}
             default: return "";
         }
     }

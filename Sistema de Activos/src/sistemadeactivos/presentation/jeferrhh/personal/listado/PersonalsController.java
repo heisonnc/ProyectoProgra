@@ -68,7 +68,8 @@ public class PersonalsController {
         
         if(model.modo==Application.MODO_AGREGAR_DEP){
         
-         List<Funcionario> rows = domainModel.searchFuncionarioByDependencia(this.getDep());
+//         List<Funcionario> rows = domainModel.searchFuncionarioByDependencia(this.getDep());
+        List<Funcionario> rows = domainModel.searchFuncionario(model.getFilter());  
         model.setFuncionarios(rows);
         model.commit();
         if (rows.isEmpty()) {
@@ -162,7 +163,11 @@ public class PersonalsController {
    public void buscaAdm(int row){
        if(model.modo==Application.MODO_AGREGAR_DEP){
         model.seleccionado=this.model.funcionarios.getRowAt(row);
-        Application.DEPENDENCIA_CONTROLLER.getModel().setFun(model.seleccionado);  
+        Application.DEPENDENCIA_CONTROLLER.getModel().setFun(model.seleccionado);
+        
+        Application.PERSONAL_CONTROLLER.reset(Application.MODO_AGREGAR, new Funcionario(), null);
+        Application.PERSONAL_CONTROLLER.hide();
+        
        }
        
    }
