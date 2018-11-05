@@ -7,6 +7,7 @@ package sistemadeactivos.presentation.administrador.ingresar;
 
 import java.awt.Point;
 import java.util.List;
+import sistemadeactivos.Application;
 import sistemadeactivos.Session;
 import sistemadeactivos.logic.Bien;
 import sistemadeactivos.logic.Model;
@@ -57,4 +58,12 @@ public class IngresarController {
     public void hide(){
         view.setVisible(false);
     }
+
+    public void exit() {
+        this.hide();
+    }
+
+    public void guardar(Solicitud toSolicitud) {
+        
+    }   
 }
