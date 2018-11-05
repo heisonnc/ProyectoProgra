@@ -18,6 +18,7 @@ public class ApplicationView extends javax.swing.JFrame implements Observer{
 
      public ApplicationView() {
         initComponents();
+        this.setExtendedState(ApplicationView.MAXIMIZED_BOTH);
     }
 
     ApplicationController controller;
