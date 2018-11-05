@@ -6,6 +6,8 @@
 package sistemadeactivos.presentation.jeferrhh.personal.edicion;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sistemadeactivos.Application;
@@ -72,8 +74,8 @@ public class PersonalController {
         model.reset();
     }
     
-    public void reset(int modo, Funcionario current){
-        model.reset(modo, current);
+    public void reset(int modo, Funcionario current, Usuario userr){
+        model.reset(modo, current, userr);
     }    
     
     public void show(){
@@ -118,7 +120,7 @@ public class PersonalController {
                     // si esta agregando una persona desde cero
                     user.setFuncionario(fun);
                domainModel.addUsuario(user);
-                
+                model.setCurrent(fun);
             }
                 Application.PERSONALS_CONTROLLER.refrescarBusqueda();
                 model.setCurrent(new Funcionario());
@@ -141,11 +143,44 @@ public class PersonalController {
            r= domainModel.getRol(Application.ROL_SECRETARIA);
         }
         if(rol=="Jefe OCCBB" ){
-            r= domainModel.getRol(Application.ROL_JEFE_OCCB);
+            r=domainModel.getRol(Application.ROL_JEFE_OCCB);
         }
         if(rol=="Jefe RRHH" ){
             r= domainModel.getRol(Application.ROL_JEFE_RRHH);
         }
         return r;
+    }
+    
+     public int getRolPos(String rol) throws Exception{
+       
+        if(rol==Application.ROL_ADMINISTRADOR ){
+            return 0;
+        }
+        if(rol==Application.ROL_SECRETARIA ){
+           return 1;
+        }
+        if(rol==Application.ROL_JEFE_OCCB ){
+            return 2;
+        }
+        if(rol==Application.ROL_JEFE_RRHH){
+            return 3;
+        }
+        return 0;
+    }
+    
+    
+    Usuario getCurrentUser(String userName)throws Exception {
+       List<Usuario> resultado = new ArrayList<Usuario>();
+       
+        resultado= domainModel.getUsuarios(userName);
+        
+        
+        for(Usuario u:resultado){
+            if(u.getFuncionario().getNombre()==userName){
+                return u;
+            }
+        }
+        
+        return null;
     }
 }

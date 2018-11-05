@@ -6,6 +6,7 @@
 package sistemadeactivos.presentation.jeferrhh.personal.listado;
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import sistemadeactivos.Application;
@@ -52,24 +53,36 @@ public class PersonalsController {
 
     public void preAgregar(Point at)throws Exception{      
         Usuario principal = (Usuario) session.getAttribute(Application.USER_ATTRIBUTE);
-        if ( Arrays.asList(Application.ROL_JEFE_RRHH).contains(principal.getRol())){
+        if (!Arrays.asList(Application.ROL_JEFE_RRHH).contains(principal.getRol().getDescripcion())){
            throw new Exception(Application.ROL_NOTAUTHORIZED);
-        }
-        Application.PERSONAL_CONTROLLER.reset(Application.MODO_AGREGAR, new Funcionario());
+        }else{
+        Application.PERSONAL_CONTROLLER.reset(Application.MODO_AGREGAR, new Funcionario(), new Usuario());
         Application.PERSONAL_CONTROLLER.show(at);
+        }
+//        if (!Arrays.asList(Application.ROL_JEFE_OCCB).contains(principal.getRol().getDescripcion())){
+//           throw new Exception(Application.ROL_NOTAUTHORIZED);
+//        }else{
+//        Application.PERSONAL_CONTROLLER.reset(Application.MODO_CONSULTAR, new Funcionario());
+//        Application.PERSONAL_CONTROLLER.show(at);
+//        }
+        
+        
     }
     
-    public void editar(int row, Point at){       
+    public void editar(int row, Point at) throws Exception{       
         Funcionario seleccionada = model.getFuncionarios().getRowAt(row); 
+        
         Usuario principal = (Usuario) session.getAttribute(Application.USER_ATTRIBUTE);
+        
+        Usuario u=this.getCurrentUser(seleccionada.getNombre());
         int modo;
-        if ( Arrays.asList(Application.ROL_JEFE_RRHH).contains(principal.getRol())){
+        if ( !Arrays.asList(Application.ROL_JEFE_RRHH).contains(principal.getRol().getDescripcion())){
             modo=Application.MODO_EDITAR;
         }
         else{
             modo=Application.MODO_CONSULTAR;            
         }
-        Application.PERSONAL_CONTROLLER.reset(modo, seleccionada);
+        Application.PERSONAL_CONTROLLER.reset(modo, seleccionada, u);
         Application.PERSONAL_CONTROLLER.show(at);
     }
 
@@ -81,6 +94,21 @@ public class PersonalsController {
         List<Funcionario> rowsMod = domainModel.searchFuncionario(model.getFilter());
         model.setDependencias(rowsMod);
         model.commit();
+    }
+    
+        Usuario getCurrentUser(String userName)throws Exception {
+       List<Usuario> resultado = new ArrayList<Usuario>();
+       
+        resultado= domainModel.getUsuarios(userName);
+        
+        
+        for(Usuario u:resultado){
+            if(u.getFuncionario().getNombre().equals(userName)){
+                return u;
+            }
+        }
+        
+        return null;
     }
 
     public void reset(){

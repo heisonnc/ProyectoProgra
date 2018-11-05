@@ -7,6 +7,8 @@ package sistemadeactivos.presentation.jeferrhh.personal.listado;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sistemadeactivos.Application;
 import sistemadeactivos.logic.Funcionario;
@@ -66,7 +68,7 @@ public class PersonalsView extends javax.swing.JDialog implements java.util.Obse
         return !error;
     }
     
-     Funcionario toPersona(){
+     Funcionario toFuncionario(){
         Funcionario result = new Funcionario();
         result.setNombre(textFieldBuscarPNombre.getText());
         return result;
@@ -235,9 +237,9 @@ public class PersonalsView extends javax.swing.JDialog implements java.util.Obse
     private void buttonBuscarPNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarPNombreActionPerformed
             if(this.validar()){
             try {
-                controller.buscar(this.toPersona());
+                controller.buscar(this.toFuncionario());
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE); 
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR No se a completado la busqueda", JOptionPane.ERROR_MESSAGE); 
             }
         }
         else{
@@ -257,12 +259,14 @@ public class PersonalsView extends javax.swing.JDialog implements java.util.Obse
            if (evt.getClickCount() == 2) {
         int row = this.tablaFunc.getSelectedRow();
         int col = this.tablaFunc.getSelectedColumn();
-        if(col==4){
-            controller.searchFuncioanrio(row,evt.getLocationOnScreen()); 
+        if(col>=0){
+            try {
+                controller.editar(row,evt.getLocationOnScreen());
+            } catch (Exception ex) {
+                 JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
-        else{
-            controller.editar(row,evt.getLocationOnScreen());
-        }
+        
       }
     }//GEN-LAST:event_tablaFuncMouseClicked
 

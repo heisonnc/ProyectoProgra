@@ -54,7 +54,7 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
         textPassword = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        textId = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -88,7 +88,7 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
                 .addContainerGap()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textId, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -108,7 +108,7 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
                     .addComponent(textPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textId, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -119,7 +119,7 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
         jLabel5.setText("Nombre:");
 
         comboBoxRoles.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        comboBoxRoles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador Dependencia", "Secretaria", "Jefe OCCB", "Jefe RRHH" }));
+        comboBoxRoles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador Dependencia", "Secretaria", "Jefe OCCBB", "Jefe RRHH" }));
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel6.setText("Rol que empleara:");
@@ -158,6 +158,11 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
         buttoActualizar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         buttoActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/src/sistemadeactivos/presentation/icons/especiales/015-repeat.png"))); // NOI18N
         buttoActualizar.setText("Actualizar");
+        buttoActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttoActualizarActionPerformed(evt);
+            }
+        });
 
         buttonGuardar.setBackground(new java.awt.Color(48, 97, 173));
         buttonGuardar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
@@ -218,8 +223,10 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
              if(this.validar()){
             try {
                 Funcionario funcionario= new Funcionario();
+                Usuario user = new Usuario();
                 funcionario=this.toFuncionario();
-                this.controller.guardarUsuario(this.toUsuario(funcionario));
+                user=this.toUsuario(funcionario);
+                this.controller.guardarUsuario(user);
                 JOptionPane.showMessageDialog(this, "Datos registrados", "OK", JOptionPane.INFORMATION_MESSAGE); 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE); 
@@ -230,6 +237,24 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
         }
     }//GEN-LAST:event_buttonGuardarActionPerformed
 
+    private void buttoActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttoActualizarActionPerformed
+           if(this.validar()){
+            try {
+                Funcionario funcionario= new Funcionario();
+                Usuario user = new Usuario();
+                funcionario=this.toFuncionario();
+                user=this.toUsuario(funcionario);
+                this.controller.guardarUsuario(user);
+                JOptionPane.showMessageDialog(this, "Datos registrados", "OK", JOptionPane.INFORMATION_MESSAGE); 
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE); 
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Error en datos", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_buttoActualizarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -238,18 +263,98 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
     @Override
     public void update(Observable o, Object o1) {
        this.limpiarErrores();
+       Usuario user=this.model.getUser();
+       if(user.getFuncionario()!=null){
+           
+          this.fromUsuario(user);
+           
+       }else{
        Funcionario actual = model.getCurrent();
-       this.fromFuncionario(actual);
+       this.fromFuncionario(actual); 
+       }
+       
     }
     
     public void fromFuncionario(Funcionario funcionario){
        
         Boolean editable = Arrays.asList(Application.MODO_AGREGAR, Application.MODO_EDITAR).contains(model.getModo());
         // dependiento del usuario que le llegue le abilita el campo para que ingrese los datos 
-        this.textNombre.setEnabled(editable);
-        this.textNombre.setText(funcionario.getNombre());
-        this.textPassword.setEnabled(editable); 
+        
+        
+        if(editable){
+        
+        this.textNombre.setEditable(editable);
+        this.textId.setEditable(editable);
+        this.textPassword.setEditable(editable); 
         this.buttonGuardar.setVisible(editable);
+        this.buttoActualizar.setVisible(false);
+        this.textNombre.setText(funcionario.getNombre());
+        
+        
+        }
+         Boolean editableEdit = Arrays.asList(Application.MODO_CONSULTAR).contains(model.getModo()); 
+        if(editableEdit){
+            
+        this.textNombre.setEditable(false);
+        this.textId.setEditable(false);
+        this.textPassword.setEditable(false); 
+        this.buttonGuardar.setVisible(false);
+        this.buttoActualizar.enable(false);
+//      this.textNombre.setText(funcionario.getNombre());
+        
+        }
+        this.validate();   
+    }
+    
+    
+        public void fromUsuario(Usuario user){
+        Funcionario funcionario=user.getFuncionario();
+            
+            
+        Boolean editable = Arrays.asList(Application.MODO_AGREGAR, Application.MODO_EDITAR).contains(model.getModo());
+        // dependiento del usuario que le llegue le abilita el campo para que ingrese los datos 
+        
+        
+        if(editable){
+        
+        this.textNombre.setEditable(editable);
+        this.textId.setEditable(editable);
+        this.textPassword.setEditable(editable); 
+        this.buttonGuardar.setVisible(editable);
+        this.buttoActualizar.setVisible(false);
+        this.textNombre.setText(funcionario.getNombre());
+        this.textId.setText(user.getId());
+        this.textPassword.setText(user.getClave());
+        
+            try {
+                int pos= controller.getRolPos(user.getRol().getDescripcion());
+                
+                this.comboBoxRoles.setSelectedIndex(pos);
+                
+            } catch (Exception ex) {
+                 JOptionPane.showMessageDialog(this, "Error en datos", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+            
+            
+            
+        
+        
+      
+    
+ 
+        }
+         Boolean editableEdit = Arrays.asList(Application.MODO_CONSULTAR).contains(model.getModo()); 
+        if(editableEdit){
+            
+        this.textNombre.setEditable(false);
+        this.textId.setEditable(false);
+        this.textPassword.setEditable(false); 
+        this.buttonGuardar.setVisible(false);
+        this.buttoActualizar.enable(false);
+//      this.textNombre.setText(funcionario.getNombre());
+        this.textId.setEditable(false);
+        }
+        
         this.validate();   
     }
     
@@ -261,7 +366,7 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
     
     public Usuario toUsuario(Funcionario funcionario){
         Usuario user = new Usuario();
-        user.setId(funcionario.getNombre());
+        user.setId(this.textId.getText());
         user.setClave(this.textPassword.getText());
         user.setFuncionario(funcionario);
         String select=this.comboBoxRoles.getSelectedItem().toString();
@@ -269,6 +374,7 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
         
         try {
             rol= controller.getRol(select);
+            user.setRol(rol);
         } catch (Exception ex) {
              JOptionPane.showMessageDialog(this, "Error en datos", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
@@ -309,7 +415,7 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField textId;
     private javax.swing.JTextField textNombre;
     private javax.swing.JTextField textPassword;
     // End of variables declaration//GEN-END:variables

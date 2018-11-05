@@ -8,6 +8,8 @@ package sistemadeactivos;
 
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 import sistemadeactivos.logic.Funcionario;
 import sistemadeactivos.logic.Model;
 import sistemadeactivos.logic.Rol;
@@ -46,6 +48,20 @@ public class Application {
         
         Model domainModel = Model.instance();
         Session session = new Session();
+        
+        
+        
+        
+        domainModel.getUsuarios("a");
+        
+        List<Usuario> lis=domainModel.getUsuarios("a");
+        
+        for(Usuario user:lis){
+            
+            System.out.println(user.getFuncionario().getNombre());
+        }
+        
+        
         
 //        Rol r= new Rol();
 //        r=domainModel.getRol(Application.ROL_JEFE_RRHH);

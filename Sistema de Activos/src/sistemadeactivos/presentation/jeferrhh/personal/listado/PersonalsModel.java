@@ -22,8 +22,8 @@ import sistemadeactivos.presentation.tablemodel.FuncionarioTableModel;
 public class PersonalsModel extends java.util.Observable{
     
     
-   Funcionario filter;
-   Funcionario seleccionado;
+  Funcionario filter;
+  Funcionario seleccionado;
   FuncionarioTableModel funcionarios;
     int modo;    
 
@@ -64,6 +64,7 @@ public class PersonalsModel extends java.util.Observable{
 
     public void setSeleccionado(Funcionario seleccionado) {
         this.seleccionado = seleccionado;
+  
     }
   
     @Override

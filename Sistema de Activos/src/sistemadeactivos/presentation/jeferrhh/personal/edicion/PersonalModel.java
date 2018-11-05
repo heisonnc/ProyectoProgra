@@ -39,6 +39,10 @@ public class PersonalModel extends java.util.Observable{
         this.modo = modo;
     }
 
+    public Usuario getUser() {
+        return user;
+    }
+
     public Funcionario getCurrent() {
         return current;
     }
@@ -47,14 +51,15 @@ public class PersonalModel extends java.util.Observable{
         return modo;
     }
     
-     public void reset(int modo, Funcionario current){
+     public void reset(int modo, Funcionario current, Usuario userr){
         this.setModo(modo);
+        this.setUser(userr);
         this.setCurrent(current);
         this.commit();
     }
     
     public void reset(){
-        this.reset(Application.MODO_AGREGAR,new Funcionario());     
+        this.reset(Application.MODO_AGREGAR,new Funcionario(), new Usuario());     
     } 
     
     @Override
