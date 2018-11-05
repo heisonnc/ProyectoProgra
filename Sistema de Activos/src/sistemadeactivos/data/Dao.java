@@ -305,6 +305,30 @@ public class Dao {
         }
     }
     
+    public List<Funcionario> searchFuncionarioByDependencia(String descripcion){
+        List<Funcionario> resultado = new ArrayList<Funcionario>();
+        List<Puesto> tmp = new ArrayList<Puesto>();
+        try {
+            String sql = "select * from "
+                    + "Puesto p"
+                    + "INNER JOIN Funcionario f On p.funcionario=f.id "
+                    + "INNER JOIN Dependencia d On p.dependencia=d.descripcion"
+                    + "INNER JOIN Rol r On p.rol=r.id";
+            sql = String.format(sql);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(funcionario(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        for(Puesto p : tmp){
+            if(p.getDependencia().getDescripcion().equals(descripcion)){
+                resultado.add(p.getFuncionario());
+            }
+        }
+        return resultado;
+    }
+    
     //--------------------Dependencia--------------------------------
     public Dependencia DependenciaGet(String id) throws Exception {
         String sql = "select d.*, f.* from Dependencia d INNER JOIN Funcionario f On d.administrador=f.id  where descripcion = '%s'";

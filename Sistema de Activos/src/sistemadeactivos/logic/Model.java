@@ -76,6 +76,10 @@ public class Model {
         return dao.FuncionarioGet(nombre);
     }
     
+    public List<Funcionario> searchFuncionarioByDependencia(String d){
+        return dao.searchFuncionarioByDependencia(d);
+    }
+    
     //---------------------Rol-----------------------------------------
     public Rol getRol(String rol) throws Exception {
         return dao.rolGet(rol);

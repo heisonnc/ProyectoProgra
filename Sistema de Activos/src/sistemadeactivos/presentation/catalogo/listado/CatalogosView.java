@@ -39,14 +39,17 @@ public class CatalogosView extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jPanel1.setBackground(new java.awt.Color(53, 88, 141));
 
         jPanel2.setBackground(new java.awt.Color(49, 69, 100));
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         comboBoxTiposBusqueda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Codigo de Activo", "Categoria", "Descripcion", "Dependencia", "Responsable de Activo" }));
+        comboBoxTiposBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxTiposBusquedaActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel2.setText("Buscar por:");
@@ -173,6 +176,10 @@ public class CatalogosView extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void comboBoxTiposBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxTiposBusquedaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBoxTiposBusquedaActionPerformed
 
     /**
      * @param args the command line arguments
