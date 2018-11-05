@@ -19,6 +19,7 @@ import sistemadeactivos.presentation.tablemodel.FuncionarioTableModel;
  *
  * @author xxxx
  */
+
 public class PersonalsModel extends java.util.Observable{
     
     
