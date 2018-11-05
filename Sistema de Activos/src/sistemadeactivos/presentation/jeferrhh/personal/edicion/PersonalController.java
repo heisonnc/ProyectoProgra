@@ -102,8 +102,9 @@ public class PersonalController {
                 model.commit();
                 break;
             case Application.MODO_EDITAR: // si esta actualizando los datos de una persona en espesifica
-                domainModel.addFuncionario(funcionario);  // Manda a la base de datos la actualizacion de la persona
+                domainModel.updateFuncionario(funcionario);  // Manda a la base de datos la actualizacion de la persona
                 Application.PERSONALS_CONTROLLER.refrescarBusqueda();
+                model.setCurrent(new Funcionario());
                 break;
         }
     }
@@ -129,18 +130,11 @@ public class PersonalController {
             case Application.MODO_EDITAR: // si esta actualizando los datos de una persona en espesifica
                 domainModel.upadateUsuario(user);  // Manda a la base de datos la actualizacion de la persona
                 Application.PERSONALS_CONTROLLER.refrescarBusqueda();
+                model.setCurrent(new Funcionario());
                 model.commit();
                 break;
                 
-            case Application.MODO_AGREGAR_DEP:
-                
-                
-                
-                
-                
-                
-                
-                break;
+          
         }
 
     }
@@ -157,7 +151,7 @@ public class PersonalController {
                 // si esta agregando una persona desde cero
                 user.setFuncionario(fun);
                 domainModel.upadateUsuario(user);
-                model.setCurrent(fun);
+                model.setCurrent(new Funcionario());
             }
             Application.PERSONALS_CONTROLLER.refrescarBusqueda();
             model.setCurrent(new Funcionario());

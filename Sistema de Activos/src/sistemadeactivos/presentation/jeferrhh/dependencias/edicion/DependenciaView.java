@@ -274,7 +274,7 @@ public class DependenciaView  extends javax.swing.JDialog implements java.util.O
     }//GEN-LAST:event_textadminDependenciaActionPerformed
 
     private void agregaAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregaAdminActionPerformed
-        // TODO add your handling code here:
+       controller.showFuncionarios();
     }//GEN-LAST:event_agregaAdminActionPerformed
 
     private void buttonAceptaNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAceptaNombreActionPerformed
@@ -286,9 +286,9 @@ public class DependenciaView  extends javax.swing.JDialog implements java.util.O
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE); 
             }
         }
-        else{
-            JOptionPane.showMessageDialog(this, "Error en datos", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
+//        else{
+//            JOptionPane.showMessageDialog(this, "Error en datos", "ERROR", JOptionPane.ERROR_MESSAGE);
+//        }
     }//GEN-LAST:event_buttonAceptaNombreActionPerformed
 
     

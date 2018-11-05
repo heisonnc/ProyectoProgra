@@ -45,11 +45,12 @@ public class DependenciasController {
         model.setDependencias(rows);
         model.commit();
         if (rows.isEmpty()) throw new Exception("Ningún dato coincide");
+        
     }    
 
     public void preAgregar(Point at)throws Exception{      
         Usuario principal = (Usuario) session.getAttribute(Application.USER_ATTRIBUTE);
-        if ( !Arrays.asList(Application.ROL_JEFE_RRHH).contains(principal.getRol())){
+        if ( !Arrays.asList(Application.ROL_JEFE_RRHH).contains(principal.getRol().getDescripcion())){
            throw new Exception(Application.ROL_NOTAUTHORIZED);
         }
         Application.DEPENDENCIA_CONTROLLER.reset(Application.MODO_AGREGAR, new Dependencia());
@@ -60,7 +61,7 @@ public class DependenciasController {
         Dependencia seleccionada = model.getDependencias().getRowAt(row); 
         Usuario principal = (Usuario) session.getAttribute(Application.USER_ATTRIBUTE);
         int modo;
-        if ( Arrays.asList(Application.ROL_JEFE_RRHH).contains(principal.getRol())){
+        if ( Arrays.asList(Application.ROL_JEFE_RRHH).contains(principal.getRol().getDescripcion())){
             modo=Application.MODO_EDITAR;
         }
         else{
@@ -87,6 +88,12 @@ public class DependenciasController {
     public void show(){
         view.setVisible(true);
     }
+
+    public DependenciasModel getModel() {
+        return model;
+    }
+    
+   
 
     public void show(Point position){
         view.setLocation(position);

@@ -344,9 +344,9 @@ public class Dao {
     public List<Dependencia> DependenciaSearch(Dependencia filtro) {
         List<Dependencia> resultado = new ArrayList<Dependencia>();
         try {
-            String sql = "select d.*, f.* from "
-                    + "Dependencia d INNER JOIN Funcionario f On d.administrador=f.id "
-                    + "where descripcion like '%%%s%%'";
+            String sql = "select d.* from "
+                    + "Dependencia d "
+                    + "where d.descripcion like '%%%s%%'";
             sql = String.format(sql, filtro.getDescripcion());
             ResultSet rs = db.executeQuery(sql);
             while (rs.next()) {

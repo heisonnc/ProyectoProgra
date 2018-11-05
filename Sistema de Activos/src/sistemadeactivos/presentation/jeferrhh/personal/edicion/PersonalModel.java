@@ -19,6 +19,7 @@ public class PersonalModel extends java.util.Observable{
     // es el edicon de los funcionarios, pero cualquier funcionario primero tiene que 
     private Funcionario current;// ser regsitrado como un usuario
     private Usuario user;
+    
     int modo; 
 
     

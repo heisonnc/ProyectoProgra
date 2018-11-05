@@ -71,7 +71,7 @@ public class Application {
 //        r=domainModel.getRol(ROL_JEFE_RRHH);
 //        
 //        f=domainModel.getFuncionario("Heison");
-//        Usuario user= new Usuario("002",f,r,"002");
+//        Usuario user= new Usuario("001",f,r,"001");
 //        domainModel.addUsuario(user);
 
         ApplicationModel applicationModel = new ApplicationModel();

@@ -37,11 +37,11 @@ public class PersonalsModel extends java.util.Observable{
         filter = new Funcionario();
         List<Funcionario> rows = new ArrayList<>();        
         seleccionado=null;  
-        this.setDependencias(rows);
+        this.setFuncionarios(rows);
         this.commit();  
     }
     
-    public void setDependencias(List<Funcionario> funcionarios){
+    public void setFuncionarios(List<Funcionario> funcionarios){
         int[] cols={FuncionarioTableModel.ID,FuncionarioTableModel.NOMBRE};
         this.funcionarios =new FuncionarioTableModel(cols,funcionarios);    
     }

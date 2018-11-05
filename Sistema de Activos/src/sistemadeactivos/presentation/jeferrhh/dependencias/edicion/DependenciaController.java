@@ -59,7 +59,16 @@ public class DependenciaController {
     public void show(){
         view.setVisible(true);
     }
+    public void showFuncionarios(){
+        Application.PERSONALS_CONTROLLER.setModo(Application.MODO_AGREGAR_DEP);
+        Application.PERSONALS_CONTROLLER.show();   
+    }
 
+    public DependenciaModel getModel() {
+        return model;
+    }
+
+    
     public void show(Point position){
         view.setLocation(position);
         this.show();

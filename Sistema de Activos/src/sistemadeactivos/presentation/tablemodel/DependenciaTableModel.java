@@ -8,6 +8,7 @@ package sistemadeactivos.presentation.tablemodel;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import sistemadeactivos.logic.Dependencia;
+import sistemadeactivos.logic.Funcionario;
 
 /**
  *
@@ -45,7 +46,8 @@ public class DependenciaTableModel  extends AbstractTableModel{
         Dependencia dependencia = rows.get(row);
         switch (cols[col]){
             case DESCRIPCION: return dependencia.getDescripcion();
-            case FUNCIONARIO: return dependencia.getFuncionario().getNombre();
+            case FUNCIONARIO: 
+                if(dependencia.getFuncionario()==null){return null;}else{return dependencia.getFuncionario().getNombre();}
             default: return "";
         }
     }

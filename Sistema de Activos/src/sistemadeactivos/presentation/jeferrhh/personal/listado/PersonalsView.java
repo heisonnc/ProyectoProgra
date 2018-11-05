@@ -46,10 +46,17 @@ public class PersonalsView extends javax.swing.JDialog implements java.util.Obse
     
     @Override
     public void update(Observable o, Object arg) {
-        this.limpiarErrores();
+       this.limpiarErrores();
        Funcionario filtro = model.getFilter();
        this.fromFuncionario(filtro);
-       tablaFunc.setModel(model.getFuncionarios()); 
+       tablaFunc.setModel(model.getFuncionarios());
+       if(model.modo==Application.MODO_AGREGAR_DEP){
+           this.buttonAgregaFuncionario.setVisible(false);
+           this.buttonEliminarFuncionario.setVisible(false);
+           if(model.seleccionado!=null){
+               this.setName(model.getSeleccionado().getNombre());
+           }
+       }
     }
     
     
@@ -94,6 +101,7 @@ public class PersonalsView extends javax.swing.JDialog implements java.util.Obse
         jLabel2 = new javax.swing.JLabel();
         buttonEliminarFuncionario = new javax.swing.JButton();
         buttonAgregaFuncionario = new javax.swing.JButton();
+        agregaAdmin = new javax.swing.JToggleButton();
 
         jPanel1.setBackground(new java.awt.Color(41, 79, 137));
 
@@ -177,6 +185,13 @@ public class PersonalsView extends javax.swing.JDialog implements java.util.Obse
             }
         });
 
+        agregaAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistemadeactivos/presentation/icons/especiales/021-user-3.png"))); // NOI18N
+        agregaAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregaAdminActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -200,7 +215,9 @@ public class PersonalsView extends javax.swing.JDialog implements java.util.Obse
                         .addComponent(jLabel2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(128, 128, 128)
-                        .addComponent(buttonBuscarPNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(buttonBuscarPNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                            .addComponent(agregaAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -215,7 +232,8 @@ public class PersonalsView extends javax.swing.JDialog implements java.util.Obse
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(buttonEliminarFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonAgregaFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(buttonAgregaFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(agregaAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -286,8 +304,15 @@ public class PersonalsView extends javax.swing.JDialog implements java.util.Obse
             }
     }//GEN-LAST:event_buttonEliminarFuncionarioActionPerformed
 
+    private void agregaAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregaAdminActionPerformed
+       int row=this.tablaFunc.getSelectedRow();
+       controller.buscaAdm(row);
+       
+    }//GEN-LAST:event_agregaAdminActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton agregaAdmin;
     private javax.swing.JButton buttonAgregaFuncionario;
     private javax.swing.JButton buttonBuscarPNombre;
     private javax.swing.JButton buttonEliminarFuncionario;

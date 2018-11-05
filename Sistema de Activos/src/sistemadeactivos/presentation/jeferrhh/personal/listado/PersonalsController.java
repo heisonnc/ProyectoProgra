@@ -40,8 +40,16 @@ public class PersonalsController {
         this.dep = dep;
     }
 
+    public void getDep(int rows){
+        
+    }
     public String getDep() {
         return dep;
+    }
+    
+    
+    public void setModo(int mod){
+        model.modo=mod;
     }
     
     
@@ -58,21 +66,21 @@ public class PersonalsController {
 
     public void refrescarBusqueda() throws Exception {
         
-        if(model.modo!=Application.MODO_AGREGAR_DEP){
-        List<Funcionario> rows = domainModel.searchFuncionario(model.getFilter());
-        model.setDependencias(rows);
+        if(model.modo==Application.MODO_AGREGAR_DEP){
+        
+         List<Funcionario> rows = domainModel.searchFuncionarioByDependencia(this.getDep());
+        model.setFuncionarios(rows);
         model.commit();
         if (rows.isEmpty()) {
             throw new Exception("Ningún dato coincide");
         }
         }else{
-        List<Funcionario> rows = domainModel.searchFuncionarioByDependencia(this.getDep());
-        model.setDependencias(rows);
+       List<Funcionario> rows = domainModel.searchFuncionario(model.getFilter());
+        model.setFuncionarios(rows);
         model.commit();
         if (rows.isEmpty()) {
             throw new Exception("Ningún dato coincide");
-        }
-           
+        }  
         }
         
     }
@@ -132,12 +140,12 @@ public class PersonalsController {
             domainModel.deleteFuncionario(seleccionada);
 
             List<Funcionario> rowsMod = domainModel.searchFuncionario(model.getFilter());
-            model.setDependencias(rowsMod);
+            model.setFuncionarios(rowsMod);
             model.commit();
         }
     }
 
-    Usuario getCurrentUser(String userName) throws Exception {
+   public Usuario getCurrentUser(String userName) throws Exception {
         List<Usuario> resultado = new ArrayList<Usuario>();
 
         resultado = domainModel.getUsuarios(userName);
@@ -150,6 +158,14 @@ public class PersonalsController {
 
         return null;
     }
+    
+   public void buscaAdm(int row){
+       if(model.modo==Application.MODO_AGREGAR_DEP){
+        model.seleccionado=this.model.funcionarios.getRowAt(row);
+        Application.DEPENDENCIA_CONTROLLER.getModel().setFun(model.seleccionado);  
+       }
+       
+   }
 
     public void reset() {
         model.reset();

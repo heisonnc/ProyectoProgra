@@ -8,6 +8,7 @@ package sistemadeactivos.presentation.jeferrhh.dependencias.edicion;
 import java.util.Observable;
 import sistemadeactivos.Application;
 import sistemadeactivos.logic.Dependencia;
+import sistemadeactivos.logic.Funcionario;
 
 /**
  *
@@ -15,6 +16,7 @@ import sistemadeactivos.logic.Dependencia;
  */
 public class DependenciaModel extends Observable{
     Dependencia current;
+    Funcionario fun;
     int modo;    
 
     public DependenciaModel() {
@@ -25,6 +27,14 @@ public class DependenciaModel extends Observable{
         this.setModo(modo);
         this.setCurrent(current);
         this.commit();
+    }
+
+    public void setFun(Funcionario fun) {
+        this.fun = fun;
+    }
+
+    public Funcionario getFun() {
+        return fun;
     }
     
     public void reset(){
