@@ -38,6 +38,9 @@ import sistemadeactivos.presentation.jeferrhh.personal.edicion.PersonalView;
 import sistemadeactivos.presentation.jeferrhh.personal.listado.PersonalsController;
 import sistemadeactivos.presentation.jeferrhh.personal.listado.PersonalsModel;
 import sistemadeactivos.presentation.jeferrhh.personal.listado.PersonalsView;
+import sistemadeactivos.presentation.jeferrhh.puestos.listado.PuestosController;
+import sistemadeactivos.presentation.jeferrhh.puestos.listado.PuestosModel;
+import sistemadeactivos.presentation.jeferrhh.puestos.listado.PuestosView;
 import sistemadeactivos.presentation.login.LoginController;
 import sistemadeactivos.presentation.login.LoginModel;
 import sistemadeactivos.presentation.login.LoginView;
@@ -57,7 +60,10 @@ public class Application {
         Model domainModel = Model.instance();
         Session session = new Session();
         
-        
+        PuestosModel m = new PuestosModel();
+        PuestosView v = new PuestosView();
+        PuestosController c = new PuestosController(v,m, domainModel, session);
+        v.setVisible(true); //PROBANDO LA NUEVA VENTANA
         
         
         domainModel.getUsuarios("a");
