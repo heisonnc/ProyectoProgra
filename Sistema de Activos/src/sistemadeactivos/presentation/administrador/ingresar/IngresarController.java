@@ -55,7 +55,7 @@ public class IngresarController {
             domainModel.addSolicitud(s);
             for(Bien bb : b){
                 bb.setSolicitud(s);
-                domainModel.addBien(bb);
+                domainModel.addBien(bb); 
             }
             
 //        }else{
