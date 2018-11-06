@@ -77,8 +77,4 @@ public class IngresarController {
     public void exit() {
         this.hide();
     }
-
-    public void guardar(Solicitud toSolicitud) {
-        
-    }   
 }

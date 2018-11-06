@@ -10,6 +10,7 @@ import sistemadeactivos.Application;
 import sistemadeactivos.logic.Adquisicion;
 import sistemadeactivos.logic.Bien;
 import sistemadeactivos.logic.Categoria;
+import sistemadeactivos.logic.Dependencia;
 import sistemadeactivos.logic.Estado;
 import sistemadeactivos.logic.Model;
 import sistemadeactivos.logic.Solicitud;
@@ -375,7 +376,7 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
         Estado es = Model.instance().getEstado("Recibida");
         Solicitud result = new Solicitud();
         Adquisicion ad = Model.instance().getAdquisicion(str);
-       
+        Dependencia d = Model.instance().getDependencia("Escuela de Informatica");
         result.setCantidadBienes(Integer.parseInt(cantidadFld.getText()));
         result.setComprobante(comprobanteFld.getText());
         result.setMontoTotal(Double.parseDouble(montoFld.getText()));
@@ -383,6 +384,7 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
         result.setFecha(new Date());
         result.setEstado(es);
         result.setAdquisicion(ad);
+        result.setDependencia(d);
         
         return result;
         }catch(Exception e){

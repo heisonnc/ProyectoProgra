@@ -256,3 +256,9 @@ insert into Estado (descripcion) values ('En Espera');
 insert into Estado (descripcion) values ('Procesada');
 
 insert into Categoria (descripcion) values ('Indefinido');
+
+insert into Usuario (id, Funcionario, rol, clave) values ('001', 1, 5, '001');
+
+insert into Funcionario (nombre) values ('Figueres');
+
+insert into Dependencia (descripcion, administrador) values ('Escuela de Informatica', 1);
