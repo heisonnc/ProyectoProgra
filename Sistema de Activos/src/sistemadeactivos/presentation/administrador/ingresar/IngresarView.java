@@ -380,6 +380,7 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
         result.setCantidadBienes(Integer.parseInt(cantidadFld.getText()));
         result.setComprobante(comprobanteFld.getText());
         result.setMontoTotal(Double.parseDouble(montoFld.getText()));
+        result.setFuncionario(this.controller.getFun());
         result.setRechazo("en espera");
         result.setFecha(new Date());
         result.setEstado(es);

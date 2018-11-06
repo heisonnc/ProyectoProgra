@@ -237,7 +237,6 @@ SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
-
 insert into Rol (descripcion) values ('Jefe OCCB');
 insert into Rol (descripcion) values ('Jefe RRHH');
 insert into Rol (descripcion) values ('Registrador');
@@ -257,8 +256,6 @@ insert into Estado (descripcion) values ('Procesada');
 
 insert into Categoria (descripcion) values ('Indefinido');
 
-insert into Funcionario (nombre) values ('Figueres');
 
-insert into Dependencia (descripcion, administrador) values ('Escuela de Informatica', 1);
 
-insert into Usuario (id, Funcionario, rol, clave) values ('001', 1, 5, '001');
+

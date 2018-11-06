@@ -494,7 +494,7 @@ public class Dao {
     //-------------------Bien------------------------------
     public void BienAdd(Bien b) throws Exception{
         String sql = "insert into Bien (descripcion, marca, modelo, precio_unitario, cantidad, solicitud, categoria) "
-                + "values('%s', '%s', '%s', '%f', '%s', '%d')";
+                + "values('%s', '%s', '%s', '%d', '%s', '%d')";
         sql = String.format(sql, b.getDescripcion(), b.getMarca(), b.getModelo(), b.getPrecioUnitario(), b.getCantidad(), b.getSolicitud().getComprobante(), b.getCategoria().getId());
         int count = db.executeUpdate(sql);
         if (count == 0) {

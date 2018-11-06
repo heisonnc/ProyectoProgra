@@ -44,14 +44,20 @@ public class IngresarController {
         model.commit();
     }
     
+    public Funcionario getFun(){
+        Usuario principal = (Usuario) session.getAttribute(Application.USER_ATTRIBUTE);
+        return principal.getFuncionario();
+    }
+    
     public void preAgregarSolicitud(Solicitud s, List<Bien> b) throws Exception{
         Usuario principal = (Usuario) session.getAttribute(Application.USER_ATTRIBUTE);
 //        if (!Arrays.asList(Application.ROL_ADMINISTRADOR).contains(principal.getRol().getDescripcion())) {
+            domainModel.addSolicitud(s);
             for(Bien bb : b){
                 bb.setSolicitud(s);
                 domainModel.addBien(bb);
             }
-            domainModel.addSolicitud(s);
+            
 //        }else{
 //                throw new Exception(Application.ROL_NOTAUTHORIZED); 
 //                }
