@@ -48,6 +48,7 @@ public class BienTableModel extends AbstractTableModel{
             case MARCA: return bien.getMarca();
             case MODELO: return bien.getModelo();
             case PRECIO: return bien.getPrecioUnitario();
+            case CANTIDAD: return bien.getCantidad();
             default: return "";
         }
     }
@@ -60,6 +61,7 @@ public class BienTableModel extends AbstractTableModel{
     public static final int MARCA=1;
     public static final int MODELO=2;
     public static final int PRECIO=3;
+    public static final int CANTIDAD=4;
     
     String[] colNames = new String[11];
     private void initColNames(){
@@ -67,5 +69,6 @@ public class BienTableModel extends AbstractTableModel{
         colNames[MARCA]= "Marca";
         colNames[MODELO]= "Modelo";
         colNames[PRECIO]= "Precio";
+        colNames[CANTIDAD] = "Cantidad";
     }
 }

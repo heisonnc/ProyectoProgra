@@ -9,6 +9,7 @@ import java.awt.Point;
 import java.util.List;
 import sistemadeactivos.Application;
 import sistemadeactivos.Session;
+import sistemadeactivos.logic.Adquisicion;
 import sistemadeactivos.logic.Bien;
 import sistemadeactivos.logic.Model;
 import sistemadeactivos.logic.Solicitud;
@@ -34,13 +35,15 @@ public class IngresarController {
         view.setModel(model);
     } 
     
-    public void agregarBien(Bien b){
+    public void agregarBien(Bien b) throws Exception{
         model.agregarBien(b);
         model.setBienes(model.rows);
         model.commit();
     }
     
-    
+    public Adquisicion getAdquisicion(String descricion) throws Exception{
+        return domainModel.getAdquisicion(descricion);
+    }
 
     public void reset(int modo, Solicitud sol){
         model.reset(modo, sol);

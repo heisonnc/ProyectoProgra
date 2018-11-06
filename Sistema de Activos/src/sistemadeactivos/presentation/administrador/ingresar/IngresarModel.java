@@ -50,7 +50,7 @@ public class IngresarModel extends java.util.Observable{
     }
 
     public void setBienes(List<Bien> bienes) {
-        int[] cols={BienTableModel.MARCA, BienTableModel.MODELO, BienTableModel.DESCRIPCION, BienTableModel.PRECIO};
+        int[] cols={BienTableModel.MARCA, BienTableModel.MODELO, BienTableModel.DESCRIPCION, BienTableModel.PRECIO, BienTableModel.CANTIDAD};
         this.bienes =new BienTableModel(cols,bienes);  
     }
 
@@ -70,7 +70,7 @@ public class IngresarModel extends java.util.Observable{
         this.rows = rows;
     }
     
-    public void agregarBien(Bien b){
+    public void agregarBien(Bien b) throws Exception{
         rows.add(b);
         this.setBienes(rows);
     }

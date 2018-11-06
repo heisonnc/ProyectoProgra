@@ -1,6 +1,8 @@
 
 package sistemadeactivos.presentation.administrador.ingresar;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import sistemadeactivos.Application;
@@ -8,6 +10,7 @@ import sistemadeactivos.logic.Adquisicion;
 import sistemadeactivos.logic.Bien;
 import sistemadeactivos.logic.Categoria;
 import sistemadeactivos.logic.Estado;
+import sistemadeactivos.logic.Model;
 import sistemadeactivos.logic.Solicitud;
 
 public class IngresarView extends javax.swing.JFrame implements java.util.Observer {
@@ -46,13 +49,18 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
     
     @Override
    public void update(java.util.Observable updatedModel,Object parametros){
+//       fechaFld.setEditable(false);
+//       Date d = new Date();
+//       DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
+//       fechaFld.setText(hourFormat.format(d).toString());
+       if(model.getRows().isEmpty()){
         this.limpiarErrores();
+       }
        Solicitud filtro = model.getSolicitud();
        bienesFld.setModel(model.getBienes()); 
    }
     public IngresarView() {
         initComponents();
-        inhabilitar();
     }
     
     public void limpiarErrores(){
@@ -68,7 +76,18 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
        montoFld.setText("");
        fechaFld.setText("");
        cantidadFld.setText("");
+       cantidadBien.setText("");
    }
+    
+    public void limpiarBien(){
+        marca.setText("");
+       this.modelo.setText("");
+       descripcion.setText("");
+       precio.setText("");
+       cantidadBien.setText("");
+    }
+    
+    
 
     
     @SuppressWarnings("unchecked")
@@ -84,7 +103,7 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
         monto = new javax.swing.JLabel();
         montoFld = new javax.swing.JTextField();
         tipoFld = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<String>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         bienesFld = new javax.swing.JTable();
@@ -95,10 +114,17 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
         agregarBienFld = new javax.swing.JButton();
         agregarSolicitudFld = new javax.swing.JButton();
         exitFld = new javax.swing.JButton();
+        cantidadBien = new javax.swing.JTextField();
 
         comprobante.setText("combrobante");
 
         fecha.setText("fecha");
+
+        fechaFld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fechaFldActionPerformed(evt);
+            }
+        });
 
         cantidad.setText("cantidad");
 
@@ -106,7 +132,7 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
 
         tipoFld.setText("tipo");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Donacion", "Compra", "Traslado", "Elaboracion Propia" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Donacion", "Compra", "Traslado", "Elaboracion Propia" }));
 
         bienesFld.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -131,7 +157,6 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
 
         agregarBienFld.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         agregarBienFld.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistemadeactivos/presentation/icons/general/add.png"))); // NOI18N
-        agregarBienFld.setText("Agregar");
         agregarBienFld.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 agregarBienFldActionPerformed(evt);
@@ -158,11 +183,27 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(marca, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)
+                        .addComponent(modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cantidadBien)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(agregarBienFld)))
+                .addGap(39, 39, 39))
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(tipoFld)
                             .addComponent(comprobante))
@@ -182,31 +223,13 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
                         .addGap(47, 47, 47)
                         .addComponent(monto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(montoFld, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 25, Short.MAX_VALUE))
+                        .addComponent(montoFld, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(marca, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(39, 39, 39)
-                                .addComponent(modelo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(41, 41, 41)
-                                .addComponent(descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38)
-                                .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(agregarBienFld)))
-                        .addContainerGap())))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(135, 135, 135)
-                .addComponent(agregarSolicitudFld)
-                .addGap(130, 130, 130)
-                .addComponent(exitFld)
-                .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(135, 135, 135)
+                        .addComponent(agregarSolicitudFld)
+                        .addGap(130, 130, 130)
+                        .addComponent(exitFld)))
+                .addGap(0, 32, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,15 +248,16 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tipoFld)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(agregarBienFld)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(marca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(modelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addComponent(modelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cantidadBien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(agregarBienFld, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(31, 31, 31)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,7 +286,22 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
     }
     
     private void agregarSolicitudFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarSolicitudFldActionPerformed
-        habilitar();
+        if(this.validar()){
+            try {
+                Solicitud s = toSolicitud();
+                if(s == null){
+                    throw new Exception("Solicitud no valida");
+                }
+                //meter en el script una categoria inicial
+                JOptionPane.showMessageDialog(this, "Datos registrados", "OK", JOptionPane.INFORMATION_MESSAGE); 
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE); 
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Error en datos", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+        this.limpiarErrores();
     }//GEN-LAST:event_agregarSolicitudFldActionPerformed
 
     private void exitFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitFldActionPerformed
@@ -278,42 +317,58 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
              error = true;
         }
         
-        this.fecha.setForeground(Application.COLOR_OK);        
-        if (this.fechaFld.getText().isEmpty()){
-            this.fecha.setForeground(Application.COLOR_ERROR);
-            error = true;
+//        this.fecha.setForeground(Application.COLOR_OK);        
+//        if (this.fechaFld.getText().isEmpty()){
+//            this.fecha.setForeground(Application.COLOR_ERROR);
+//            error = true;
+//        }
+        
+        this.cantidad.setForeground(Application.COLOR_OK);  
+        int can = Integer.parseInt(cantidadFld.getText());
+        if (this.cantidadFld.getText().isEmpty() || can < 1){
+            this.cantidad.setForeground(Application.COLOR_ERROR);
+            error=true;
         }
         
-        this.cantidad.setForeground(Application.COLOR_OK);        
-        if (this.cantidadFld.getText().isEmpty()){
-            this.cantidad.setForeground(Application.COLOR_ERROR);
-            error=true;
-        }
+        double mon = Double.parseDouble(monto.getText());
         this.monto.setForeground(Application.COLOR_OK);        
-        if (this.montoFld.getText().isEmpty()){
+        if (this.montoFld.getText().isEmpty() || mon < 1){
             this.monto.setForeground(Application.COLOR_ERROR);
-            error=true;
-        }
-        this.cantidad.setForeground(Application.COLOR_OK);        
-        if (this.cantidadFld.getText().isEmpty()){
-            this.cantidad.setForeground(Application.COLOR_ERROR);
-            error=true;
-        }
-        if (this.marca.getText().isEmpty() || this.modelo.getText().isEmpty()){
-            error=true;
-        }
-        if (this.descripcion.getText().isEmpty() || this.precio.getText().isEmpty()){
             error=true;
         }
         
         return !error;
     }
     
+    public boolean validarBien(){
+        boolean error = false;
+        
+        this.comprobante.setForeground(Application.COLOR_OK); 
+        if (this.marca.getText().isEmpty()){
+             error = true;
+        }
+         
+        if (this.modelo.getText().isEmpty()){
+            error=true;
+        }
+               
+        if (this.descripcion.getText().isEmpty()){
+            error=true;
+        }
+        double pre = Double.parseDouble(this.precio.getText());
+        if(this.precio.getText().isEmpty() || pre < 0){
+            error = true;
+        }
+        
+        return !error;
+    }
+    
     public Solicitud toSolicitud(){
+        try{
         String str = (String)jComboBox1.getSelectedItem();
-        Estado es = new Estado("Recibida");
+        Estado es = Model.instance().getEstado("Recibida");
         Solicitud result = new Solicitud();
-        Adquisicion ad = new Adquisicion((String)jComboBox1.getSelectedItem());
+        Adquisicion ad = Model.instance().getAdquisicion(str);
        
         result.setCantidadBienes(Integer.parseInt(cantidadFld.getText()));
         result.setComprobante(comprobanteFld.getText());
@@ -326,15 +381,26 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
         result.setDependencia(null); // ocupo recuperar la dependdencia
         result.setFuncionario(null); // ocupo recuperar el funcionario
         
-        Bien bi = new Bien(null, result, str, marca.getText(), modelo.getText(),
-        Double.parseDouble(precio.getText()), Integer.parseInt(cantidadFld.getText())); // no se que hacer con este bien
         return result;
+        }catch(Exception e){
+            return null;
+        }
+    }
+    
+    public Bien toBien() throws Exception{
+        Bien resultado = new Bien();
+        resultado.setDescripcion(descripcion.getText());
+        resultado.setCantidad(Integer.parseInt(cantidadBien.getText()));
+        resultado.setMarca(marca.getText());
+        resultado.setModelo(modelo.getText());
+        resultado.setPrecioUnitario(Double.parseDouble(precio.getText()));
+        return resultado;
     }
     
     private void agregarBienFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarBienFldActionPerformed
-        if(this.validar()){
+        if(this.validarBien()){
             try {
-                this.controller.guardar(this.toSolicitud());
+                this.controller.agregarBien(this.toBien());
                 JOptionPane.showMessageDialog(this, "Datos registrados", "OK", JOptionPane.INFORMATION_MESSAGE); 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE); 
@@ -343,9 +409,12 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
         else{
             JOptionPane.showMessageDialog(this, "Error en datos", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        limpiarErrores();
-        inhabilitar();
+        this.limpiarBien();
     }//GEN-LAST:event_agregarBienFldActionPerformed
+
+    private void fechaFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaFldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fechaFldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -387,6 +456,7 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
     private javax.swing.JButton agregarSolicitudFld;
     private javax.swing.JTable bienesFld;
     private javax.swing.JLabel cantidad;
+    private javax.swing.JTextField cantidadBien;
     private javax.swing.JTextField cantidadFld;
     private javax.swing.JLabel comprobante;
     private javax.swing.JTextField comprobanteFld;
