@@ -287,8 +287,8 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
     }
     
     private void agregarSolicitudFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarSolicitudFldActionPerformed
+        try{
         if(this.validar()){
-            try {
                 Solicitud s = toSolicitud();
                 if(s == null){
                     throw new Exception("Solicitud no valida");
@@ -300,21 +300,21 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
                 controller.preAgregarSolicitud(s, model.rows);
                 model.setRows(new ArrayList<Bien>());
                 JOptionPane.showMessageDialog(this, "Datos registrados", "OK", JOptionPane.INFORMATION_MESSAGE); 
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE); 
-            }
         }
         else{
             JOptionPane.showMessageDialog(this, "Error en datos", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         this.limpiarErrores();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE); 
+        }
     }//GEN-LAST:event_agregarSolicitudFldActionPerformed
 
     private void exitFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitFldActionPerformed
         this.controller.exit();
     }//GEN-LAST:event_exitFldActionPerformed
 
-    public boolean validar(){
+    public boolean validar() throws Exception{
         boolean error = false;
         
         this.comprobante.setForeground(Application.COLOR_OK); 
@@ -333,14 +333,14 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
         int can = Integer.parseInt(cantidadFld.getText());
         if (this.cantidadFld.getText().isEmpty() || can < 1){
             this.cantidad.setForeground(Application.COLOR_ERROR);
-            error=true;
+            throw new Exception("ERROR");
         }
         
-        double mon = Double.parseDouble(monto.getText());
+        double mon = Double.parseDouble(montoFld.getText());
         this.monto.setForeground(Application.COLOR_OK);        
         if (this.montoFld.getText().isEmpty() || mon < 1){
             this.monto.setForeground(Application.COLOR_ERROR);
-            error=true;
+            throw new Exception("ERROR");
         }
         
         return !error;

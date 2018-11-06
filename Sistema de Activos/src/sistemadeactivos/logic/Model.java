@@ -201,9 +201,13 @@ public class Model {
     }
     
     //----------------Puesto-------------------
-    List<Puesto> getPuestosByDependencia(String d){
+    public List<Puesto> getPuestosByDependencia(String d){
         return dao.getPuestosByDependencia(d);
     }
+    
+   public void addPuesto(Puesto p) throws Exception{
+       dao.addPuesto(p);
+   }
 
     public void close() {
         dao.close();

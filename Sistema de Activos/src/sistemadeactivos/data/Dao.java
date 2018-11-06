@@ -726,6 +726,16 @@ public class Dao {
         return resultado;
     }
     
+    public void addPuesto(Puesto p) throws Exception{
+        String sql = "insert into Puesto (rol, funcionario, dependencia) "
+                + "values('%d','%d', '%s')";
+        sql = String.format(sql, p.getRol().getId(), p.getFuncionario().getId(), p.getDependencia().getDescripcion());
+        int count = db.executeUpdate(sql);
+        if (count == 0) {
+            throw new Exception("Puesto ya existe");
+        }
+    }
+    
     public void close() {
     }
 }
