@@ -60,10 +60,10 @@ public class Application {
         Model domainModel = Model.instance();
         Session session = new Session();
         
-        PuestosModel m = new PuestosModel();
-        PuestosView v = new PuestosView();
-        PuestosController c = new PuestosController(v,m, domainModel, session);
-        v.setVisible(true); //PROBANDO LA NUEVA VENTANA
+//        PuestosModel m = new PuestosModel();
+//        PuestosView v = new PuestosView();
+//        PuestosController c = new PuestosController(v,m, domainModel, session);
+//        v.setVisible(true); //PROBANDO LA NUEVA VENTANA
         
         
         domainModel.getUsuarios("a");

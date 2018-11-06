@@ -14,6 +14,7 @@ import sistemadeactivos.Application;
 import sistemadeactivos.Session;
 import sistemadeactivos.logic.Funcionario;
 import sistemadeactivos.logic.Model;
+import sistemadeactivos.logic.Puesto;
 import sistemadeactivos.logic.Rol;
 import sistemadeactivos.logic.Usuario;
 
@@ -80,6 +81,7 @@ public class PersonalController {
     }
 
     public void show() {
+        
         view.setVisible(true);
     }
 
@@ -137,6 +139,10 @@ public class PersonalController {
           
         }
 
+    }
+    
+    public void updatePuesto(Puesto p){
+        
     }
 
     public void updateUsuario(Usuario user) throws Exception {
@@ -209,4 +215,16 @@ public class PersonalController {
 
         return null;
     }
+    
+    
+    public void addDependencia(){
+        
+        Application.DEPENDENCIAS_CONTROLLER.setModo(Application.MODO_AGREGAR_DEP);
+        Application.DEPENDENCIAS_CONTROLLER.show();
+        
+        
+        
+        
+    }
+    
 }

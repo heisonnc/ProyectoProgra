@@ -85,9 +85,21 @@ public class DependenciasController {
         model.reset();
     }
     
+    public void setDep(int row){
+       Application.PERSONAL_CONTROLLER.getModel().setDependencia(model.personas.getRowAt(row));
+       this.hide();
+       Application.PERSONAL_CONTROLLER.show();
+    }
+    
     public void show(){
         view.setVisible(true);
     }
+    
+    public void setModo(int mod){
+        model.modo=mod;
+    }
+    
+    
 
     public DependenciasModel getModel() {
         return model;

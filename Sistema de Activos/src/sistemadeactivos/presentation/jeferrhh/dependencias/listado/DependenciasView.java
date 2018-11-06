@@ -40,7 +40,7 @@ public class DependenciasView extends javax.swing.JDialog implements java.util.O
        this.limpiarErrores();
        Dependencia filtro = model.getFilter();
        this.fromDependencia(filtro);
-       dependenciasFLd.setModel(model.getDependencias()); 
+       tableDep.setModel(model.getDependencias()); 
    }
     /**
      * Creates new form PersonasView
@@ -94,7 +94,7 @@ public class DependenciasView extends javax.swing.JDialog implements java.util.O
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        dependenciasFLd = new javax.swing.JTable();
+        tableDep = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
 
         setResizable(false);
@@ -175,7 +175,7 @@ public class DependenciasView extends javax.swing.JDialog implements java.util.O
         jPanel3.setBackground(new java.awt.Color(31, 68, 125));
         jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
-        dependenciasFLd.setModel(new javax.swing.table.DefaultTableModel(
+        tableDep.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -186,7 +186,12 @@ public class DependenciasView extends javax.swing.JDialog implements java.util.O
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(dependenciasFLd);
+        tableDep.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableDepMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableDep);
 
         jScrollPane2.setViewportView(jScrollPane1);
 
@@ -287,6 +292,26 @@ public class DependenciasView extends javax.swing.JDialog implements java.util.O
         // TODO add your handling code here:
     }//GEN-LAST:event_descripcionFldActionPerformed
 
+    private void tableDepMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableDepMouseClicked
+            if (evt.getClickCount() == 2) {
+        int row = this.tableDep.getSelectedRow();
+        int col = this.tableDep.getSelectedColumn();
+        if(col>=0){
+            try {
+                if(model.modo!=Application.MODO_AGREGAR_DEP){
+                  controller.editar(row,evt.getLocationOnScreen());  
+                }
+                else{
+                    controller.setDep(row);
+                }
+            } catch (Exception ex) {
+                 JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+      }
+    }//GEN-LAST:event_tableDepMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -296,7 +321,6 @@ public class DependenciasView extends javax.swing.JDialog implements java.util.O
     private javax.swing.JButton agregarFld;
     private javax.swing.JButton borrarFld;
     private javax.swing.JButton buscarFld;
-    private javax.swing.JTable dependenciasFLd;
     private javax.swing.JTextField descripcionFld;
     private javax.swing.JLabel descripcionLbl;
     private javax.swing.JLabel jLabel1;
@@ -305,5 +329,6 @@ public class DependenciasView extends javax.swing.JDialog implements java.util.O
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tableDep;
     // End of variables declaration//GEN-END:variables
 }

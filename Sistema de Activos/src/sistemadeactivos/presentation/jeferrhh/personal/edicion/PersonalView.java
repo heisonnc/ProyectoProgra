@@ -11,7 +11,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import sistemadeactivos.Application;
+import sistemadeactivos.logic.Dependencia;
 import sistemadeactivos.logic.Funcionario;
+import sistemadeactivos.logic.Puesto;
 import sistemadeactivos.logic.Rol;
 import sistemadeactivos.logic.Usuario;
 
@@ -61,6 +63,15 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
         textNombre = new javax.swing.JTextField();
         comboBoxRoles = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
+        tabPuesto = new javax.swing.JTabbedPane();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        texDependencia = new javax.swing.JTextField();
+        buttonBuscaDep = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        textPuesto = new javax.swing.JTextField();
+        buttonBuscaPuesto = new javax.swing.JButton();
         buttoActualizar = new javax.swing.JButton();
         buttonGuardar = new javax.swing.JButton();
 
@@ -126,6 +137,112 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
         jLabel6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel6.setText("Rol que empleara:");
 
+        jPanel6.setBackground(new java.awt.Color(48, 97, 173));
+        jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        buttonBuscaDep.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistemadeactivos/presentation/icons/especiales/023-list-1.png"))); // NOI18N
+        buttonBuscaDep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBuscaDepActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(texDependencia, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(178, 178, 178)
+                        .addComponent(buttonBuscaDep)))
+                .addContainerGap(63, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(texDependencia, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonBuscaDep, javax.swing.GroupLayout.PREFERRED_SIZE, 34, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tabPuesto.addTab("Dependencia", jPanel4);
+
+        jPanel7.setBackground(new java.awt.Color(48, 97, 173));
+        jPanel7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        buttonBuscaPuesto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistemadeactivos/presentation/icons/especiales/005-search.png"))); // NOI18N
+        buttonBuscaPuesto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBuscaPuestoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(textPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(178, 178, 178)
+                        .addComponent(buttonBuscaPuesto)))
+                .addContainerGap(63, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(textPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonBuscaPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 34, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tabPuesto.addTab("Puesto", jPanel5);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -134,11 +251,16 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
                 .addGap(6, 6, 6)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(textNombre)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addGap(42, 42, 42)
-                .addComponent(comboBoxRoles, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(textNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)
+                        .addGap(42, 42, 42)
+                        .addComponent(comboBoxRoles, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(tabPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -153,6 +275,8 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(comboBoxRoles))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tabPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -200,7 +324,7 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttoActualizar)
                     .addComponent(buttonGuardar))
@@ -228,7 +352,14 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
                 Usuario user = new Usuario();
                 funcionario=this.toFuncionario();
                 user=this.toUsuario(funcionario);
+                Puesto p= new Puesto();
+                p=model.getPuesto();
+                p.setDependencia(model.getDependencia());
+                p.setFuncionario(user.getFuncionario());
                 this.controller.guardarUsuario(user);
+                this.controller.updatePuesto(p);
+                
+                
                 JOptionPane.showMessageDialog(this, "Datos registrados", "OK", JOptionPane.INFORMATION_MESSAGE); 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE); 
@@ -257,6 +388,14 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
         }
     }//GEN-LAST:event_buttoActualizarActionPerformed
 
+    private void buttonBuscaDepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscaDepActionPerformed
+       this.controller.addDependencia();
+    }//GEN-LAST:event_buttonBuscaDepActionPerformed
+
+    private void buttonBuscaPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscaPuestoActionPerformed
+        
+    }//GEN-LAST:event_buttonBuscaPuestoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -266,6 +405,14 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
     public void update(Observable o, Object o1) {
        this.limpiarErrores();
        Usuario user=this.model.getUser();
+       Dependencia dep= model.getDependencia();
+       if(dep!=null){
+           this.fromDepend(dep);
+       }
+       Puesto p=model.getPuesto();
+       if(p!= null){
+           this.fromPuesto(p);
+       }
        if(user.getFuncionario()!=null){
            
           this.fromUsuario(user);
@@ -276,12 +423,18 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
        }
        
     }
+    public void fromDepend(Dependencia dep){
+        this.texDependencia.setText(dep.getDescripcion());
+    }
     
+//    public void fromPuesto(Puesto p){
+//        this.textPuesto.setText(p.getRol().getDescripcion());
+//    }
     public void fromFuncionario(Funcionario funcionario){
        
         Boolean editable = Arrays.asList(Application.MODO_AGREGAR, Application.MODO_EDITAR).contains(model.getModo());
         // dependiento del usuario que le llegue le abilita el campo para que ingrese los datos 
-        
+//        if(model.getDependencia())
         
         if(editable){
         
@@ -394,6 +547,13 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
         
         this.validate();   
     }
+        
+        
+        public void fromPuesto(Puesto puesto){
+           this.texDependencia.setText(puesto.getDependencia().getDescripcion());
+           this.textPuesto.setText(puesto.getRol().getDescripcion());
+        
+        }
     
     public Funcionario toFuncionario(){
         Funcionario result= new Funcionario();
@@ -423,6 +583,7 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
     public void limpiarErrores(){
         this.textPassword.setForeground(Application.COLOR_OK);
         this.textNombre.setForeground(Application.COLOR_OK);
+        this.tabPuesto.setEnabled(true);
    }   
      
     public  boolean validar(){
@@ -434,11 +595,20 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
      if(this.textPassword.getText().isEmpty()){
          error= true;
      }
+     if(this.texDependencia.getText().isEmpty()){
+         this.tabPuesto.setEnabled(false);
+         error= true;
+     }
+     if(this.textPuesto.getText().isEmpty()){
+         error= true;
+     }
      return !error; 
      }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttoActualizar;
+    private javax.swing.JButton buttonBuscaDep;
+    private javax.swing.JButton buttonBuscaPuesto;
     private javax.swing.JButton buttonGuardar;
     private javax.swing.JComboBox<String> comboBoxRoles;
     private javax.swing.JLabel jLabel1;
@@ -450,8 +620,15 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JTabbedPane tabPuesto;
+    private javax.swing.JTextField texDependencia;
     private javax.swing.JTextField textId;
     private javax.swing.JTextField textNombre;
     private javax.swing.JTextField textPassword;
+    private javax.swing.JTextField textPuesto;
     // End of variables declaration//GEN-END:variables
 }

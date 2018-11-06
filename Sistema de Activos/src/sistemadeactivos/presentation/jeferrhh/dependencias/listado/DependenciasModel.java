@@ -19,6 +19,8 @@ public class DependenciasModel extends java.util.Observable{
     Dependencia filter; 
     DependenciaTableModel personas;
     Dependencia seleccionado;
+    
+    int modo;
 
     public DependenciasModel() {
         this.reset();
