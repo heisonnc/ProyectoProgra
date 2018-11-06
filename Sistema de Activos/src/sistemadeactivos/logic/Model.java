@@ -199,6 +199,11 @@ public class Model {
     public List<Activo> searchActivosByResponsable(String nombre){
         return dao.ActivosSearchByResponsable(nombre);
     }
+    
+    //----------------Puesto-------------------
+    List<Puesto> getPuestosByDependencia(String d){
+        return dao.getPuestosByDependencia(d);
+    }
 
     public void close() {
         dao.close();

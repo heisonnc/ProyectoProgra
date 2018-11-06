@@ -707,7 +707,24 @@ public class Dao {
         return resultado;
     }
     
-    
+    //-------------------------Puesto------------------------------
+    public List<Puesto> getPuestosByDependencia(String dependencia){
+        List<Puesto> resultado = new ArrayList<Puesto>();
+        try {
+            String sql = "select p.*, d.*, f.*, r.* from "
+                    + "Puesto p INNER JOIN Dependencia d On p.dependencia=d.descripcion "
+                    + "INNER JOIN Funcionario f On p.funcionario=f.id "
+                    + "INNER JOIN Rol r On p.rol=r.id "
+                    + "where p.dependencia like '%%%s%%'";
+            sql = String.format(sql, dependencia);
+            ResultSet rs = db.executeQuery(sql);
+            while (rs.next()) {
+                resultado.add(puesto(rs));
+            }
+        } catch (SQLException ex) {
+        }
+        return resultado;
+    }
     
     public void close() {
     }

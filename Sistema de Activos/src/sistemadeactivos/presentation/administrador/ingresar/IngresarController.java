@@ -46,15 +46,15 @@ public class IngresarController {
     
     public void preAgregarSolicitud(Solicitud s, List<Bien> b) throws Exception{
         Usuario principal = (Usuario) session.getAttribute(Application.USER_ATTRIBUTE);
-        if (Arrays.asList(Application.ROL_ADMINISTRADOR).contains(principal.getRol().getDescripcion())) {
+//        if (!Arrays.asList(Application.ROL_ADMINISTRADOR).contains(principal.getRol().getDescripcion())) {
             for(Bien bb : b){
                 bb.setSolicitud(s);
                 domainModel.addBien(bb);
             }
             domainModel.addSolicitud(s);
-        }else{
-                throw new Exception(Application.ROL_NOTAUTHORIZED); 
-                }
+//        }else{
+//                throw new Exception(Application.ROL_NOTAUTHORIZED); 
+//                }
     }
 
     public void reset(int modo, Solicitud sol){
