@@ -5,6 +5,7 @@
  */
 package sistemadeactivos.presentation.jeferrhh.puestos.listado;
 
+import java.util.List;
 import sistemadeactivos.Session;
 import sistemadeactivos.logic.Model;
 import sistemadeactivos.logic.Puesto;
@@ -31,7 +32,7 @@ public class PuestosController {
     }
 
     public void buscar(String text) {
-        Puesto p = new Puesto();
-        p.setDependencia(null);
+        List<Puesto> rows =  sistemadeactivos.logic.Model.instance().getPuestosByDependencia(text);
+        model.setPuestos(rows);
     }
 }
