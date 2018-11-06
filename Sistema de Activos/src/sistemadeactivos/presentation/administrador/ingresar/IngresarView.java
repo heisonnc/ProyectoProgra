@@ -3,6 +3,7 @@ package sistemadeactivos.presentation.administrador.ingresar;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import sistemadeactivos.Application;
@@ -292,7 +293,12 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
                 if(s == null){
                     throw new Exception("Solicitud no valida");
                 }
-                //meter en el script una categoria inicial
+                Categoria c = Model.instance().getCategoria("Indefinido");
+                for(Bien b : model.rows){
+                    b.setCategoria(c);
+                }
+                controller.preAgregarSolicitud(s, model.rows);
+                model.setRows(new ArrayList<Bien>());
                 JOptionPane.showMessageDialog(this, "Datos registrados", "OK", JOptionPane.INFORMATION_MESSAGE); 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE); 
@@ -377,9 +383,6 @@ public class IngresarView extends javax.swing.JFrame implements java.util.Observ
         result.setFecha(new Date());
         result.setEstado(es);
         result.setAdquisicion(ad);
-        
-        result.setDependencia(null); // ocupo recuperar la dependdencia
-        result.setFuncionario(null); // ocupo recuperar el funcionario
         
         return result;
         }catch(Exception e){

@@ -254,3 +254,5 @@ insert into Estado (descripcion) values ('Recibida');
 insert into Estado (descripcion) values ('Por Verificar');
 insert into Estado (descripcion) values ('En Espera');
 insert into Estado (descripcion) values ('Procesada');
+
+insert into Categoria (descripcion) values ('Indefinido');

@@ -6,13 +6,16 @@
 package sistemadeactivos.presentation.administrador.ingresar;
 
 import java.awt.Point;
+import java.util.Arrays;
 import java.util.List;
 import sistemadeactivos.Application;
 import sistemadeactivos.Session;
 import sistemadeactivos.logic.Adquisicion;
 import sistemadeactivos.logic.Bien;
+import sistemadeactivos.logic.Funcionario;
 import sistemadeactivos.logic.Model;
 import sistemadeactivos.logic.Solicitud;
+import sistemadeactivos.logic.Usuario;
 
 /**
  *
@@ -41,8 +44,17 @@ public class IngresarController {
         model.commit();
     }
     
-    public Adquisicion getAdquisicion(String descricion) throws Exception{
-        return domainModel.getAdquisicion(descricion);
+    public void preAgregarSolicitud(Solicitud s, List<Bien> b) throws Exception{
+        Usuario principal = (Usuario) session.getAttribute(Application.USER_ATTRIBUTE);
+        if (Arrays.asList(Application.ROL_ADMINISTRADOR).contains(principal.getRol().getDescripcion())) {
+            for(Bien bb : b){
+                bb.setSolicitud(s);
+                domainModel.addBien(bb);
+            }
+            domainModel.addSolicitud(s);
+        }else{
+                throw new Exception(Application.ROL_NOTAUTHORIZED); 
+                }
     }
 
     public void reset(int modo, Solicitud sol){
