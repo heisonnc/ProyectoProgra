@@ -394,6 +394,7 @@ public class PersonalView extends javax.swing.JDialog implements java.util.Obser
 
     private void buttonBuscaPuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscaPuestoActionPerformed
         
+        controller.addPuesto();
     }//GEN-LAST:event_buttonBuscaPuestoActionPerformed
 
     /**

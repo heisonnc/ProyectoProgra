@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import sistemadeactivos.logic.Dependencia;
 import sistemadeactivos.logic.Puesto;
 import sistemadeactivos.presentation.jeferrhh.puestos.edicion.*;
 import sistemadeactivos.presentation.tablemodel.PuestoTableModel;
@@ -21,6 +22,10 @@ public class PuestosModel extends Observable{
     
     PuestoTableModel puestos;
     Puesto filter;
+    
+    public Dependencia p;
+    
+    int modo;
 
     public PuestosModel() {
         reset();
@@ -37,6 +42,18 @@ public class PuestosModel extends Observable{
     
     public PuestoTableModel getPuestos() {
         return puestos;
+    }
+
+    public void setPuestos(PuestoTableModel puestos) {
+        this.puestos = puestos;
+    }
+
+    public void setModo(int modo) {
+        this.modo = modo;
+    }
+
+    public int getModo() {
+        return modo;
     }
 
     public void setPuestos(List<Puesto> puesto) {

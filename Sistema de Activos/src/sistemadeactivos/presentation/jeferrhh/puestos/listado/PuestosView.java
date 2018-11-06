@@ -8,6 +8,9 @@ package sistemadeactivos.presentation.jeferrhh.puestos.listado;
 import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
+import javax.swing.JOptionPane;
+import sistemadeactivos.Application;
+import sistemadeactivos.logic.Dependencia;
 import sistemadeactivos.presentation.jeferrhh.puestos.edicion.*;
 
 /**
@@ -54,8 +57,6 @@ public class PuestosView extends javax.swing.JFrame implements Observer{
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Puestos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
 
         TablePuestos.setModel(new javax.swing.table.DefaultTableModel(
@@ -69,6 +70,11 @@ public class PuestosView extends javax.swing.JFrame implements Observer{
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        TablePuestos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablePuestosMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(TablePuestos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -92,7 +98,6 @@ public class PuestosView extends javax.swing.JFrame implements Observer{
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistemadeactivos/presentation/icons/especiales/005-search.png"))); // NOI18N
-        jButton1.setActionCommand("");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -147,43 +152,28 @@ public class PuestosView extends javax.swing.JFrame implements Observer{
         controller.buscar(TextBuscar.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void TablePuestosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablePuestosMouseClicked
+               if (evt.getClickCount() == 2) {
+        int row = this.TablePuestos.getSelectedRow();
+        int col = this.TablePuestos.getSelectedColumn();
+        if(col>=0){
+            try {
+                if(model.modo==Application.MODO_AGREGAR_DEP){
+                  controller.setPuest(row);
+                }
+                
+            } catch (Exception ex) {
+                 JOptionPane.showMessageDialog(this, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+      }
+    }//GEN-LAST:event_TablePuestosMouseClicked
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PuestosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PuestosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PuestosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PuestosView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PuestosView().setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablePuestos;
@@ -192,12 +182,16 @@ public class PuestosView extends javax.swing.JFrame implements Observer{
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void update(Observable o, Object arg) {
+        Dependencia dep= model.p;
+        if(dep!= null){
+            this.TextBuscar.setText(dep.getDescripcion());
+            controller.buscar(TextBuscar.getText());
+        }
         TablePuestos.setModel(model.getPuestos());
     }
 }

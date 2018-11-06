@@ -59,10 +59,7 @@ public class Application {
         
         Model domainModel = Model.instance();
         Session session = new Session();
-        
-//        PuestosModel m = new PuestosModel();
-//        PuestosView v = new PuestosView();
-//        PuestosController c = new PuestosController(v,m, domainModel, session);
+
 //        v.setVisible(true); //PROBANDO LA NUEVA VENTANA
         
         
@@ -76,16 +73,16 @@ public class Application {
         }
         
         
-//        
+        
 //        Rol r= new Rol();
 //        r=domainModel.getRol(Application.ROL_JEFE_RRHH);
 //        System.out.println(r.getDescripcion());
 //        Funcionario f= new Funcionario("Heison");
-//        domainModel.addFuncionario(f);
+////        domainModel.addFuncionario(f);
 //        r=domainModel.getRol(ROL_JEFE_RRHH);
 //        
 //        f=domainModel.getFuncionario("Heison");
-//        Usuario user= new Usuario("001",f,r,"001");
+//        Usuario user= new Usuario("002",f,r,"002");
 //        domainModel.addUsuario(user);
 
         ApplicationModel applicationModel = new ApplicationModel();
@@ -155,6 +152,13 @@ public class Application {
         codeBarController codeBarController = new codeBarController(codigoView);
         CODEBAR_CONTROLLER=codeBarController;
         
+        // puesto
+        
+                
+        PuestosModel m = new PuestosModel();
+        PuestosView v = new PuestosView();
+        PuestosController c = new PuestosController(v,m, domainModel, session);
+        PUESTOS_CONTROLLER=c;
     }
     public static LoginController LOGIN_CONTROLLER; 
     public static DependenciasController DEPENDENCIAS_CONTROLLER;
@@ -174,6 +178,8 @@ public class Application {
     public static CatalogosController  CATALOGOS_CONTROLLER;
     // Controlador para el codigo de barras
     public static codeBarController CODEBAR_CONTROLLER;
+    
+    public static PuestosController PUESTOS_CONTROLLER;
     
     
 //    public static 

@@ -221,10 +221,17 @@ public class PersonalController {
         
         Application.DEPENDENCIAS_CONTROLLER.setModo(Application.MODO_AGREGAR_DEP);
         Application.DEPENDENCIAS_CONTROLLER.show();
+   
+    }
+    public void addPuesto(){
         
+        Application.PUESTOS_CONTROLLER.setModo(Application.MODO_AGREGAR_DEP);
+        if(model.getDependencia()!= null){
+            Application.PUESTOS_CONTROLLER.getModel().p=model.getDependencia();
+        }
         
-        
-        
+        Application.PUESTOS_CONTROLLER.show();
+   
     }
     
 }
